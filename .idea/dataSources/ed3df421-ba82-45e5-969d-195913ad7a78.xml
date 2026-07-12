@@ -5020,7 +5020,7 @@ false Zulu
     <table id="357" parent="275" name="usuarios">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>49194</ObjectId>
-      <StateNumber>804</StateNumber>
+      <StateNumber>882</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -8649,7 +8649,7 @@ id_permiso</ColNames>
       <DefaultExpression>true</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
-      <StateNumber>804</StateNumber>
+      <StateNumber>882</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
@@ -8679,7 +8679,7 @@ id_permiso</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49209</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>804</StateNumber>
+      <StateNumber>882</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
@@ -8687,7 +8687,7 @@ id_permiso</ColNames>
       <ColNames>username</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49211</ObjectId>
-      <StateNumber>804</StateNumber>
+      <StateNumber>882</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -8698,7 +8698,7 @@ id_permiso</ColNames>
       <ColNames>correo_electronico</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49213</ObjectId>
-      <StateNumber>804</StateNumber>
+      <StateNumber>882</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>

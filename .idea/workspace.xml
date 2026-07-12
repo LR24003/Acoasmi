@@ -5,33 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec30ac4-1388-4b0d-a597-b986b4c0af50" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Acoasmi.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/src/main/java/com/acoasmi/roble/RobleApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/roble/src/test/java/com/acoasmi/roble/RobleApplicationTests.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AcoasmiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/UsuariosController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/CatalogoCuentasRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/PermisosRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/RolesRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/UsuariosRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/CatalogoCuentasResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/PermisosResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/RolesResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/UsuariosResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/AcoasmiEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/CatalogoCuentas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Identifiable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Permisos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Roles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Usuarios.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/AcoasmiRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/CatalogoCuentasRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PermisosRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/RolesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/UsuariosRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/AcoasmiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/CatalogoCuentasService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/PermisosService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/RolesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/UsuariosService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AcoasmiServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/UsuariosServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/backend/pom.xml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -48,65 +79,65 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000042797894" />
-      <entry key="MS500" value="1.027269030767524" />
-      <entry key="S2" value="1.850704153657555" />
-      <entry key="S5" value="2.7999179514829198" />
-      <entry key="S10" value="3.3212037361766624" />
-      <entry key="S30" value="3.75347807906271" />
-      <entry key="S60" value="3.8740121045909808" />
-      <entry key="M2" value="3.9363087589958514" />
-      <entry key="M5" value="3.9743541198513537" />
-      <entry key="M10" value="3.9871486580849766" />
-      <entry key="M15" value="3.9914261144568006" />
-      <entry key="M30" value="3.995709891902401" />
-      <entry key="H1" value="3.9978541540204846" />
-      <entry key="H2" value="3.998926878952611" />
-      <entry key="H4" value="3.999463389952525" />
-      <entry key="D1" value="3.999910558112989" />
-      <entry key="W1" value="3.9999872224190915" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.00000000000035" />
+      <entry key="S30" value="1.000177871479189" />
+      <entry key="S60" value="1.0300168338519649" />
+      <entry key="M2" value="1.4777381780066916" />
+      <entry key="M5" value="4.794797424697927" />
+      <entry key="M10" value="10.835714441397453" />
+      <entry key="M15" value="16.074228399474375" />
+      <entry key="M30" value="27.576865981454485" />
+      <entry key="H1" value="40.677796234072545" />
+      <entry key="H2" value="57.22470323764658" />
+      <entry key="H4" value="77.81054579864251" />
+      <entry key="D1" value="114.61028144529571" />
+      <entry key="W1" value="124.26048307321432" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="0.0" />
-      <entry key="M30" value="0.0" />
-      <entry key="H1" value="0.0" />
-      <entry key="H2" value="0.0" />
-      <entry key="H4" value="0.0" />
-      <entry key="D1" value="0.0" />
-      <entry key="W1" value="0.0" />
+      <entry key="MS500" value="1.5965360672923458E-265" />
+      <entry key="S2" value="6.321129438679241E-67" />
+      <entry key="S5" value="3.3137357519505624E-27" />
+      <entry key="S10" value="5.756505669246398E-14" />
+      <entry key="S30" value="3.863126678849454E-5" />
+      <entry key="S60" value="0.006525096640383432" />
+      <entry key="M2" value="0.12288700828526143" />
+      <entry key="M5" value="1.465920116783155" />
+      <entry key="M10" value="4.837297377036105" />
+      <entry key="M15" value="8.184884057649883" />
+      <entry key="M30" value="15.787095846316753" />
+      <entry key="H1" value="23.86137008987518" />
+      <entry key="H2" value="32.142602845587156" />
+      <entry key="H4" value="40.94540534496693" />
+      <entry key="D1" value="55.57983013936697" />
+      <entry key="W1" value="59.32690966929815" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="5.035438706301903E-6" />
-      <entry key="MS500" value="0.11103305421630193" />
-      <entry key="S2" value="1.3736447159965521" />
-      <entry key="S5" value="2.5673393730375897" />
-      <entry key="S10" value="3.1962436824440483" />
-      <entry key="S30" value="3.7096951219635717" />
-      <entry key="S60" value="3.8518403624400444" />
-      <entry key="M2" value="3.925151709525647" />
-      <entry key="M5" value="3.969874072297072" />
-      <entry key="M10" value="3.984905750825951" />
-      <entry key="M15" value="3.989930201270359" />
-      <entry key="M30" value="3.9949616142419235" />
-      <entry key="H1" value="3.9974799348808254" />
-      <entry key="H2" value="3.9987397493000976" />
-      <entry key="H4" value="3.9993698201049313" />
-      <entry key="D1" value="3.9998949624409255" />
-      <entry key="W1" value="3.9999849944488584" />
+      <entry key="MS100" value="5.582260762623595E-16" />
+      <entry key="MS500" value="8.899426568722083E-4" />
+      <entry key="S2" value="0.1727191555440975" />
+      <entry key="S5" value="0.4953774148064795" />
+      <entry key="S10" value="0.7038305298912436" />
+      <entry key="S30" value="0.8897297100173706" />
+      <entry key="S60" value="0.9790800146951335" />
+      <entry key="M2" value="1.5668272208751122" />
+      <entry key="M5" value="6.23197263520605" />
+      <entry key="M10" value="15.642846228530457" />
+      <entry key="M15" value="24.22874128099424" />
+      <entry key="M30" value="43.33662205706473" />
+      <entry key="H1" value="64.51860301077365" />
+      <entry key="H2" value="89.35330318347688" />
+      <entry key="H4" value="118.74696581891509" />
+      <entry key="D1" value="170.18807363909875" />
+      <entry key="W1" value="183.58708206710537" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1,
@@ -119,13 +150,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.roble [clean,install,--non-recursive].executor": "Run",
+    "Maven.roble [compile].executor": "Run",
     "Maven.roble [install].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.RobleApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
@@ -139,7 +177,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "settings.editor.selected.configurable": "configurable.group.build",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -148,6 +186,11 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.acoasmi.roble.entity" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -247,7 +290,7 @@
       <workItem from="1783869075894" duration="40000" />
       <workItem from="1783869180882" duration="95000" />
       <workItem from="1783869294413" duration="416000" />
-      <workItem from="1783869735319" duration="1642000" />
+      <workItem from="1783869735319" duration="18922000" />
     </task>
     <servers />
   </component>
