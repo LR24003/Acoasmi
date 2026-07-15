@@ -21,4 +21,7 @@ public class PermisosResponseDTO {
 
     @Schema(description = "Descripción del permiso", example = "Permite registrar nuevos usuarios en el sistema")
     private String descripcion;
+
+    @Schema(description = "Estado del permiso (true = Activo, false = Inactivo)", example = "true")
+    private Boolean estado;
 }

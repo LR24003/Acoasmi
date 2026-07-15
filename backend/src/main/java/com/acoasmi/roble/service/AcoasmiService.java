@@ -9,4 +9,5 @@ public interface AcoasmiService <E, REQ, RES, ID> {
     RES create(REQ requestDto);
     RES update(ID id, REQ requestDto);
     void delete(ID id);
+    void cambiarEstado(ID id, Boolean estado);
 }

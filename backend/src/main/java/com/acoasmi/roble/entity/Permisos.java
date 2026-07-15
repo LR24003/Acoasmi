@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "permisos")
+@AttributeOverride(name = "id", column = @Column(name = "id_permiso"))
 public class Permisos extends AcoasmiEntity {
 
     @Column(name = "codigo_permiso", nullable = false, unique = true, length = 50)

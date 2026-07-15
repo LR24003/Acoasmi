@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "usuarios")
+@AttributeOverride(name = "id", column = @Column(name = "id_usuario"))
 public class Usuarios extends AcoasmiEntity {
 
     @Column(name = "username", nullable = false, unique = true, length = 50)
@@ -33,9 +34,6 @@ public class Usuarios extends AcoasmiEntity {
 
     @Column(name = "ultimo_acceso")
     private LocalDateTime ultimoAcceso;
-
-    @Column(name = "activo", nullable = false)
-    private Boolean activo = true;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_rol", nullable = false)

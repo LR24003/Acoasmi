@@ -32,8 +32,8 @@ public class CatalogoCuentasResponseDTO {
     @Schema(description = "Naturaleza contable de la cuenta", example = "DEUDORA")
     private String naturalezaCuenta;
 
-    @Schema(description = "Indica si la cuenta está disponible para operaciones", example = "true")
-    private Boolean activa;
+    @Schema(description = "Estado de la cuenta (true = Activo, false = Inactivo)", example = "true")
+    private Boolean estado;
 
     @Schema(description = "Código de la cuenta padre de la cual depende", example = "1011-01")
     private String codigoCuentaPadre;

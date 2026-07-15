@@ -7,9 +7,6 @@ import java.util.Optional;
 @Repository
 public interface PermisosRepository extends AcoasmiRepository<Permisos, Long> {
 
-    // Buscar permiso por su código (ej. "USUARIOS_CREAR")
-    Optional<Permisos> findByCodigoPermiso(String codigoPermiso);
+    Optional<Permisos> findByCodigoPermisoAndEstadoTrue(String codigoPermiso);
 
-    // Verificar si ya existe el código del permiso
-    Boolean existsByCodigoPermiso(String codigoPermiso);
 }

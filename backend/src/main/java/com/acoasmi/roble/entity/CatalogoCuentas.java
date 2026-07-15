@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "catalogo_cuentas")
+@AttributeOverride(name = "id", column = @Column(name = "id_cuenta_contable"))
 public class CatalogoCuentas extends AcoasmiEntity {
 
     @Column(name = "codigo_cuenta", nullable = false, unique = true, length = 30)
@@ -27,9 +28,6 @@ public class CatalogoCuentas extends AcoasmiEntity {
 
     @Column(name = "naturaleza", nullable = false, length = 10)
     private String naturalezaCuenta;
-
-    @Column(name = "activa", nullable = false)
-    private Boolean activa = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cuenta_padre")

@@ -44,4 +44,5 @@ public class CatalogoCuentasRequestDTO {
 
     @Schema(description = "ID de la cuenta de la cual depende. Nulo si es una cuenta de nivel 1", example = "5")
     private Long idCuentaPadre;
+
 }

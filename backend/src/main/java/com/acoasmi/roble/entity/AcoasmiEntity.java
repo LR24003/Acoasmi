@@ -11,4 +11,7 @@ public abstract class AcoasmiEntity implements Identifiable<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "estado", nullable = false)
+    private Boolean estado = true;
+
 }

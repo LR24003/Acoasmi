@@ -23,6 +23,9 @@ public class RolesResponseDTO {
     @Schema(description = "Descripción de las funciones del rol", example = "Rol encargado del módulo de facturación y cobros")
     private String descripcion;
 
+    @Schema(description = "Estado del rol (true = Activo, false = Inactivo)", example = "true")
+    private Boolean estado;
+
     @Schema(description = "Listado de permisos detallados que posee este rol")
     private Set<PermisosResponseDTO> permisos;
 

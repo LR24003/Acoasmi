@@ -7,10 +7,12 @@ import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "roles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "roles")
+@AttributeOverride(name = "id", column = @Column(name = "id_rol"))
+
 public class Roles extends AcoasmiEntity {
 
     @Column(name = "nombre_rol", nullable = false, unique = true, length = 50)

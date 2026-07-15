@@ -2,9 +2,10 @@ package com.acoasmi.roble.service;
 
 import com.acoasmi.roble.dto.request.RolesRequestDTO;
 import com.acoasmi.roble.dto.response.RolesResponseDTO;
+import com.acoasmi.roble.entity.Roles;
 
-public interface RolesService extends AcoasmiService<Object, RolesRequestDTO, RolesResponseDTO, Long> {
+public interface RolesService extends AcoasmiService<Roles, RolesRequestDTO,
+        RolesResponseDTO, Long> {
 
-    // Buscar un rol por su nombre único
     RolesResponseDTO getByNombreRol(String nombreRol);
 }

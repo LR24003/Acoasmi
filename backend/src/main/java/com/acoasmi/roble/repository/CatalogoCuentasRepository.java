@@ -8,11 +8,11 @@ import java.util.Optional;
 @Repository
 public interface CatalogoCuentasRepository extends AcoasmiRepository<CatalogoCuentas, Long> {
 
-    Optional<CatalogoCuentas> findByCodigoCuenta(String codigoCuenta);
+    Optional<CatalogoCuentas> findByCodigoCuentaAndEstadoTrue(String codigoCuenta);
 
     // Obtener todas las cuentas principales (Nivel 1 / Sin Padre) para armar el árbol desde la raíz
-    List<CatalogoCuentas> findByCuentaPadreIsNull();
+    List<CatalogoCuentas> findByCuentaPadreIsNullAndEstadoTrue();
 
     // Obtener las subcuentas que dependen de un padre específico
-    List<CatalogoCuentas> findByCuentaPadreId(Long idPadre);
+    List<CatalogoCuentas> findByCuentaPadreIdAndEstadoTrue(Long idPadre);
 }

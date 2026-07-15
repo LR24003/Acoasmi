@@ -46,4 +46,5 @@ public class UsuariosRequestDTO {
     @NotNull(message = "El rol del usuario es obligatorio")
     @Schema(description = "Rol del usuario", example = "1")
     private Long idRol;
+
 }

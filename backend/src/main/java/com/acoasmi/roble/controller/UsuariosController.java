@@ -23,18 +23,23 @@ public class UsuariosController extends AcoasmiController<Usuarios, UsuariosRequ
         this.usuariosService = usuariosService;
     }
 
-
-    @GetMapping("/buscar-usuario")
-    @Operation(summary = "Buscar usuario por username", description = "Retorna los datos de un usuario mediante una coincidencia parcial o total de su nombre de usuario.")
-    public ResponseEntity<UsuariosResponseDTO> getByUsuario(@RequestParam String username) {
-        UsuariosResponseDTO usuario = usuariosService.getByUsuario(username);
-        return ResponseEntity.ok(usuario);
+    @GetMapping("/buscar")
+    @Operation(
+            summary = "Buscar usuario por username",
+            description = "Retorna los datos de un usuario mediante una coincidencia de su nombre de usuario."
+    )
+    public ResponseEntity<UsuariosResponseDTO> getByUsuario(@RequestParam String usuario) {
+        UsuariosResponseDTO response = usuariosService.getByUsuario(usuario);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/estado")
-    @Operation(summary = "Filtrar usuarios por estado", description = "Retorna un listado de usuarios filtrados según estén activos (true) o inactivos (false).")
-    public ResponseEntity<List<UsuariosResponseDTO>> getByActivo(@RequestParam Boolean activo) {
-        List<UsuariosResponseDTO> usuarios = usuariosService.getByActivo(activo);
+    @Operation(
+            summary = "Filtrar usuarios por estado",
+            description = "Retorna un listado de usuarios filtrados según estén activos (true) o inactivos (false)."
+    )
+    public ResponseEntity<List<UsuariosResponseDTO>> getByEstado(@RequestParam Boolean estado) {
+        List<UsuariosResponseDTO> usuarios = usuariosService.getByEstado(estado);
         return ResponseEntity.ok(usuarios);
     }
 

@@ -67,9 +67,9 @@ public abstract class AcoasmiController<E extends AcoasmiEntity, REQ, RES, ID> {
         return ResponseEntity.ok(service.update(id, requestDto));
     }
 
-    @Operation(summary = "Eliminar un registro", description = "Remueve permanentemente el registro del sistema mediante su ID.")
+    @Operation(summary = "Eliminar un registro (Borrado Lógico)", description = "Cambia el estado del registro a inactivo (false) de forma lógica en la base de datos.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Registro eliminado exitosamente"),
+            @ApiResponse(responseCode = "204", description = "Registro desactivado exitosamente"),
             @ApiResponse(responseCode = "404", description = "Registro no encontrado")
     })
     @DeleteMapping("/{id}")
@@ -77,5 +77,21 @@ public abstract class AcoasmiController<E extends AcoasmiEntity, REQ, RES, ID> {
             @Parameter(description = "ID del registro a eliminar", required = true) @PathVariable ID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(
+            summary = "Cambiar el estado de un registro",
+            description = "Permite activar (true) o desactivar (false) lógicamente un registro específico mediante su ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Estado modificado exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Registro no encontrado")
+    })
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<Void> cambiarEstado(
+            @Parameter(description = "ID único del registro", required = true) @PathVariable ID id,
+            @Parameter(description = "Nuevo estado lógico (true = Activo, false = Inactivo)", required = true) @RequestParam Boolean estado) {
+        service.cambiarEstado(id, estado);
+        return ResponseEntity.ok().build();
     }
 }

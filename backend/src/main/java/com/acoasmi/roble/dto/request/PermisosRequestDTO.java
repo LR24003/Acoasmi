@@ -2,6 +2,7 @@ package com.acoasmi.roble.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,5 @@ public class PermisosRequestDTO {
     @NotBlank(message = "La descripción no puede estar vacía")
     @Schema(description = "Explicación clara de qué acción permite realizar este código", example = "Permite registrar nuevos usuarios en el sistema")
     private String descripcion;
+
 }

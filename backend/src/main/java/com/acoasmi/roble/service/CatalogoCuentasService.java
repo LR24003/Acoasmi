@@ -2,9 +2,12 @@ package com.acoasmi.roble.service;
 
 import com.acoasmi.roble.dto.request.CatalogoCuentasRequestDTO;
 import com.acoasmi.roble.dto.response.CatalogoCuentasResponseDTO;
+import com.acoasmi.roble.entity.CatalogoCuentas;
+
 import java.util.List;
 
-public interface CatalogoCuentasService extends AcoasmiService<Object, CatalogoCuentasRequestDTO, CatalogoCuentasResponseDTO, Long> {
+public interface CatalogoCuentasService extends AcoasmiService<CatalogoCuentas,
+        CatalogoCuentasRequestDTO, CatalogoCuentasResponseDTO, Long> {
 
     // Obtener el catálogo estructurado en forma de árbol (solo cuentas raíz con sus hijos anidados)
     List<CatalogoCuentasResponseDTO> getArbolContable();
@@ -14,4 +17,6 @@ public interface CatalogoCuentasService extends AcoasmiService<Object, CatalogoC
 
     // Buscar una cuenta por su código estructurado (ej. "1011-01")
     CatalogoCuentasResponseDTO getByCodigoCuenta(String codigoCuenta);
+
+    void cambiarEstado(Long id, Boolean activa);
 }

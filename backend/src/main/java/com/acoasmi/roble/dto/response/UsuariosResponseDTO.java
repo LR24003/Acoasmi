@@ -38,9 +38,9 @@ public class UsuariosResponseDTO {
     @Schema(description = "Hora y fecha del ultimo acceso al sistema", example = "20/05/2026 12:30")
     private LocalDateTime ultimoAcceso;
 
-    @Schema(description = "Estado del usuario en el sistema", example = "true")
-    private Boolean activo;
-
     @Schema(description = "Rol del usuario", example = "Cajero")
     private String nombreRol;
+
+    @Schema(description = "Estado del usuario (true = Activo, false = Inactivo)", example = "true")
+    private Boolean estado;
 }

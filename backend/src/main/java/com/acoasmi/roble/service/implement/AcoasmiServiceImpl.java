@@ -57,7 +57,18 @@ public abstract class AcoasmiServiceImpl<E extends AcoasmiEntity, REQ, RES, ID> 
     @Transactional
     public void delete(ID id) {
         E entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontró el registro que deseas eliminar"));
+                .orElseThrow(() -> new RuntimeException("No se encontró el registro con ese ID"));
+
+        entity.setEstado(false);
         repository.delete(entity);
+    }
+
+    @Transactional
+    public void cambiarEstado(ID id, Boolean estado) {
+        E entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Registro no encontrado con el ID: " + id));
+
+        entity.setEstado(estado);
+        repository.save(entity);
     }
 }

@@ -10,7 +10,7 @@ public interface UsuariosService extends AcoasmiService<Usuarios, UsuariosReques
 
     UsuariosResponseDTO getByUsuario(String usuario);
 
-    List<UsuariosResponseDTO> getByActivo(Boolean activo);
+    List<UsuariosResponseDTO> getByEstado(Boolean estado);
 
     void actualizarUltimoAcceso(String usuario);
 

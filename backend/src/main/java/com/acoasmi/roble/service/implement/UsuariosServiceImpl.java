@@ -41,7 +41,7 @@ public class UsuariosServiceImpl extends AcoasmiServiceImpl<Usuarios, UsuariosRe
                 .email(entity.getEmail())
                 .fechaCreacion(entity.getFechaCreacion())
                 .ultimoAcceso(entity.getUltimoAcceso())
-                .activo(entity.getActivo())
+                .estado(entity.getEstado())
                 .nombreRol(entity.getRoles() != null ? entity.getRoles().getNombreRol() : null)
                 .build();
     }
@@ -56,7 +56,7 @@ public class UsuariosServiceImpl extends AcoasmiServiceImpl<Usuarios, UsuariosRe
         usuario.setNombres(dto.getNombres());
         usuario.setApellidos(dto.getApellidos());
         usuario.setEmail(dto.getEmail());
-        usuario.setActivo(true);
+        usuario.setEstado(true);
 
         if (dto.getIdRol() != null) {
             Roles rol = rolesRepository.findById(dto.getIdRol())
@@ -90,15 +90,15 @@ public class UsuariosServiceImpl extends AcoasmiServiceImpl<Usuarios, UsuariosRe
     @Override
     @Transactional(readOnly = true)
     public UsuariosResponseDTO getByUsuario(String usuario) {
-        Usuarios entity = usuariosRepository.findByUsuarioContainingIgnoreCase(usuario)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con el usuario: " + usuario));
+        Usuarios entity = usuariosRepository.findByUsuarioContainingIgnoreCaseAndEstadoTrue(usuario)
+                .orElseThrow(() -> new RuntimeException("Usuario activo no encontrado con el usuario: " + usuario));
         return convertToResponseDto(entity);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<UsuariosResponseDTO> getByActivo(Boolean activo) {
-        return usuariosRepository.findByActivo(activo).stream()
+    public List<UsuariosResponseDTO> getByEstado(Boolean estado) {
+        return usuariosRepository.findByEstado(estado).stream()
                 .map(this::convertToResponseDto)
                 .toList();
     }
@@ -106,8 +106,8 @@ public class UsuariosServiceImpl extends AcoasmiServiceImpl<Usuarios, UsuariosRe
     @Override
     @Transactional
     public void actualizarUltimoAcceso(String username) {
-        Usuarios usuario = usuariosRepository.findByUsuarioContainingIgnoreCase(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con el username: " + username));
+        Usuarios usuario = usuariosRepository.findByUsuarioContainingIgnoreCaseAndEstadoTrue(username)
+                .orElseThrow(() -> new RuntimeException("Usuario activo no encontrado con el username: " + username));
         usuario.setUltimoAcceso(LocalDateTime.now());
         usuariosRepository.save(usuario);
     }
