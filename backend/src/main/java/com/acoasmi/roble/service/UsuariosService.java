@@ -4,6 +4,7 @@ import com.acoasmi.roble.dto.request.UsuariosRequestDTO;
 import com.acoasmi.roble.dto.response.UsuariosResponseDTO;
 import com.acoasmi.roble.entity.Usuarios;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface UsuariosService extends AcoasmiService<Usuarios, UsuariosRequestDTO, UsuariosResponseDTO, Long> {
@@ -12,6 +13,6 @@ public interface UsuariosService extends AcoasmiService<Usuarios, UsuariosReques
 
     List<UsuariosResponseDTO> getByEstado(Boolean estado);
 
-    void actualizarUltimoAcceso(String usuario);
+    LocalDateTime obtenerUltimoAcceso(String usuario);
 
 }

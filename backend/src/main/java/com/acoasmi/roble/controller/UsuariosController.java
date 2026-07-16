@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -43,13 +44,4 @@ public class UsuariosController extends AcoasmiController<Usuarios, UsuariosRequ
         return ResponseEntity.ok(usuarios);
     }
 
-    @PatchMapping("/ultimo-acceso")
-    @Operation(
-            summary = "Actualizar último acceso del usuario",
-            description = "Registra la fecha y hora de la última sesión exitosa del usuario en el sistema."
-    )
-    public ResponseEntity<Void> actualizarUltimoAcceso(@RequestParam String username) {
-        usuariosService.actualizarUltimoAcceso(username);
-        return ResponseEntity.ok().build();
-    }
 }

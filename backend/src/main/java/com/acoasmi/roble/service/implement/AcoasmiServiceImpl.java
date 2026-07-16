@@ -10,20 +10,21 @@ import java.util.stream.Collectors;
 public abstract class AcoasmiServiceImpl<E extends AcoasmiEntity, REQ, RES, ID> implements AcoasmiService<E, REQ, RES, ID> {
 
     protected final AcoasmiRepository<E, ID> repository;
+    private final Class<E> entityClass;
 
-    protected AcoasmiServiceImpl(AcoasmiRepository<E, ID> repository) {
+    protected AcoasmiServiceImpl(AcoasmiRepository<E, ID> repository, Class<E> entityClass) {
         this.repository = repository;
+        this.entityClass = entityClass;
     }
 
-    protected abstract RES convertToResponseDto(E entity);
-    protected abstract E convertToEntity(REQ requestDto);
-    protected abstract void updateEntityFromDto(REQ requestDto, E entity);
+    protected abstract RES mapToResponseDTO(E entity);
+    protected abstract void mapearDtoAEntidad(REQ requestDto, E entity);
 
     @Override
     @Transactional(readOnly = true)
     public List<RES> getAll() {
         return repository.findAll().stream()
-                .map(this::convertToResponseDto)
+                .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -32,15 +33,20 @@ public abstract class AcoasmiServiceImpl<E extends AcoasmiEntity, REQ, RES, ID> 
     public RES getById(ID id) {
         E entity = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Registro no encontrado con ID: " + id));
-        return convertToResponseDto(entity);
+        return mapToResponseDTO(entity);
     }
 
     @Override
     @Transactional
     public RES create(REQ requestDto) {
-        E entity = convertToEntity(requestDto);
-        E savedEntity = repository.save(entity);
-        return convertToResponseDto(savedEntity);
+        try {
+            E entity = entityClass.getDeclaredConstructor().newInstance();
+            mapearDtoAEntidad(requestDto, entity);
+            E savedEntity = repository.save(entity);
+            return mapToResponseDTO(savedEntity);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al instanciar automáticamente la entidad: " + entityClass.getSimpleName(), e);
+        }
     }
 
     @Override
@@ -48,9 +54,9 @@ public abstract class AcoasmiServiceImpl<E extends AcoasmiEntity, REQ, RES, ID> 
     public RES update(ID id, REQ requestDto) {
         E entity = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se puede actualizar, ID inexistente: " + id));
-        updateEntityFromDto(requestDto, entity);
+        mapearDtoAEntidad(requestDto, entity);
         E updatedEntity = repository.save(entity);
-        return convertToResponseDto(updatedEntity);
+        return mapToResponseDTO(updatedEntity);
     }
 
     @Override
@@ -60,9 +66,10 @@ public abstract class AcoasmiServiceImpl<E extends AcoasmiEntity, REQ, RES, ID> 
                 .orElseThrow(() -> new RuntimeException("No se encontró el registro con ese ID"));
 
         entity.setEstado(false);
-        repository.delete(entity);
+        repository.save(entity);
     }
 
+    @Override
     @Transactional
     public void cambiarEstado(ID id, Boolean estado) {
         E entity = repository.findById(id)

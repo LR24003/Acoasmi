@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface UsuariosRepository extends AcoasmiRepository<Usuarios, Long> {
 
-    Optional<Usuarios> findByUsuarioContainingIgnoreCaseAndEstadoTrue(String usuario);
+    Optional<Usuarios> findByUsuarioIgnoreCaseAndEstadoTrue(String usuario);
 
     List<Usuarios> findByEstado(Boolean estado);
 
