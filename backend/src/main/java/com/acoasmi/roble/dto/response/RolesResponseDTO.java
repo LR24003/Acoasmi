@@ -17,8 +17,8 @@ public class RolesResponseDTO {
     @Schema(description = "ID del rol", example = "1")
     private Long id;
 
-    @Schema(description = "Nombre del rol", example = "Cajero")
-    private String nombreRol;
+    @Schema(description = "Nombre del rol", example = "Cajero, Administrador, Contador")
+    private String rol;
 
     @Schema(description = "Descripción de las funciones del rol", example = "Rol encargado del módulo de facturación y cobros")
     private String descripcion;

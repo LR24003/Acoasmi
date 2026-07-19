@@ -27,7 +27,7 @@ public class MunicipiosServiceImpl extends AcoasmiServiceImpl<Municipios,
 
     @Override
     @Transactional(readOnly = true)
-    public MunicipiosResponseDTO getByCodigoMunicipio(String codigoMunicipio) {
+    public MunicipiosResponseDTO getByCodigoMunicipio(Integer codigoMunicipio) {
         return municipiosRepository.findByCodigoMunicipio(codigoMunicipio)
                 .map(this::mapToResponseDTO)
                 .orElseThrow(() -> new RuntimeException("No se encontró el municipio con el código: " + codigoMunicipio));
@@ -35,10 +35,10 @@ public class MunicipiosServiceImpl extends AcoasmiServiceImpl<Municipios,
 
     @Override
     @Transactional(readOnly = true)
-    public MunicipiosResponseDTO getByNombre(String nombre) {
-        return municipiosRepository.findByNombreContainingIgnoreCaseAndEstadoTrue(nombre)
+    public MunicipiosResponseDTO getByNombreMunicipio(String nombreMunicipio) {
+        return municipiosRepository.findByNombreMunicipioContainingIgnoreCaseAndEstadoTrue(nombreMunicipio)
                 .map(this::mapToResponseDTO)
-                .orElseThrow(() -> new RuntimeException("No se encontró un municipio activo con el nombre: " + nombre));
+                .orElseThrow(() -> new RuntimeException("No se encontró un municipio activo con el nombre: " + nombreMunicipio));
     }
 
     @Override
@@ -46,12 +46,11 @@ public class MunicipiosServiceImpl extends AcoasmiServiceImpl<Municipios,
         if (dto == null || entity == null) return;
 
         entity.setCodigoMunicipio(dto.getCodigoMunicipio());
-        entity.setNombre(dto.getNombre());
+        entity.setNombreMunicipio(dto.getNombreMunicipio());
 
         if (dto.getNombreDepartamento() != null && !dto.getNombreDepartamento().isBlank()) {
-
             Departamentos departamento = departamentosRepository
-                    .findByNombreIgnoreCaseAndEstadoTrue(dto.getNombreDepartamento().trim())
+                    .findByNombreDepartamentoContainingIgnoreCaseAndEstadoTrue(dto.getNombreDepartamento().trim())
                     .orElseThrow(() -> new RuntimeException("El departamento '" + dto.getNombreDepartamento() + "' no existe o está inactivo"));
 
             entity.setDepartamento(departamento);
@@ -69,12 +68,12 @@ public class MunicipiosServiceImpl extends AcoasmiServiceImpl<Municipios,
         MunicipiosResponseDTO.MunicipiosResponseDTOBuilder builder = MunicipiosResponseDTO.builder()
                 .id(entity.getId())
                 .codigoMunicipio(entity.getCodigoMunicipio())
-                .nombre(entity.getNombre())
+                .nombreMunicipio(entity.getNombreMunicipio())
                 .estado(entity.getEstado());
 
         if (entity.getDepartamento() != null) {
             Departamentos dept = entity.getDepartamento();
-            builder.nombreDepartamento(dept.getNombre());
+            builder.nombreDepartamento(dept.getNombreDepartamento());
 
         }
 

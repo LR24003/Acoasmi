@@ -26,7 +26,7 @@ public class DistritosController extends AcoasmiController<Distritos,
             summary = "Buscar por código de distrito",
             description = "Busca los datos de un distrito utilizando su código de identificación."
     )
-    public ResponseEntity<DistritosResponseDTO> getByCodigoDistrito(@PathVariable String codigoDistrito) {
+    public ResponseEntity<DistritosResponseDTO> getByCodigoDistrito(@PathVariable Integer codigoDistrito) {
         return ResponseEntity.ok(distritosService.getByCodigoDistrito(codigoDistrito));
     }
 
@@ -35,7 +35,7 @@ public class DistritosController extends AcoasmiController<Distritos,
             summary = "Buscar por nombre",
             description = "Busca distritos activos cuyo nombre contenga la cadena proporcionada."
     )
-    public ResponseEntity<DistritosResponseDTO> getByNombre(@RequestParam String nombre) {
-        return ResponseEntity.ok(distritosService.getByNombre(nombre));
+    public ResponseEntity<DistritosResponseDTO> getByNombreDistrito(@RequestParam String nombreDistrito) {
+        return ResponseEntity.ok(distritosService.getByNombreDistrito(nombreDistrito));
     }
 }

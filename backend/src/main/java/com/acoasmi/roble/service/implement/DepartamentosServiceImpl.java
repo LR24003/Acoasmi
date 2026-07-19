@@ -23,7 +23,7 @@ public class DepartamentosServiceImpl extends AcoasmiServiceImpl<Departamentos,
 
     @Override
     @Transactional(readOnly = true)
-    public DepartamentosResponseDTO getByCodigoDepartamento(String codigoDepartamento) {
+    public DepartamentosResponseDTO getByCodigoDepartamento(Integer codigoDepartamento) {
         return departamentosRepository.findByCodigoDepartamento(codigoDepartamento)
                 .map(this::mapToResponseDTO)
                 .orElseThrow(() -> new RuntimeException("No se encontró el departamento con el código: " + codigoDepartamento));
@@ -31,10 +31,10 @@ public class DepartamentosServiceImpl extends AcoasmiServiceImpl<Departamentos,
 
     @Override
     @Transactional(readOnly = true)
-    public DepartamentosResponseDTO getByNombre(String nombre) {
-        return departamentosRepository.findByNombreContainingIgnoreCaseAndEstadoTrue(nombre)
+    public DepartamentosResponseDTO getByNombreDepartamento(String nombreDepartamento) {
+        return departamentosRepository.findByNombreDepartamentoContainingIgnoreCaseAndEstadoTrue(nombreDepartamento)
                 .map(this::mapToResponseDTO)
-                .orElseThrow(() -> new RuntimeException("No se encontró un departamento activo con el nombre: " + nombre));
+                .orElseThrow(() -> new RuntimeException("No se encontró un departamento activo con el nombre: " + nombreDepartamento));
     }
 
 
@@ -43,7 +43,7 @@ public class DepartamentosServiceImpl extends AcoasmiServiceImpl<Departamentos,
         if (dto == null || entity == null) return;
 
         entity.setCodigoDepartamento(dto.getCodigoDepartamento());
-        entity.setNombre(dto.getNombre());
+        entity.setNombreDepartamento(dto.getNombreDepartamento());
 
         if (entity.getId() == null) {
             entity.setEstado(true);
@@ -57,7 +57,7 @@ public class DepartamentosServiceImpl extends AcoasmiServiceImpl<Departamentos,
         return DepartamentosResponseDTO.builder()
                 .id(entity.getId())
                 .codigoDepartamento(entity.getCodigoDepartamento())
-                .nombre(entity.getNombre())
+                .nombreDepartamento(entity.getNombreDepartamento())
                 .estado(entity.getEstado())
                 .build();
     }

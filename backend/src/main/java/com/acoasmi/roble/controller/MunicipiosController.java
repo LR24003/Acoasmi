@@ -27,7 +27,7 @@ public class MunicipiosController extends AcoasmiController<Municipios,
             summary = "Buscar por código de municipio",
             description = "Busca la información de un municipio usando su código geopolítico único."
     )
-    public ResponseEntity<MunicipiosResponseDTO> getByCodigoMunicipio(@PathVariable String codigoMunicipio) {
+    public ResponseEntity<MunicipiosResponseDTO> getByCodigoMunicipio(@PathVariable Integer codigoMunicipio) {
         return ResponseEntity.ok(municipiosService.getByCodigoMunicipio(codigoMunicipio));
     }
 
@@ -36,7 +36,7 @@ public class MunicipiosController extends AcoasmiController<Municipios,
             summary = "Buscar por nombre",
             description = "Permite buscar municipios activos cuyo nombre coincida de manera parcial o total con el texto proporcionado."
     )
-    public ResponseEntity<MunicipiosResponseDTO> getByNombre(@RequestParam String nombre) {
-        return ResponseEntity.ok(municipiosService.getByNombre(nombre));
+    public ResponseEntity<MunicipiosResponseDTO> getByNombreMunicipio(@RequestParam String nombreMunicipio) {
+        return ResponseEntity.ok(municipiosService.getByNombreMunicipio(nombreMunicipio));
     }
 }

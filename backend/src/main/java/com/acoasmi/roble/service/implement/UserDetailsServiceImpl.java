@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Usuarios usuario = usuariosRepository.findByUsuarioIgnoreCaseAndEstadoTrue(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado o inactivo: " + username));
 
-        String nombreRol = usuario.getRoles() != null ? usuario.getRoles().getNombreRol() : "USUARIO";
+        String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : "USUARIO";
 
         if (!nombreRol.startsWith("ROLE_")) {
             nombreRol = "ROLE_" + nombreRol;

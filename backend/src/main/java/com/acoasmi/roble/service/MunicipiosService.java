@@ -8,7 +8,7 @@ import com.acoasmi.roble.entity.Municipios;
 public interface MunicipiosService extends AcoasmiService <Municipios, MunicipiosRequestDTO,
         MunicipiosResponseDTO, Long>{
 
-    MunicipiosResponseDTO getByCodigoMunicipio(String codigoMunicipio);
+    MunicipiosResponseDTO getByCodigoMunicipio(Integer codigoMunicipio);
 
-    MunicipiosResponseDTO getByNombre(String nombre);
+    MunicipiosResponseDTO getByNombreMunicipio(String nombreMunicipio);
 }

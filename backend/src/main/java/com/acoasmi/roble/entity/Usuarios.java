@@ -37,7 +37,7 @@ public class Usuarios extends AcoasmiEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_rol", nullable = false)
-    private Roles roles;
+    private Roles rol;
 
     @PrePersist
     protected void onCreate() {

@@ -33,7 +33,7 @@ public class DistritosServiceImpl extends AcoasmiServiceImpl<Distritos,
 
     @Override
     @Transactional(readOnly = true)
-    public DistritosResponseDTO getByCodigoDistrito(String codigoDistrito) {
+    public DistritosResponseDTO getByCodigoDistrito(Integer codigoDistrito) {
         Distritos distrito = distritosRepository.findByCodigoDistrito(codigoDistrito)
                 .orElseThrow(() -> new RuntimeException("Distrito no encontrado con código: " + codigoDistrito));
         return mapToResponseDTO(distrito);
@@ -41,9 +41,9 @@ public class DistritosServiceImpl extends AcoasmiServiceImpl<Distritos,
 
     @Override
     @Transactional(readOnly = true)
-    public DistritosResponseDTO getByNombre(String nombre) {
-        Distritos distrito = distritosRepository.findByNombreContainingIgnoreCase(nombre)
-                .orElseThrow(() -> new RuntimeException("Distrito no encontrado con el nombre: " + nombre));
+    public DistritosResponseDTO getByNombreDistrito(String nombreDistrito) {
+        Distritos distrito = distritosRepository.findByNombreDistritoContainingIgnoreCase(nombreDistrito)
+                .orElseThrow(() -> new RuntimeException("Distrito no encontrado con el nombre: " + nombreDistrito));
         return mapToResponseDTO(distrito);
     }
 
@@ -54,17 +54,17 @@ public class DistritosServiceImpl extends AcoasmiServiceImpl<Distritos,
         DistritosResponseDTO.DistritosResponseDTOBuilder builder = DistritosResponseDTO.builder()
                 .id(entity.getId())
                 .codigoDistrito(entity.getCodigoDistrito())
-                .nombre(entity.getNombre())
+                .nombreDistrito(entity.getNombreDistrito())
                 .estado(entity.getEstado());
 
         if (entity.getDepartamento() != null) {
             Departamentos dept = entity.getDepartamento();
-            builder.nombreDepartamento(dept.getNombre());
+            builder.nombreDepartamento(dept.getNombreDepartamento());
         }
 
         if (entity.getMunicipio() != null) {
-            Municipios muni = entity.getMunicipio();
-            builder.nombreMunicipio(muni.getNombre());
+            Municipios municipio = entity.getMunicipio();
+            builder.nombreMunicipio(municipio.getNombreMunicipio());
         }
 
         return builder.build();
@@ -75,19 +75,19 @@ public class DistritosServiceImpl extends AcoasmiServiceImpl<Distritos,
         if (dto == null || entity == null) return;
 
         entity.setCodigoDistrito(dto.getCodigoDistrito());
-        entity.setNombre(dto.getNombre());
+        entity.setNombreDistrito(dto.getNombreDistrito());
 
         if (entity.getId() == null) {
             entity.setEstado(true);
         }
 
         Departamentos departamento = departamentosRepository
-                .findByNombreContainingIgnoreCaseAndEstadoTrue(dto.getNombreDepartamento())
+                .findByNombreDepartamentoContainingIgnoreCaseAndEstadoTrue(dto.getNombreDepartamento())
                 .orElseThrow(() -> new RuntimeException("Departamento no encontrado con nombre: " + dto.getNombreDepartamento()));
         entity.setDepartamento(departamento);
 
         Municipios municipio = municipiosRepository
-                .findByNombreContainingIgnoreCaseAndEstadoTrue(dto.getNombreMunicipio())
+                .findByNombreMunicipioContainingIgnoreCaseAndEstadoTrue(dto.getNombreMunicipio())
                 .orElseThrow(() -> new RuntimeException("Municipio no encontrado con nombre: " + dto.getNombreMunicipio()));
         entity.setMunicipio(municipio);
     }

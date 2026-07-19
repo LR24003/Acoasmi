@@ -1,5 +1,6 @@
 package com.acoasmi.roble.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,10 +18,10 @@ public class MunicipiosResponseDTO {
     private Long id;
 
     @Schema(description = "Codigo del municipio según MH", example = "15")
-    private String codigoMunicipio;
+    private Integer codigoMunicipio;
 
     @Schema(description = "Nombre del municipio según MH", example = "San Vicente Sur")
-    private String nombre;
+    private String nombreMunicipio;
 
     @Schema(description = "Nombre del departamento al que pertenece el municipio", example = "San Vicente")
     private String nombreDepartamento;

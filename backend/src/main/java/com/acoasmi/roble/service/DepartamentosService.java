@@ -7,7 +7,7 @@ import com.acoasmi.roble.entity.Departamentos;
 public interface DepartamentosService extends AcoasmiService <Departamentos, DepartamentosRequestDTO,
         DepartamentosResponseDTO, Long>{
 
-    DepartamentosResponseDTO getByCodigoDepartamento(String codigoDepartamento);
+    DepartamentosResponseDTO getByCodigoDepartamento(Integer codigoDepartamento);
 
-    DepartamentosResponseDTO getByNombre(String nombre);
+    DepartamentosResponseDTO getByNombreDepartamento(String nombreDepartamento);
 }

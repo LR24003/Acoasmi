@@ -75,11 +75,13 @@ public class UsuariosServiceImpl
             entity.setEstado(true);
         }
 
-        if (dto.getIdRol() != null) {
-            if (entity.getRoles() == null || !entity.getRoles().getId().equals(dto.getIdRol())) {
-                Roles rol = rolesRepository.findById(dto.getIdRol())
-                        .orElseThrow(() -> new RuntimeException("El Rol especificado no existe con ID: " + dto.getIdRol()));
-                entity.setRoles(rol);
+        if (dto.getRol() != null && !dto.getRol().trim().isEmpty()) {
+            if (entity.getRol() == null || !entity.getRol().getNombreRol().equalsIgnoreCase(dto.getRol().trim())) {
+
+                Roles rol = rolesRepository.findByNombreRolIgnoreCaseAndEstadoTrue(dto.getRol().trim())
+                        .orElseThrow(() -> new RuntimeException("El Rol especificado '" + dto.getRol() + "' no existe o está inactivo"));
+
+                entity.setRol(rol);
             }
         }
     }
@@ -97,7 +99,7 @@ public class UsuariosServiceImpl
                 .fechaCreacion(entity.getFechaCreacion())
                 .ultimoAcceso(entity.getUltimoAcceso())
                 .estado(entity.getEstado())
-                .nombreRol(entity.getRoles() != null ? entity.getRoles().getNombreRol() : null)
+                .rol(entity.getRol() != null ? entity.getRol().getNombreRol() : null)
                 .build();
     }
 }

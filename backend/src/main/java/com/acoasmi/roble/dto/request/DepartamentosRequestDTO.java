@@ -1,6 +1,7 @@
 package com.acoasmi.roble.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +15,9 @@ public class DepartamentosRequestDTO {
 
     @NotNull(message = "El codigo del departamento es obligatorio")
     @Schema(description = "Codigo del departamento según MH", example = "10")
-    private String codigoDepartamento;
+    private Integer codigoDepartamento;
 
-    @NotNull(message = "El nombre del departamento es obligatorio")
+    @NotBlank(message = "El nombre del departamento es obligatorio")
     @Schema(description = "Nombre del departamento", example = "San Vicente")
-    private String nombre;
+    private String nombreDepartamento;
 }

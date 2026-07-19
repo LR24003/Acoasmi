@@ -1,5 +1,6 @@
 package com.acoasmi.roble.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"cuentas", "beneficiarios"}) // Evita bucles infinitos en el hashcode de Lombok
 @Entity
 @Data
 @NoArgsConstructor
@@ -57,14 +59,17 @@ public class Asociados extends AcoasmiEntity {
 
     @ManyToOne
     @JoinColumn(name = "codigo_departamento", referencedColumnName = "codigo_departamento")
+    @JsonFormat(pattern = "%02d")
     private Departamentos departamento;
 
     @ManyToOne
     @JoinColumn(name = "codigo_municipio", referencedColumnName = "codigo_municipio")
+    @JsonFormat(pattern = "%02d")
     private Municipios municipio;
 
     @ManyToOne
     @JoinColumn(name = "codigo_distrito", referencedColumnName = "codigo_distrito")
+    @JsonFormat(pattern = "%02d")
     private Distritos distrito;
 
     @Column(name = "direccion_residencia", nullable = false)
@@ -78,6 +83,12 @@ public class Asociados extends AcoasmiEntity {
 
     @Column(name = "estado", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean estado = true;
+
+    @OneToMany(mappedBy = "asociado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AsociadoCuentas> cuentas;
+
+    @OneToMany(mappedBy = "asociado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AsociadosBeneficiarios> beneficiarios;
 
     @PrePersist
     protected void onCreate() {

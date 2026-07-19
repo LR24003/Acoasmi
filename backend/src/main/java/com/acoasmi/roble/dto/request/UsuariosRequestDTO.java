@@ -3,7 +3,6 @@ package com.acoasmi.roble.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,8 +42,8 @@ public class UsuariosRequestDTO {
     @Schema(description = "Correo electronico del usuario", example = "correoejemplo@acoasmi.com")
     private String email;
 
-    @NotNull(message = "El rol del usuario es obligatorio")
-    @Schema(description = "Rol del usuario", example = "1")
-    private Long idRol;
+    @NotBlank(message = "El rol del usuario es obligatorio")
+    @Schema(description = "Rol del usuario", example = "Cajero, Administrador, Contador")
+    private String rol;
 
 }

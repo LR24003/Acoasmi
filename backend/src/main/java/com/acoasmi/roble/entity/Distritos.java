@@ -1,5 +1,6 @@
 package com.acoasmi.roble.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,17 +17,22 @@ import lombok.NoArgsConstructor;
 public class Distritos extends AcoasmiEntity{
 
     @Column(name = "codigo_distrito", nullable = false)
-    private String codigoDistrito;
+    @JsonFormat(pattern = "%02d")
+    private Integer codigoDistrito;
 
-    @Column(name = "nombre", nullable = false, length = 100)
-    private String nombre;
+    @Column(name = "nombre_distrito", nullable = false, length = 100)
+    private String nombreDistrito;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_departamento", nullable = false)
+    @JoinColumn(name = "codigo_departamento", referencedColumnName = "codigo_departamento", nullable = false)
     private Departamentos departamento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_municipio", nullable = false)
+    @JoinColumn(name = "codigo_municipio", referencedColumnName = "codigo_municipio", nullable = false)
     private Municipios municipio;
 
+    @JsonFormat(pattern = "%02d")
+    public Integer getCodigoDistrito() {
+        return codigoDistrito;
+    }
 }

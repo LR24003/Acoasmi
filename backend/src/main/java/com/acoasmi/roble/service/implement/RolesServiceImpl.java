@@ -31,9 +31,9 @@ public class RolesServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public RolesResponseDTO getByNombreRol(String nombreRol) {
-        Roles entity = rolesRepository.findByNombreRolAndEstadoTrue(nombreRol)
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado con el nombre: " + nombreRol));
+    public RolesResponseDTO getByNombreRol(String rol) {
+        Roles entity = rolesRepository.findByNombreRolIgnoreCaseAndEstadoTrue(rol)
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado con el nombre: " + rol));
         return mapToResponseDTO(entity);
     }
 
@@ -41,15 +41,20 @@ public class RolesServiceImpl
     protected void mapearDtoAEntidad(RolesRequestDTO dto, Roles entity) {
         if (dto == null || entity == null) return;
 
-        entity.setNombreRol(dto.getNombreRol());
+        entity.setNombreRol(dto.getRol());
         entity.setDescripcion(dto.getDescripcion());
 
         if (entity.getId() == null) {
             entity.setEstado(true);
         }
 
-        if (dto.getPermisosIds() != null) {
-            Set<Permisos> nuevosPermisos = new HashSet<>(permisosRepository.findAllById(dto.getPermisosIds()));
+        if (dto.getPermisos() != null && !dto.getPermisos().isEmpty()) {
+
+            Set<Permisos> nuevosPermisos = permisosRepository.findByCodigoPermisoInAndEstadoTrue(dto.getPermisos());
+
+            if (nuevosPermisos.size() != dto.getPermisos().size()) {
+                throw new RuntimeException("Uno o más permisos especificados no existen o se encuentran inactivos");
+            }
 
             if (entity.getPermisos() == null) {
                 entity.setPermisos(new HashSet<>());
@@ -83,7 +88,7 @@ public class RolesServiceImpl
 
         return RolesResponseDTO.builder()
                 .id(entity.getId())
-                .nombreRol(entity.getNombreRol())
+                .rol(entity.getNombreRol())
                 .descripcion(entity.getDescripcion())
                 .estado(entity.getEstado())
                 .permisos(permisosDto)

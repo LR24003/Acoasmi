@@ -2,7 +2,6 @@ package com.acoasmi.roble.repository;
 
 import com.acoasmi.roble.entity.Usuarios;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -77,4 +78,10 @@ public class AsociadosResponseDTO {
     
     @Schema(description = "Estado actual del asociado", example = "true")
     private Boolean estado;
+
+    @Schema(description = "Listado de cuentas institucionales abiertas para el asociado")
+    private List<AsociadoCuentasResponseDTO> cuentas;
+
+    @Schema(description = "Listado de beneficiarios asignados en la afiliación")
+    private List<AsociadosBeneficiariosResponseDTO> beneficiarios;
 }

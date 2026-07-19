@@ -8,8 +8,8 @@ import java.util.Optional;
 @Repository
 public interface DistritosRepository extends AcoasmiRepository<Distritos, Long> {
 
-    Optional<Distritos> findByCodigoDistrito(String codigoDistrito);
+    Optional<Distritos> findByCodigoDistrito(Integer codigoDistrito);
 
-    Optional<Distritos> findByNombreContainingIgnoreCase(String nombre);
+    Optional<Distritos> findByNombreDistritoContainingIgnoreCase(String nombreDistrito);
 
 }

@@ -7,9 +7,8 @@ import java.util.Optional;
 @Repository
 public interface DepartamentosRepository extends AcoasmiRepository<Departamentos, Long> {
 
-    Optional<Departamentos> findByCodigoDepartamento(String departamento);
+    Optional<Departamentos> findByCodigoDepartamento(Integer codigoDepartamento);
 
-    Optional<Departamentos> findByNombreContainingIgnoreCaseAndEstadoTrue(String nombre);
+    Optional<Departamentos> findByNombreDepartamentoContainingIgnoreCaseAndEstadoTrue(String nombreDepartamento);
 
-    Optional<Departamentos> findByNombreIgnoreCaseAndEstadoTrue(String nombreDepartamento);
 }

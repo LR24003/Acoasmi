@@ -5,58 +5,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec30ac4-1388-4b0d-a597-b986b4c0af50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/ActividadesEconomicasController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadosController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/DepartamentosController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/MunicipiosController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/ActividadesEconomicasRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/AsociadosRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/DepartamentosRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/LoginRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/MunicipiosRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/RecoverPasswordRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/ActividadesEconomicasResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/AsociadosResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DepartamentosResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DistritosResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/LoginResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/MunicipiosResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/ActividadesEconomicas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Asociados.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Departamentos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Distritos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Municipios.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/ActividadesEconomicasRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/AsociadosRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DepartamentosRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DistritosRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/MunicipiosRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/AuthenticationSuccessListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/ActividadesEconomicasService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/AsociadosService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/DepartamentosService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/LoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/MunicipiosService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/ActividadesEconomicasServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AsociadosServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DepartamentosServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/LoginServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/MunicipiosServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadosBeneficiariosController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/AsociadoCuentasRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/AsociadosBeneficiariosRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/AsociadoCuentasResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/AsociadosBeneficiariosResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/AsociadoCuentas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/AsociadosBeneficiarios.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/AsociadoCuentasRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/AsociadosBeneficiariosRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/AsociadoCuentasService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/AsociadosBeneficiariosService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AsociadoCuentasServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AsociadosBeneficiariosServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78/storage_v2/_src_/database/ACOASMI_DE_RL.tKCImA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78/storage_v2/_src_/database/ACOASMI_DE_RL.tKCImA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78/storage_v2/_src_/database/ACOASMI_DE_RL.tKCImA/schema/public.abK9xQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78/storage_v2/_src_/database/ACOASMI_DE_RL.tKCImA/schema/public.abK9xQ.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AcoasmiServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AcoasmiServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/CatalogoCuentasServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/CatalogoCuentasServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/PermisosServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/PermisosServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/CatalogoCuentasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/CatalogoCuentasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/CumplimientoPerfilRiesgoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/CumplimientoPerfilRiesgoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/DepartamentosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/DepartamentosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/DistritosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/DistritosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/MunicipiosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/MunicipiosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/UsuariosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/UsuariosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/AsociadosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/AsociadosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/CumplimientoPerfilRiesgoRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/CumplimientoPerfilRiesgoRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/DepartamentosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/DepartamentosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/DistritosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/DistritosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/MunicipiosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/MunicipiosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/RolesRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/RolesRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/UsuariosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/UsuariosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/CumplimientoPerfilRiesgoResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/CumplimientoPerfilRiesgoResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DepartamentosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DepartamentosResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DistritosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DistritosResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/MunicipiosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/MunicipiosResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/RolesResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/RolesResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/UsuariosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/UsuariosResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Asociados.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Asociados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/CumplimientoPerfilRiesgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/CumplimientoPerfilRiesgo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Departamentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Departamentos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Distritos.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Distritos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Municipios.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Municipios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Usuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/AsociadosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/AsociadosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/CumplimientoPerfilRiesgoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/CumplimientoPerfilRiesgoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DepartamentosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DepartamentosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DistritosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DistritosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/MunicipiosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/MunicipiosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PermisosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PermisosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/RolesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/RolesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/UsuariosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/UsuariosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/AsociadosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/AsociadosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/CumplimientoPerfilRiesgoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/CumplimientoPerfilRiesgoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/DepartamentosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/DepartamentosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/DistritosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/DistritosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/MunicipiosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/MunicipiosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AsociadosServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/AsociadosServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/CumplimientoPerfilRiesgoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/CumplimientoPerfilRiesgoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DepartamentosServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DepartamentosServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DistritosServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DistritosServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/LoginServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/LoginServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/MunicipiosServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/MunicipiosServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/RolesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/RolesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/UserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/UsuariosServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/UsuariosServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +77,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="88" />
+    <option name="cachedIndexableFilesCount" value="128" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -79,6 +92,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/backend/pom.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadoCuentasController.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/ControlCajasController.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/LoginServiceImpl.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/RolesServiceImpl.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -97,23 +114,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.4913654275717678E-19" />
-      <entry key="MS500" value="1.7167885741126932E-4" />
-      <entry key="S2" value="0.11446672584873262" />
-      <entry key="S5" value="0.4209581006019063" />
-      <entry key="S10" value="0.6754975777036746" />
-      <entry key="S30" value="1.1664181530208313" />
-      <entry key="S60" value="1.4872898423237482" />
-      <entry key="M2" value="2.044297302314522" />
-      <entry key="M5" value="5.63199212497414" />
-      <entry key="M10" value="10.861708664861476" />
-      <entry key="M15" value="14.314066417227775" />
-      <entry key="M30" value="20.44546072651286" />
-      <entry key="H1" value="28.69429787698957" />
-      <entry key="H2" value="52.7036556945935" />
-      <entry key="H4" value="108.6975949583896" />
-      <entry key="D1" value="337.88656392733236" />
-      <entry key="W1" value="497.49921027103505" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="5.556342980658252E-165" />
+      <entry key="S2" value="8.63370611446824E-42" />
+      <entry key="S5" value="3.753867200054342E-17" />
+      <entry key="S10" value="6.126881098939608E-9" />
+      <entry key="S30" value="0.0018298401423999674" />
+      <entry key="S60" value="0.042776630798278585" />
+      <entry key="M2" value="0.20682593238151478" />
+      <entry key="M5" value="0.5370394522369402" />
+      <entry key="M10" value="0.8351596794459435" />
+      <entry key="M15" value="1.188046415014516" />
+      <entry key="M30" value="3.438581918951582" />
+      <entry key="H1" value="14.003482194344336" />
+      <entry key="H2" value="46.98196963644098" />
+      <entry key="H4" value="117.54050730170908" />
+      <entry key="D1" value="500.812483884155" />
+      <entry key="W1" value="807.6443682304321" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="1.0" />
@@ -121,37 +138,37 @@
       <entry key="S2" value="1.0" />
       <entry key="S5" value="1.0" />
       <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0000015370962068" />
-      <entry key="S60" value="1.0021056013964271" />
-      <entry key="M2" value="1.1059530646580815" />
-      <entry key="M5" value="2.3566352604973906" />
-      <entry key="M10" value="4.812178199372189" />
-      <entry key="M15" value="7.05638702555285" />
-      <entry key="M30" value="12.433151931828654" />
-      <entry key="H1" value="20.48126734010025" />
-      <entry key="H2" value="40.23288415085799" />
-      <entry key="H4" value="80.9839913965604" />
-      <entry key="D1" value="218.40885867524082" />
-      <entry key="W1" value="301.52117318851094" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0000000000000007" />
+      <entry key="M2" value="1.000000032531326" />
+      <entry key="M5" value="1.0015121808922116" />
+      <entry key="M10" value="1.088915325828137" />
+      <entry key="M15" value="1.4961149590535605" />
+      <entry key="M30" value="5.231545007315121" />
+      <entry key="H1" value="18.32160499749217" />
+      <entry key="H2" value="46.21737729359714" />
+      <entry key="H4" value="95.31940744661301" />
+      <entry key="D1" value="340.9354051347405" />
+      <entry key="W1" value="519.4852253454691" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="6.914574495213625E-5" />
-      <entry key="MS500" value="0.14736858014362103" />
-      <entry key="S2" value="0.7306838255653376" />
-      <entry key="S5" value="1.2417454275171516" />
-      <entry key="S10" value="1.5783454531601508" />
-      <entry key="S30" value="2.1253001428409104" />
-      <entry key="S60" value="2.4649226745188706" />
-      <entry key="M2" value="3.1307424501250347" />
-      <entry key="M5" value="7.957372940411514" />
-      <entry key="M10" value="15.639876065041777" />
-      <entry key="M15" value="21.339014989274805" />
-      <entry key="M30" value="32.85450314470879" />
-      <entry key="H1" value="49.15764415030375" />
-      <entry key="H2" value="92.91946885487368" />
-      <entry key="H4" value="189.66418432714468" />
-      <entry key="D1" value="556.2872224547147" />
-      <entry key="W1" value="799.018732144389" />
+      <entry key="MS100" value="1.0752750252166879E-18" />
+      <entry key="MS500" value="2.5486131040569296E-4" />
+      <entry key="S2" value="0.12635021287046158" />
+      <entry key="S5" value="0.4371499078500026" />
+      <entry key="S10" value="0.6611731360793965" />
+      <entry key="S30" value="0.872998208914505" />
+      <entry key="S60" value="0.9760742036298938" />
+      <entry key="M2" value="1.172766882581089" />
+      <entry key="M5" value="1.5246416366042024" />
+      <entry key="M10" value="1.9164341726853034" />
+      <entry key="M15" value="2.677654462472094" />
+      <entry key="M30" value="8.661323232571446" />
+      <entry key="H1" value="32.31048719422155" />
+      <entry key="H2" value="93.18006876949268" />
+      <entry key="H4" value="212.83874690865875" />
+      <entry key="D1" value="841.7345522441718" />
+      <entry key="W1" value="1327.126664553672" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -313,6 +330,10 @@
       <workItem from="1783982401935" duration="8921000" />
       <workItem from="1784043353461" duration="37191000" />
       <workItem from="1784209828972" duration="23122000" />
+      <workItem from="1784316149868" duration="10881000" />
+      <workItem from="1784384994800" duration="26377000" />
+      <workItem from="1784473821863" duration="10911000" />
+      <workItem from="1784493469689" duration="5887000" />
     </task>
     <servers />
   </component>

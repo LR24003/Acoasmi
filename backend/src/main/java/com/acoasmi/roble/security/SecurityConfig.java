@@ -48,7 +48,12 @@ public class SecurityConfig {
                                 "/api/departamentos/**",
                                 "/api/municipios/**",
                                 "/api/distritos/**",
-                                "/api/actividades-economicas/**"
+                                "/api/actividades-economicas/**",
+                                "/api/cumplimiento-riesgos/**",
+                                "/api/asociados-documentos/**",
+                                "/api/control-cajas/**",
+                                "/api/beneficiarios/**"
+
                         ).permitAll()
 
                         .anyRequest().authenticated()

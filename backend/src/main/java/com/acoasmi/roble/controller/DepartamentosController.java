@@ -27,7 +27,7 @@ public class DepartamentosController extends AcoasmiController<Departamentos,
             summary = "Buscar por código de departamento",
             description = "Busca los datos de un departamento utilizando su código geopolítico único."
     )
-    public ResponseEntity<DepartamentosResponseDTO> getByCodigoDepartamento(@PathVariable String codigoDepartamento) {
+    public ResponseEntity<DepartamentosResponseDTO> getByCodigoDepartamento(@PathVariable Integer codigoDepartamento) {
         return ResponseEntity.ok(departamentosService.getByCodigoDepartamento(codigoDepartamento));
     }
 
@@ -36,7 +36,7 @@ public class DepartamentosController extends AcoasmiController<Departamentos,
             summary = "Buscar por nombre",
             description = "Busca departamentos activos cuyo nombre contenga la cadena proporcionada."
     )
-    public ResponseEntity<DepartamentosResponseDTO> getByNombre(@RequestParam String nombre) {
-        return ResponseEntity.ok(departamentosService.getByNombre(nombre));
+    public ResponseEntity<DepartamentosResponseDTO> getByNombre(@RequestParam String nombreDepartamento) {
+        return ResponseEntity.ok(departamentosService.getByNombreDepartamento(nombreDepartamento));
     }
 }

@@ -7,7 +7,7 @@ import com.acoasmi.roble.entity.Distritos;
 public interface DistritosService extends AcoasmiService<Distritos, DistritosRequestDTO,
         DistritosResponseDTO, Long>{
 
-    DistritosResponseDTO getByCodigoDistrito(String codigoDistrito);
+    DistritosResponseDTO getByCodigoDistrito(Integer codigoDistrito);
 
-    DistritosResponseDTO getByNombre(String nombre);
+    DistritosResponseDTO getByNombreDistrito(String nombreDistrito);
 }

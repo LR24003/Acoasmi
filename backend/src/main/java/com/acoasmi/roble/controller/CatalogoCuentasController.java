@@ -14,7 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/catalogo-cuentas")
 @Tag(name = "Catálogo de Cuentas", description = "Controlador para la gestión y estructuración del catálogo de cuentas contable")
-public class CatalogoCuentasController extends AcoasmiController<CatalogoCuentas, CatalogoCuentasRequestDTO, CatalogoCuentasResponseDTO, Long> {
+public class CatalogoCuentasController extends AcoasmiController<CatalogoCuentas,
+        CatalogoCuentasRequestDTO, CatalogoCuentasResponseDTO, Long> {
 
     private final CatalogoCuentasService catalogoCuentasService;
 

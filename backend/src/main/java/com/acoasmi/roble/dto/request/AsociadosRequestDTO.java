@@ -1,16 +1,16 @@
 package com.acoasmi.roble.dto.request;
 
+import com.acoasmi.roble.entity.AsociadosBeneficiarios;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -38,16 +38,26 @@ public class AsociadosRequestDTO {
     private String tipoDocumento;
 
     @NotBlank(message = "El número de documento es obligatorio")
-    @Size(max = 30, message = "El número de documento no puede exceder los 30 caracteres")
+    @Size(max = 10, message = "El número de documento no puede exceder los 30 caracteres")
+    @Pattern(regexp = "^\\d{8}-\\d{1}$", message = "El DUI debe tener el formato válido de El Salvador (########-#)")
     @Schema(description = "Número único del documento de identidad", example = "01234567-8")
     private String numeroDocumento;
 
-    @Size(max = 20, message = "El NIT no puede exceder los 20 caracteres")
+    @Size(max = 17, message = "El NIT no puede exceder los 20 caracteres")
+    @Pattern(regexp = "^(\\d{4}-\\d{6}-\\d{3}-\\d{1}|\\d{8}-\\d{1})$",
+            message = "El NIT debe tener el formato tradicional (####-######-###-#) o el formato homologado al DUI (########-#)")
     @Schema(description = "Número de Identificación Tributaria", example = "0614-150795-101-4")
     private String nit;
 
-    @Size(max = 10, message = "El NRC no puede exceder los 10 caracteres")
-    @Schema(description = "Número de Registro de Contribuyente. Por defecto es N/A si no es comerciante.", example = "123456-7")
+    @Pattern(
+            regexp = "^(N/A|\\d{2,7}-\\d{1})$",
+            message = "El NRC debe ser 'N/A' o cumplir con el formato válido de El Salvador (ej. 123456-7)"
+    )
+    @Size(max = 8, message = "El NRC no puede exceder los 10 caracteres")
+    @Schema(
+            description = "Número de Registro de Contribuyente. Por defecto es N/A si no es comerciante.",
+            example = "123456-7"
+    )
     private String nrc = "N/A";
 
     @NotNull(message = "La fecha de nacimiento es obligatoria")
@@ -85,4 +95,23 @@ public class AsociadosRequestDTO {
     @NotBlank(message = "La dirección complementaria es obligatoria")
     @Schema(description = "Dirección complementaria exacta (Colonia, calle, pasaje, casa)", example = "Comunidad La Sabana")
     private String direccionComplementaria;
+
+    @NotNull(message = "Debe especificar si el asociado es PEP")
+    @Schema(description = "si el asociado es Pep=true, sino lo es false")
+    private Boolean esPep;
+
+    @Schema(description = "Detallar el cargo publico ejercido", example = "Diputado, Alcalde.")
+    private String cargoOrigenPep;
+
+    @NotNull(message = "El monto máximo mensual esperado es obligatorio")
+    @Schema(example = "500.00")
+    private BigDecimal montoMaximoMensualEsperado;
+
+    @NotBlank(message = "El origen de los fondos declarados es obligatorio")
+    @Schema(example = "Salario por empleo formal en sector privado")
+    private String origenFondosDeclarado;
+
+    @NotEmpty(message = "Debe registrar al menos un beneficiario para la afiliación")
+    @Schema(description = "Beneficiarios designados por el asociado en su solicitud de afiliación")
+    private List<AsociadosBeneficiariosRequestDTO> beneficiarios;
 }

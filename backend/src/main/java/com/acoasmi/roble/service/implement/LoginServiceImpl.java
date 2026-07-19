@@ -60,7 +60,7 @@ public class LoginServiceImpl implements LoginService {
                 usuarioEntity.getUsuario(),
                 usuarioEntity.getNombres(),
                 usuarioEntity.getApellidos(),
-                usuarioEntity.getRoles() != null ? usuarioEntity.getRoles().getNombreRol() : "Sin rol asignado"
+                usuarioEntity.getRol() != null ? usuarioEntity.getRol().getNombreRol() : "Sin rol asignado"
         );
     }
 

@@ -7,6 +7,6 @@ import java.util.Optional;
 @Repository
 public interface RolesRepository extends AcoasmiRepository<Roles, Long> {
 
-    Optional<Roles> findByNombreRolAndEstadoTrue(String nombreRol);
+    Optional<Roles> findByNombreRolIgnoreCaseAndEstadoTrue(String rol);
 
 }

@@ -2,6 +2,7 @@ package com.acoasmi.roble.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Schema(description = "DTO para la creación o actualización de un distrito")
 public class DistritosRequestDTO {
 
-    @NotBlank(message = "El código del distrito es obligatorio")
+    @NotNull(message = "El código del distrito es obligatorio")
     @Schema(description = "Código del distrito según MH", example = "11")
-    private String codigoDistrito;
+    private Integer codigoDistrito;
 
     @NotBlank(message = "El nombre del distrito es obligatorio")
     @Schema(description = "Nombre oficial del distrito", example = "Tecoluca")
-    private String nombre;
+    private String nombreDistrito;
 
     @NotBlank(message = "El nombre del departamento es obligatorio")
     @Schema(description = "Nombre del departamento al que pertenece el distrito", example = "San Vicente")
