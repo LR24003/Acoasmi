@@ -148,27 +148,25 @@ public class AsociadosServiceImpl
 
         Asociados asociadoGuardado = asociadosRepository.save(asociado);
 
-        requestDto.getBeneficiarios().forEach(bDto -> {
-            AsociadosBeneficiarios beneficiario = new AsociadosBeneficiarios();
-            beneficiario.setAsociado(asociadoGuardado);
-            beneficiario.setCuenta(null);
-            beneficiario.setNombreBeneficiario(bDto.getNombreBeneficiario());
-            beneficiario.setParentesco(bDto.getParentesco());
-            beneficiario.setPorcentaje(bDto.getPorcentaje());
-            beneficiario.setNumeroDocumento(bDto.getNumeroDocumento());
-            beneficiario.setFechaNacimiento(bDto.getFechaNacimiento());
-            asociadosBeneficiariosRepository.save(beneficiario);
-        });
+        AsociadoCuentas cuentaAportaciones = crearCuentaAutomatica(asociadoGuardado, "APORTACIONES");
+        AsociadoCuentas cuentaVista1 = crearCuentaAutomatica(asociadoGuardado, "AHORRO A LA VISTA");
+        AsociadoCuentas cuentaVista2 = crearCuentaAutomatica(asociadoGuardado, "AHORRO A LA VISTA");
 
-        crearCuentaAutomatica(asociadoGuardado, "APORTACIONES");
-        crearCuentaAutomatica(asociadoGuardado, "AHORRO VISTA");
-        crearCuentaAutomatica(asociadoGuardado, "AHORRO VISTA");
+        List<AsociadoCuentas> cuentasIniciales = List.of(cuentaAportaciones, cuentaVista1, cuentaVista2);
+
+        for (AsociadoCuentas cuenta : cuentasIniciales) {
+            requestDto.getBeneficiarios().forEach(bDto -> {
+                AsociadosBeneficiarios beneficiario = registrarBeneficiarioEntidad(asociadoGuardado, cuenta, bDto);
+                asociadosBeneficiariosRepository.save(beneficiario);
+            });
+        }
 
         cumplimientoService.generarPerfilRiesgoInicial(asociadoGuardado, requestDto);
 
+        asociadosRepository.flush();
+
         return mapToResponseDTO(asociadoGuardado);
     }
-
     @Override
     @Transactional
     public AsociadosResponseDTO update(Long id, AsociadosRequestDTO requestDto) {
@@ -229,29 +227,38 @@ public class AsociadosServiceImpl
         }
 
         List<AsociadoCuentasResponseDTO> cuentasDto = asociado.getCuentas() != null ?
-                asociado.getCuentas().stream().map(c -> new AsociadoCuentasResponseDTO(
-                        c.getId(),
-                        c.getNumeroCuenta(),
-                        asociado.getNumeroAsociado() != null ? asociado.getNumeroAsociado().toString() : "",
-                        asociado.getNombres() + " " + asociado.getApellidos(),
-                        c.getTipoCuenta(),
-                        c.getTasaInteresAnual(),
-                        c.getSaldoActual(),
-                        c.getEstadoCuenta(),
-                        null,
-                        java.util.Collections.emptyList(),
-                        c.getEstado()
-                )).collect(java.util.stream.Collectors.toList()) : java.util.Collections.emptyList();
+                asociado.getCuentas().stream().map(c -> {
 
-        List<AsociadosBeneficiariosResponseDTO> beneficiariosDto = asociado.getBeneficiarios() != null ?
-                asociado.getBeneficiarios().stream().map(b -> new AsociadosBeneficiariosResponseDTO(
-                        b.getId(),
-                        b.getNombreBeneficiario(),
-                        b.getParentesco(),
-                        b.getPorcentaje(),
-                        b.getNumeroDocumento(),
-                        b.getFechaNacimiento()
-                )).collect(java.util.stream.Collectors.toList()) : java.util.Collections.emptyList();
+
+                    List<AsociadosBeneficiariosResponseDTO> beneficiariosCuenta = c.getBeneficiarios() != null ?
+                            c.getBeneficiarios().stream().map(b -> new AsociadosBeneficiariosResponseDTO(
+                                    b.getId(),
+                                    b.getCuenta() != null ? b.getCuenta().getNumeroCuenta() : "",
+                                    b.getNombreBeneficiario(),
+                                    b.getTelefono() != null ? b.getTelefono() : "",
+                                    b.getParentesco(),
+                                    b.getPorcentaje(),
+                                    b.getNumeroDocumento(),
+                                    b.getFechaNacimiento()
+                            )).collect(java.util.stream.Collectors.toList()) : java.util.Collections.emptyList();
+
+                    return new AsociadoCuentasResponseDTO(
+                            c.getId(),
+                            c.getNumeroCuenta(),
+                            asociado.getNumeroAsociado() != null ? asociado.getNumeroAsociado().toString() : "",
+                            asociado.getNombres() + " " + asociado.getApellidos(),
+                            c.getTipoCuenta(),
+                            c.getTasaInteresAnual(),
+                            c.getSaldoActual(),
+                            c.getEstadoCuenta(),
+                            c.getFechaApertura(),
+                            c.getPlazoDias() != null ? c.getPlazoDias() : "",
+                            beneficiariosCuenta,
+                            c.getEstado()
+                    );
+                }).collect(java.util.stream.Collectors.toList()) : java.util.Collections.emptyList();
+
+        List<AsociadosBeneficiariosResponseDTO> beneficiariosGlobalesDto = java.util.Collections.emptyList();
 
         return new AsociadosResponseDTO(
                 asociado.getId(),
@@ -275,17 +282,21 @@ public class AsociadosServiceImpl
                 asociado.getFechaRetiro(),
                 asociado.getEstado(),
                 cuentasDto,
-                beneficiariosDto
+                beneficiariosGlobalesDto
         );
     }
 
-    private void crearCuentaAutomatica(Asociados asociado, String tipoCuenta) {
+    private AsociadoCuentas crearCuentaAutomatica(Asociados asociado, String tipoCuenta) {
         AsociadoCuentas cuenta = new AsociadoCuentas();
         cuenta.setAsociado(asociado);
         cuenta.setTipoCuenta(tipoCuenta);
-        cuenta.setSaldoActual(BigDecimal.ZERO);
 
-        cuenta.setTasaInteresAnual("APORTACIONES".equals(tipoCuenta) ? new BigDecimal("0.00") : new BigDecimal("1.50"));
+        BigDecimal saldoInicial = "APORTACIONES".equals(tipoCuenta) ? new BigDecimal("5.00") : new BigDecimal("1.00");
+        cuenta.setSaldoActual(saldoInicial);
+
+        BigDecimal tasaInteres = "APORTACIONES".equals(tipoCuenta) ? new BigDecimal("0.00") : new BigDecimal("2.50");
+        cuenta.setTasaInteresAnual(tasaInteres);
+
         cuenta.setEstadoCuenta("ACTIVA");
         cuenta.setEstado(true);
 
@@ -304,6 +315,20 @@ public class AsociadosServiceImpl
         }
 
         cuenta.setNumeroCuenta(numeroCuentaGenerado);
-        asociadoCuentasRepository.save(cuenta);
+
+        return asociadoCuentasRepository.save(cuenta);
+    }
+
+    private AsociadosBeneficiarios registrarBeneficiarioEntidad(Asociados asociado, AsociadoCuentas cuenta, com.acoasmi.roble.dto.request.AsociadosBeneficiariosRequestDTO bDto) {
+        AsociadosBeneficiarios beneficiarios = new AsociadosBeneficiarios();
+        beneficiarios.setAsociado(asociado);
+        beneficiarios.setCuenta(cuenta);
+        beneficiarios.setNombreBeneficiario(bDto.getNombreBeneficiario());
+        beneficiarios.setTelefono(bDto.getTelefono());
+        beneficiarios.setParentesco(bDto.getParentesco());
+        beneficiarios.setPorcentaje(bDto.getPorcentaje());
+        beneficiarios.setNumeroDocumento(bDto.getNumeroDocumento());
+        beneficiarios.setFechaNacimiento(bDto.getFechaNacimiento());
+        return beneficiarios;
     }
 }

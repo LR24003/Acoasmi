@@ -6,7 +6,6 @@ import com.acoasmi.roble.entity.Asociados;
 import com.acoasmi.roble.entity.CumplimientoPerfilRiesgo;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CumplimientoPerfilRiesgoService extends AcoasmiService<CumplimientoPerfilRiesgo,
         CumplimientoPerfilRiesgoRequestDTO, CumplimientoPerfilRiesgoResponseDTO, Long> {

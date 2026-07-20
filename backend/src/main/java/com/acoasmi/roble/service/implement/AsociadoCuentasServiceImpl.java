@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,19 @@ public class AsociadoCuentasServiceImpl
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<AsociadoCuentasResponseDTO> obtenerCuentasPorAsociadoYPlazo(Integer numeroAsociado, String plazoDias) {
+        if (numeroAsociado == null || plazoDias == null) {
+            throw new IllegalArgumentException("El número de asociado y el plazo en días no pueden ser nulos");
+        }
+
+        return cuentaRepository.findByAsociadoNumeroAsociadoAndPlazoDiasContaining(numeroAsociado, plazoDias)
+                .stream()
+                .map(this::mapToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public AsociadoCuentasResponseDTO create(AsociadoCuentasRequestDTO requestDto) {
 
@@ -80,6 +94,7 @@ public class AsociadoCuentasServiceImpl
         cuenta.setTipoCuenta(requestDto.getTipoCuenta());
         cuenta.setSaldoActual(requestDto.getSaldoInicial());
         cuenta.setTasaInteresAnual(requestDto.getTasaInteresAnual());
+        cuenta.setPlazoDias(requestDto.getPlazoDias());
         cuenta.setEstadoCuenta("ACTIVA");
         cuenta.setEstado(true);
 
@@ -90,22 +105,23 @@ public class AsociadoCuentasServiceImpl
 
         if (requestDto.getBeneficiarios() != null) {
             requestDto.getBeneficiarios().forEach(bDto -> {
-                AsociadosBeneficiarios beneficiario = new AsociadosBeneficiarios();
-                beneficiario.setAsociado(asociado);
-                beneficiario.setCuenta(cuentaGuardada);
-                beneficiario.setNombreBeneficiario(bDto.getNombreBeneficiario());
-                beneficiario.setParentesco(bDto.getParentesco());
-                beneficiario.setPorcentaje(bDto.getPorcentaje());
-                beneficiario.setNumeroDocumento(bDto.getNumeroDocumento());
-                beneficiario.setFechaNacimiento(bDto.getFechaNacimiento());
-                beneficiario.setEstado(true);
+
+                AsociadosBeneficiarios beneficiario = construirBeneficiarioEntidad(
+                        asociado,
+                        cuentaGuardada,
+                        bDto.getNombreBeneficiario(),
+                        bDto.getTelefono(),
+                        bDto.getParentesco(),
+                        bDto.getPorcentaje(),
+                        bDto.getNumeroDocumento(),
+                        bDto.getFechaNacimiento()
+                );
                 beneficiariosRepository.save(beneficiario);
             });
         }
 
         return mapToResponseDTO(cuentaGuardada);
     }
-
     @Override
     protected void mapearDtoAEntidad(AsociadoCuentasRequestDTO request, AsociadoCuentas entidad) {
         entidad.setTipoCuenta(request.getTipoCuenta());
@@ -127,7 +143,9 @@ public class AsociadoCuentasServiceImpl
             beneficiarios = entidad.getBeneficiarios().stream()
                     .map(b -> new AsociadosBeneficiariosResponseDTO(
                             b.getId(),
+                            b.getCuenta().getNumeroCuenta(),
                             b.getNombreBeneficiario(),
+                            b.getTelefono(),
                             b.getParentesco(),
                             b.getPorcentaje(),
                             b.getNumeroDocumento(),
@@ -145,6 +163,7 @@ public class AsociadoCuentasServiceImpl
                 entidad.getSaldoActual(),
                 entidad.getEstadoCuenta(),
                 entidad.getFechaApertura(),
+                entidad.getPlazoDias(),
                 beneficiarios,
                 entidad.getEstado()
         );
@@ -167,5 +186,20 @@ public class AsociadoCuentasServiceImpl
 
             return prefijoBase + correlativo;
         }
+    }
+
+
+    private AsociadosBeneficiarios construirBeneficiarioEntidad(Asociados asociado, AsociadoCuentas cuenta, String nombre, String telefono, String parentesco, BigDecimal porcentaje, String documento, LocalDate fechaNacimiento) {
+        AsociadosBeneficiarios beneficiario = new AsociadosBeneficiarios();
+        beneficiario.setAsociado(asociado);
+        beneficiario.setCuenta(cuenta);
+        beneficiario.setNombreBeneficiario(nombre);
+        beneficiario.setTelefono(telefono);
+        beneficiario.setParentesco(parentesco);
+        beneficiario.setPorcentaje(porcentaje);
+        beneficiario.setNumeroDocumento(documento);
+        beneficiario.setFechaNacimiento(fechaNacimiento);
+        beneficiario.setEstado(true);
+        return beneficiario;
     }
 }

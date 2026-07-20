@@ -27,6 +27,9 @@ public class AsociadosBeneficiarios extends AcoasmiEntity {
     @Column(name = "nombre_beneficiario", nullable = false, length = 150)
     private String nombreBeneficiario;
 
+    @Column(name = "telefono", nullable = false, length = 15)
+    private String telefono;
+
     @Column(name = "parentesco", nullable = false, length = 50)
     private String parentesco;
 

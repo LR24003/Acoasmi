@@ -1,5 +1,6 @@
 package com.acoasmi.roble.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +18,14 @@ public class AsociadosBeneficiariosResponseDTO {
     @Schema(description = "ID único del beneficiario generado por el sistema", example = "15")
     private Long id;
 
+    @Schema(description = "Numero de cuenta vinculado al beneficiario", example = "1011-1850-1")
+    private String numeroCuenta;
+
     @Schema(description = "Nombre completo del beneficiario", example = "Juan Carlos Pérez")
     private String nombreBeneficiario;
+
+    @Schema(description = "Telefono de contacto personal del beneficiario", example = "7734-2345")
+    private String telefono;
 
     @Schema(description = "Relación o parentesco con el titular", example = "HIJO")
     private String parentesco;
@@ -29,6 +36,7 @@ public class AsociadosBeneficiariosResponseDTO {
     @Schema(description = "Número de documento de identidad", example = "01234567-8")
     private String numeroDocumento;
 
-    @Schema(description = "Fecha de nacimiento del beneficiario", example = "2015-08-23")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Schema(description = "Fecha de nacimiento del beneficiario", example = "23-08-2006")
     private LocalDate fechaNacimiento;
 }

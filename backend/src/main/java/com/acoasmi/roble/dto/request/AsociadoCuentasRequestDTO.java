@@ -27,13 +27,13 @@ public class AsociadoCuentasRequestDTO {
     private Integer numeroAsociado;
 
     @NotBlank(message = "El tipo de cuenta no puede estar vacío")
-    @Pattern(regexp = "^(AHORRO_VISTA|APLAZO_FIJO|APORTACIONES)$",
-            message = "El tipo de cuenta debe ser exactamente: AHORRO_VISTA, APLAZO_FIJO o APORTACIONES")
-    @Schema(description = "Tipo de cuenta pasiva a aperturar", example = "AHORRO_VISTA", allowableValues = {"AHORRO_VISTA", "APLAZO_FIJO", "APORTACIONES"}, requiredMode = Schema.RequiredMode.REQUIRED)
+    @Pattern(regexp = "^(AHORRO_A_LA_VISTA|AHORRO_A_PLAZO_FIJO|APORTACIONES)$",
+            message = "El tipo de cuenta debe ser exactamente: AHORRO_A_LA_VISTA, AHORRO_A_PLAZO_FIJO o APORTACIONES")
+    @Schema(description = "Tipo de cuenta pasiva a aperturar", example = "AHORRO_A_LA_VISTA", allowableValues = {"AHORRO_A_LA_VISTA", "AHORRO_A_PLAZO_FIJO", "APORTACIONES"}, requiredMode = Schema.RequiredMode.REQUIRED)
     private String tipoCuenta;
 
     @NotNull(message = "El numero de cuenta es obligatorio")
-    @Schema(description = "Número único de cuenta estructurado por la institución", example = "02-000842-19283")
+    @Schema(description = "Número único de cuenta estructurado por la institución", example = "1011-0000-3")
     private String numeroCuenta;
 
     @NotNull(message = "El saldo inicial es requerido")
@@ -47,9 +47,14 @@ public class AsociadoCuentasRequestDTO {
     @Schema(description = "Tasa de interés anual fija asignada a la cuenta (Obligatoria o mayor a 0 si es APLAZO_FIJO)", example = "3.50", defaultValue = "0.00")
     private BigDecimal tasaInteresAnual = BigDecimal.ZERO;
 
-    @Min(value = 1, message = "Si es a plazo fijo, el tiempo mínimo debe ser 1 mes")
-    @Schema(description = "Plazo de retención en meses (Aplica únicamente si tipoCuenta es APLAZO_FIJO)", example = "12", nullable = true)
-    private Integer plazoMeses;
+    @Min(value = 30, message = "Si es a plazo fijo, el tiempo mínimo debe ser de 30 días")
+    @Schema(
+            description = "Plazo de retención en días. Requiere un mínimo de 30 días y aplica Exclusivamente si tipoCuenta es 'AHORRO_A_PLAZO_FIJO'. Para 'AHORRO A LA VISTA' se asigna automáticamente 360 y para 'APORTACIONES' queda vacío (null).",
+            example = "30",
+            allowableValues = {"30", "60", "90", "180", "360"},
+            nullable = true
+    )
+    private String plazoDias;
 
     @Valid
     @Schema(description = "Listado opcional de beneficiarios específicos para esta cuenta. Si se envía, la suma de porcentajes debe ser exactamente 100.00%")

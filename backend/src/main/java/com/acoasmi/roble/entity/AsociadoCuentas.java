@@ -43,6 +43,9 @@ public class AsociadoCuentas extends AcoasmiEntity {
     @Column(name = "fecha_apertura", nullable = false, updatable = false)
     private ZonedDateTime fechaApertura;
 
+    @Column(name = "plazo_dias")
+    private String plazoDias;
+
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AsociadosBeneficiarios> beneficiarios = new ArrayList<>();
 
@@ -51,6 +54,12 @@ public class AsociadoCuentas extends AcoasmiEntity {
         if (this.fechaApertura == null) {
             this.fechaApertura = ZonedDateTime.now();
         }
+        if ("AHORRO A LA VISTA".equalsIgnoreCase(this.tipoCuenta)) {
+            this.plazoDias = String.valueOf(360);
+        } else if ("APORTACIONES".equalsIgnoreCase(this.tipoCuenta)) {
+            this.plazoDias = null;
+        }
+
     }
 
     public void addBeneficiario(AsociadosBeneficiarios beneficiario) {

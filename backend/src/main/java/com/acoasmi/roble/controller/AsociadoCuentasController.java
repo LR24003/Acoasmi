@@ -5,6 +5,7 @@ import com.acoasmi.roble.dto.response.AsociadoCuentasResponseDTO;
 import com.acoasmi.roble.entity.AsociadoCuentas;
 import com.acoasmi.roble.service.AsociadoCuentasService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,23 @@ public class AsociadoCuentasController extends AcoasmiController<AsociadoCuentas
             description = "Retorna las cuentas pasivas vinculadas al asociado")
     public ResponseEntity<List<AsociadoCuentasResponseDTO>> obtenerPorNumeroAsociado(@PathVariable Integer numeroAsociado) {
         List<AsociadoCuentasResponseDTO> cuentas = asociadoCuentasService.getByNumeroAsociado(numeroAsociado);
+        return ResponseEntity.ok(cuentas);
+    }
+
+    @GetMapping("/asociado/{numeroAsociado}/plazo/{plazoDias}")
+    @Operation(
+            summary = "Obtener las cuentas de un asociado por el número de días plazo",
+            description = "Retorna una lista con las cuentas pasivas vinculadas al asociado filtradas por un plazo específico en días."
+    )
+    public ResponseEntity<List<AsociadoCuentasResponseDTO>> obtenerCuentasPorAsociadoYPlazo(
+            @PathVariable
+            @Parameter(description = "Número único y correlativo del asociado", example = "1001")
+            Integer numeroAsociado,
+
+            @PathVariable
+            @Parameter(description = "Plazo de retención en días (Ej: 180 días, 360 días)", example = "360 días")
+            String plazoDias) {
+        List<AsociadoCuentasResponseDTO> cuentas = asociadoCuentasService.obtenerCuentasPorAsociadoYPlazo(numeroAsociado, plazoDias);
         return ResponseEntity.ok(cuentas);
     }
 

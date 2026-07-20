@@ -52,6 +52,7 @@ public class AsociadosBeneficiariosServiceImpl
     protected void mapearDtoAEntidad(AsociadosBeneficiariosRequestDTO request, AsociadosBeneficiarios entidad) {
         entidad.setNombreBeneficiario(request.getNombreBeneficiario());
         entidad.setParentesco(request.getParentesco());
+        entidad.setTelefono(request.getTelefono());
         entidad.setPorcentaje(request.getPorcentaje());
         entidad.setNumeroDocumento(request.getNumeroDocumento());
         entidad.setFechaNacimiento(request.getFechaNacimiento());
@@ -62,7 +63,9 @@ public class AsociadosBeneficiariosServiceImpl
     protected AsociadosBeneficiariosResponseDTO mapToResponseDTO(AsociadosBeneficiarios entidad) {
         return new AsociadosBeneficiariosResponseDTO(
                 entidad.getId(),
+                entidad.getCuenta().getNumeroCuenta(),
                 entidad.getNombreBeneficiario(),
+                entidad.getTelefono(),
                 entidad.getParentesco(),
                 entidad.getPorcentaje(),
                 entidad.getNumeroDocumento(),

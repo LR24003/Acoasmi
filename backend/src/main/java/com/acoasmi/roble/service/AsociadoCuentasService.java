@@ -11,4 +11,6 @@ public interface AsociadoCuentasService extends AcoasmiService<AsociadoCuentas,
     AsociadoCuentasResponseDTO getByNumeroCuenta(String numeroCuenta);
 
     List<AsociadoCuentasResponseDTO> getByNumeroAsociado(Integer numeroAsociado);
+
+    List<AsociadoCuentasResponseDTO> obtenerCuentasPorAsociadoYPlazo(Integer numeroAsociado, String plazoDias);
 }

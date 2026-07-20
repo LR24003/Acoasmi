@@ -1,6 +1,5 @@
 package com.acoasmi.roble.dto.request;
 
-import com.acoasmi.roble.entity.AsociadosBeneficiarios;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
@@ -61,7 +60,7 @@ public class AsociadosRequestDTO {
     private String nrc = "N/A";
 
     @NotNull(message = "La fecha de nacimiento es obligatoria")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @Schema(description = "Fecha de nacimiento del asociado", example = "15-07-1995")
     private LocalDate fechaNacimiento;
 

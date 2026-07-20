@@ -25,6 +25,10 @@ public class AsociadosBeneficiariosRequestDTO {
     @Schema(description = "Nombre completo del beneficiario", example = "Juan Carlos Pérez", requiredMode = Schema.RequiredMode.REQUIRED)
     private String nombreBeneficiario;
 
+    @NotBlank(message = "El telefono del beneficiario es obligatorio")
+    @Schema(description = "Telefono de contacto personal del beneficiario", example = "7734-2345")
+    private String telefono;
+
     @NotBlank(message = "El parentesco no puede estar vacío")
     @Size(max = 50, message = "El parentesco no puede exceder los 50 caracteres")
     @Schema(description = "Relación o parentesco con el titular", example = "HIJO", requiredMode = Schema.RequiredMode.REQUIRED)

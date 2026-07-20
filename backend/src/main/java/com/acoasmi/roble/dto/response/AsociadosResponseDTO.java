@@ -1,6 +1,7 @@
 package com.acoasmi.roble.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -73,7 +74,8 @@ public class AsociadosResponseDTO {
     private LocalDateTime fechaIngreso;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @Schema(description = "Fecha y hora de retiro (null si está activo)", example = "null")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Schema(description = "Fecha y hora de retiro (en blanco si está activo)")
     private LocalDateTime fechaRetiro;
     
     @Schema(description = "Estado actual del asociado", example = "true")

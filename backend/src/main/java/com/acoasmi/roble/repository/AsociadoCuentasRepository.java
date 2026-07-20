@@ -13,4 +13,6 @@ public interface AsociadoCuentasRepository extends AcoasmiRepository<AsociadoCue
 
     List<AsociadoCuentas> findByAsociadoNumeroAsociado(Integer numeroAsociado);
 
+    List<AsociadoCuentas> findByAsociadoNumeroAsociadoAndPlazoDiasContaining(Integer numeroAsociado, String plazoDias);
+
 }

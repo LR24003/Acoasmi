@@ -44,6 +44,9 @@ public class AsociadoCuentasResponseDTO {
     @Schema(description = "Fecha y hora exacta en la que se realizó la apertura", example = "19-07-2026 08:45")
     private ZonedDateTime fechaApertura;
 
+    @Schema(description = "Plazo en dias designado por el asociado(exclusivo solo para Ahorro a plazo fijo)", example = "90 dias")
+    private String plazoDias;
+
     @Schema(description = "Listado de beneficiarios asignados a esta cuenta pasiva")
     private List<AsociadosBeneficiariosResponseDTO> beneficiarios;
 
