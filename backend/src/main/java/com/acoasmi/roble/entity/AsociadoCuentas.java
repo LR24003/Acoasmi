@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,10 @@ public class AsociadoCuentas extends AcoasmiEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_asociado", nullable = false)
     private Asociados asociado;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuarios usuario;
 
     @Column(name = "tipo_cuenta", nullable = false, length = 50)
     private String tipoCuenta;
@@ -45,6 +50,15 @@ public class AsociadoCuentas extends AcoasmiEntity {
 
     @Column(name = "plazo_dias")
     private String plazoDias;
+
+    @Column(name = "tipo_ahorro", length = 50)
+    private String tipoAhorro;
+
+    @Column(name = "fecha_ultima_capitalizacion")
+    private LocalDate fechaUltimaCapitalizacion;
+
+    @Column(name = "monto_apertura", precision = 12, scale = 2)
+    private BigDecimal montoApertura;
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AsociadosBeneficiarios> beneficiarios = new ArrayList<>();

@@ -26,14 +26,6 @@ public class AsociadoCuentasController extends AcoasmiController<AsociadoCuentas
         this.asociadoCuentasService = asociadoCuentasService;
     }
 
-    @PostMapping("/nueva-cuenta")
-    @Operation(
-            summary = "Crea una nueva cuenta de un asociado",
-            description = "Retorna la nueva cuenta creada")
-    public ResponseEntity<AsociadoCuentasResponseDTO> crearCuenta(@RequestBody AsociadoCuentasRequestDTO requestDto) {
-        AsociadoCuentasResponseDTO nuevaCuenta = asociadoCuentasService.create(requestDto);
-        return new ResponseEntity<>(nuevaCuenta, HttpStatus.CREATED);
-    }
 
     @GetMapping("/cuenta/{numeroCuenta}")
     @Operation(

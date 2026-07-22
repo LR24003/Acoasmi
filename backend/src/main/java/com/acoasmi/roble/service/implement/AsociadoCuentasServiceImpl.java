@@ -6,9 +6,11 @@ import com.acoasmi.roble.dto.response.AsociadosBeneficiariosResponseDTO;
 import com.acoasmi.roble.entity.AsociadoCuentas;
 import com.acoasmi.roble.entity.Asociados;
 import com.acoasmi.roble.entity.AsociadosBeneficiarios;
+import com.acoasmi.roble.entity.Usuarios;
 import com.acoasmi.roble.repository.AsociadoCuentasRepository;
 import com.acoasmi.roble.repository.AsociadosRepository;
 import com.acoasmi.roble.repository.AsociadosBeneficiariosRepository;
+import com.acoasmi.roble.repository.UsuariosRepository;
 import com.acoasmi.roble.service.AsociadoCuentasService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,14 +28,17 @@ public class AsociadoCuentasServiceImpl
     private final AsociadoCuentasRepository cuentaRepository;
     private final AsociadosRepository asociadosRepository;
     private final AsociadosBeneficiariosRepository beneficiariosRepository;
+    private final UsuariosRepository usuariosRepository;
 
     public AsociadoCuentasServiceImpl(AsociadoCuentasRepository cuentaRepository,
                                       AsociadosRepository asociadosRepository,
-                                      AsociadosBeneficiariosRepository beneficiariosRepository) {
+                                      AsociadosBeneficiariosRepository beneficiariosRepository,
+                                      UsuariosRepository usuariosRepository) {
         super(cuentaRepository, AsociadoCuentas.class);
         this.cuentaRepository = cuentaRepository;
         this.asociadosRepository = asociadosRepository;
         this.beneficiariosRepository = beneficiariosRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
     @Override
@@ -97,6 +102,11 @@ public class AsociadoCuentasServiceImpl
         cuenta.setPlazoDias(requestDto.getPlazoDias());
         cuenta.setEstadoCuenta("ACTIVA");
         cuenta.setEstado(true);
+
+        Usuarios usuario = usuariosRepository.findByUsuarioIgnoreCaseAndEstadoTrue(requestDto.getUsuario()) // o findByUsername(...)
+                .orElseThrow(() -> new RuntimeException("El usuario '" + requestDto.getUsuario() + "' no existe en el sistema."));
+
+        cuenta.setUsuario(usuario);
 
         String numeroCuentaGenerado = generarNumeroCuentaInstitucional(asociado, requestDto.getTipoCuenta());
         cuenta.setNumeroCuenta(numeroCuentaGenerado);
@@ -165,7 +175,12 @@ public class AsociadoCuentasServiceImpl
                 entidad.getFechaApertura(),
                 entidad.getPlazoDias(),
                 beneficiarios,
-                entidad.getEstado()
+                entidad.getEstado(),
+                entidad.getUsuario().getUsuario(),
+                entidad.getTipoAhorro(),
+                entidad.getFechaUltimaCapitalizacion(),
+                entidad.getMontoApertura()
+
         );
     }
 

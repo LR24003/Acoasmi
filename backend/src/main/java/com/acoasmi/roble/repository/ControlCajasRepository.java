@@ -9,6 +9,8 @@ public interface ControlCajasRepository extends AcoasmiRepository<ControlCajas, 
 
     Optional<ControlCajas> findByUsuarioCajeroIdAndFechaCierreIsNullAndEstadoTrue(Long Usuario);
 
+    Optional<ControlCajas> findByUsuarioCajero_Usuario(String usuario);
+
     Optional<ControlCajas> findByIdAndEstadoTrue(Long idSesionCaja);
 
 }

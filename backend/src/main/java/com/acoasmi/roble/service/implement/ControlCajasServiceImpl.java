@@ -8,6 +8,7 @@ import com.acoasmi.roble.entity.Usuarios;
 import com.acoasmi.roble.repository.ControlCajasRepository;
 import com.acoasmi.roble.repository.UsuariosRepository;
 import com.acoasmi.roble.service.ControlCajasService;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,7 @@ public class ControlCajasServiceImpl extends AcoasmiServiceImpl<ControlCajas,
 
         ControlCajasResponseDTO dto = new ControlCajasResponseDTO();
         dto.setIdSesionCaja(entidad.getId());
+        dto.setNumeroCaja(entidad.getNumeroCaja());
         dto.setMontoApertura(entidad.getMontoApertura());
         dto.setMontoCierreTeorico(entidad.getMontoCierreTeorico());
         dto.setMontoCierreReal(entidad.getMontoCierreReal());
@@ -64,7 +66,6 @@ public class ControlCajasServiceImpl extends AcoasmiServiceImpl<ControlCajas,
         }
     }
 
-
     @Override
     @Transactional
     public ControlCajasResponseDTO create(CajaAperturaRequestDTO createDto) {
@@ -77,14 +78,28 @@ public class ControlCajasServiceImpl extends AcoasmiServiceImpl<ControlCajas,
                     throw new IllegalStateException("El cajero ya cuenta con una sesión de caja activa y abierta");
                 });
 
-        ControlCajas nuevaCaja = new ControlCajas();
-        nuevaCaja.setUsuarioCajero(usuario);
-        nuevaCaja.setMontoApertura(createDto.getMontoApertura());
-        nuevaCaja.setMontoCierreTeorico(createDto.getMontoApertura());
-        nuevaCaja.setMontoCierreReal(BigDecimal.ZERO);
+        ControlCajas nuevaCaja = getCajas(createDto, usuario);
 
         ControlCajas cajaGuardada = controlCajasRepository.save(nuevaCaja);
         return mapToResponseDTO(cajaGuardada);
+    }
+
+    private static @NonNull ControlCajas getCajas(CajaAperturaRequestDTO createDto, Usuarios usuario) {
+        ControlCajas nuevaCaja = new ControlCajas();
+        nuevaCaja.setUsuarioCajero(usuario);
+
+        // 1. Asignar el número de caja enviado en el DTO (Ej: "01", "02")
+        if (createDto.getNumeroCaja() == null || createDto.getNumeroCaja().isBlank()) {
+            throw new IllegalArgumentException("El número de caja es obligatorio para realizar la apertura.");
+        }
+        nuevaCaja.setNumeroCaja(createDto.getNumeroCaja().trim());
+
+        // 2. Estado y montos iniciales
+        nuevaCaja.setMontoApertura(createDto.getMontoApertura());
+        nuevaCaja.setMontoCierreTeorico(createDto.getMontoApertura());
+        nuevaCaja.setMontoCierreReal(BigDecimal.ZERO);
+        nuevaCaja.setEstado(true); // Asegurar que el estado inicie en 'true' (abierta)
+        return nuevaCaja;
     }
 
     @Override

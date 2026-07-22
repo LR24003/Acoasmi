@@ -62,7 +62,7 @@ public class AsociadosServiceImpl
         if (nombreCompleto == null || nombreCompleto.isBlank()) {
             throw new IllegalArgumentException("El criterio de búsqueda por nombre no puede estar vacío");
         }
-        return asociadosRepository.findByNombreCompletoAsociadoContainingIgnoreCase(nombreCompleto.trim())
+        return asociadosRepository.findFirstByNombreCompletoAsociadoContainingIgnoreCase(nombreCompleto.trim())
                 .stream()
                 .map(this::mapToResponseDTO)
                 .collect(java.util.stream.Collectors.toList());
@@ -254,7 +254,11 @@ public class AsociadosServiceImpl
                             c.getFechaApertura(),
                             c.getPlazoDias() != null ? c.getPlazoDias() : "",
                             beneficiariosCuenta,
-                            c.getEstado()
+                            c.getEstado(),
+                            c.getUsuario().getUsuario(),
+                            c.getTipoAhorro(),
+                            c.getFechaUltimaCapitalizacion(),
+                            c.getMontoApertura()
                     );
                 }).collect(java.util.stream.Collectors.toList()) : java.util.Collections.emptyList();
 

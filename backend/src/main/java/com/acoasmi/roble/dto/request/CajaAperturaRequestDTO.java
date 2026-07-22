@@ -16,6 +16,9 @@ import java.math.BigDecimal;
 @Schema(description = "DTO para registrar la apertura de una nueva sesión de caja")
 public class CajaAperturaRequestDTO {
 
+    @NotBlank(message = "El numero de caja es obligatorio")
+    private String numeroCaja;
+
     @NotBlank(message = "El ID del usuario cajero es obligatorio")
     @Schema(description = "Nombre del cajero que operará la caja", example = "Alfredo López")
     private String usuarioCajero;

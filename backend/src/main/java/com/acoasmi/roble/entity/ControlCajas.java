@@ -14,6 +14,9 @@ import java.time.ZonedDateTime;
 @AttributeOverride(name = "id", column = @Column(name = "id_sesion_caja"))
 public class ControlCajas extends AcoasmiEntity {
 
+    @Column(name = "numero_caja", nullable = false, length = 10)
+    private String numeroCaja;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario_cajero", nullable = false)
     private Usuarios usuarioCajero;

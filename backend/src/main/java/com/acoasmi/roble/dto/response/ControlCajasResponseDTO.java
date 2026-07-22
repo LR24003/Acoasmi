@@ -17,6 +17,9 @@ public class ControlCajasResponseDTO {
     @Schema(description = "ID único de la sesión de caja", example = "1")
     private Long idSesionCaja;
 
+    @Schema(description = "El numero de caja donde se proceso la operacion", example = "01")
+    private String numeroCaja;
+
     @Schema(description = "Nombre completo del cajero que operó la sesión", example = "Carlos Mendoza")
     private String nombreCajero;
 

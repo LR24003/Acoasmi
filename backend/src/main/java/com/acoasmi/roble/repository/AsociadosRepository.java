@@ -31,7 +31,7 @@ public interface AsociadosRepository extends AcoasmiRepository<Asociados, Long> 
             "LOWER(function('unaccent', CONCAT(a.nombres, ' ', a.apellidos))) " +
             "LIKE LOWER(function('unaccent', CONCAT('%', :nombreCompleto, '%'))) " +
             "AND a.estado = true")
-    List<Asociados> findByNombreCompletoAsociadoContainingIgnoreCase(@Param("nombreCompleto") String nombreCompleto);
+    Optional<Asociados> findFirstByNombreCompletoAsociadoContainingIgnoreCase(@Param("nombreCompleto") String nombreCompleto);
 
-
+    Optional<Asociados> findByNumeroAsociado(Integer numeroAsociado);
 }

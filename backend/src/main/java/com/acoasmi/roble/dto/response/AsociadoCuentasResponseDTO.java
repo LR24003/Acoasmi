@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -53,5 +54,17 @@ public class AsociadoCuentasResponseDTO {
     @Schema(description = "Estado actual de la cuenta en la base de datos", example = "true")
     private Boolean estado;
 
-   
+    @Schema(description = "Nombre de usuario (username) del operador/cajero que realiza el registro", example = "José Perez")
+    private String usuario;
+
+    @Schema(description = "Subtipo o categoría detallada de ahorro", example = "AHORRO PROGRAMADO")
+    private String tipoAhorro;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Schema(description = "Fecha en que se realizó la última capitalización de intereses", example = "31-12-2025")
+    private LocalDate fechaUltimaCapitalizacion;
+
+    @Schema(description = "Monto registrado en el momento de la apertura de la cuenta", example = "50.00")
+    private BigDecimal montoApertura;
+
 }
