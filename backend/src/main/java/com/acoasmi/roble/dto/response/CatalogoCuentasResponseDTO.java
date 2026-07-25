@@ -23,7 +23,7 @@ public class CatalogoCuentasResponseDTO {
     @Schema(description = "Nombre descriptivo de la cuenta", example = "Caja General")
     private String nombreCuenta;
 
-    @Schema(description = "Tipo de cuenta", example = "ACTIVO")
+    @Schema(description = "Tipo de cuenta", example = "ACTIVO, PASIVO")
     private String tipoCuenta;
 
     @Schema(description = "Nivel de profundidad jerárquica", example = "4")

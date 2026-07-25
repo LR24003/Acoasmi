@@ -1,6 +1,7 @@
 package com.acoasmi.roble.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(name = "AsociadoCuentasResponseDTO", description = "Modelo que representa los datos devueltos tras consultar o crear una cuenta pasiva")
 public class AsociadoCuentasResponseDTO {
 
@@ -29,7 +31,7 @@ public class AsociadoCuentasResponseDTO {
     @Schema(description = "Nombre completo del asociado titular de la cuenta", example = "María Mercedes Quintanilla")
     private String nombreCompletoAsociado;
 
-    @Schema(description = "Tipo de cuenta pasiva", example = "AHORRO_VISTA")
+    @Schema(description = "Tipo de cuenta pasiva", example = "AHORRO_A_LA_VISTA")
     private String tipoCuenta;
 
     @Schema(description = "Tasa de interés anualizada que devenga la cuenta", example = "2.50")
@@ -41,7 +43,7 @@ public class AsociadoCuentasResponseDTO {
     @Schema(description = "Estado operativo actual de la cuenta", example = "ACTIVA")
     private String estadoCuenta;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     @Schema(description = "Fecha y hora exacta en la que se realizó la apertura", example = "19-07-2026 08:45")
     private ZonedDateTime fechaApertura;
 
@@ -60,7 +62,7 @@ public class AsociadoCuentasResponseDTO {
     @Schema(description = "Subtipo o categoría detallada de ahorro", example = "AHORRO PROGRAMADO")
     private String tipoAhorro;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Schema(description = "Fecha en que se realizó la última capitalización de intereses", example = "31-12-2025")
     private LocalDate fechaUltimaCapitalizacion;
 

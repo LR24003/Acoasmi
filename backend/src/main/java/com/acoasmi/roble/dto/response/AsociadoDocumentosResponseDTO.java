@@ -30,8 +30,8 @@ public class AsociadoDocumentosResponseDTO {
     @Schema(description = "Url del documento subido", example = "http://acoasmi/AsociadoDocumentos/Dui_Alfredo_Lopez.pdf")
     private String urlArchivo;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Fecha en la que se subio del documento al sistema", example = "18/07/2026 08:45")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Fecha en la que se subio del documento al sistema", example = "18-07-2026 08:45")
     private LocalDateTime fechaSubida;
 
     @Schema(description = "Estado actual del documento en la base de datos", example = "true")

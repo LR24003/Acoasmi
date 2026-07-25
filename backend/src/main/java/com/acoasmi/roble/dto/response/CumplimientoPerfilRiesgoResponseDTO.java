@@ -1,6 +1,7 @@
 package com.acoasmi.roble.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "DTO que contiene la información del perfil del asociado")
 public class CumplimientoPerfilRiesgoResponseDTO {
 
     @Schema(description = "Id unico del perfil de riesgo", example = "1")
@@ -42,8 +45,8 @@ public class CumplimientoPerfilRiesgoResponseDTO {
     @Schema(description ="Origen de los fondos del asociado, según en lo que trabaja", example = "Salario por empleo en empresa privada")
     private String origenFondosDeclarado;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Fecha de la ultima actualización del perfil de riesgo del asociado", example = "18/07/2026 13:30")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Fecha de la ultima actualización del perfil de riesgo del asociado", example = "18-07-2026 13:30")
     private LocalDateTime fechaUltimaActualizacion;
 
     @Schema(description = "Estado actual del perfil de riesgo del asociado", example = "true")

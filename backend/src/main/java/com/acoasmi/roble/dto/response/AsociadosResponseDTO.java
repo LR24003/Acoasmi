@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "DTO que expone la información detallada de un Asociado con sus catálogos resueltos en nombres")
 public class AsociadosResponseDTO {
 
@@ -41,8 +42,8 @@ public class AsociadosResponseDTO {
     @Schema(description = "Número de Registro de Contribuyente", example = "N/A")
     private String nrc;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @Schema(description = "Fecha de nacimiento", example = "16/01/1993")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @Schema(description = "Fecha de nacimiento", example = "16-01-1993")
     private LocalDate fechaNacimiento;
 
     @Schema(description = "Edad del asociado", example = "33")
@@ -69,12 +70,11 @@ public class AsociadosResponseDTO {
     @Schema(description = "Dirección residencial exacta", example = "Comunidad La Sabana")
     private String direccionComplementaria;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Hora y fecha del registro del asociado", example = "15/07/2026 12:30")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Hora y fecha del registro del asociado", example = "15-07-2026 12:30")
     private LocalDateTime fechaIngreso;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Schema(description = "Fecha y hora de retiro (en blanco si está activo)")
     private LocalDateTime fechaRetiro;
     

@@ -41,10 +41,10 @@ public class ComprobanteMovimientoDTO {
     @Schema(description = "Nombre de usuario del cajero que registró el movimiento", example = "José Perez")
     private String usuarioCajero;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Schema(
             description = "Fecha y hora exacta de cuándo se consolidó el movimiento en el servidor.",
-            example = "20/07/2026 14:30:00"
+            example = "20-07-2026 14:30:00"
     )    private LocalDateTime fechaMovimiento;
 
     @Schema(description = "Id del prestamo vinculado al movimiento", example = "1")

@@ -30,12 +30,12 @@ public class UsuariosResponseDTO {
     @Schema(description = "Correo electronico del usuario", example = "correoejemplo@acoasmi.com")
     private String email;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Hora y fecha de la creacion del usuario", example = "20/05/2026 12:30")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Hora y fecha de la creacion del usuario", example = "20-05-2026 12:30")
     private LocalDateTime fechaCreacion;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Hora y fecha del ultimo acceso al sistema", example = "20/05/2026 12:30")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Hora y fecha del ultimo acceso al sistema", example = "20-05-2026 12:30")
     private LocalDateTime ultimoAcceso;
 
     @Schema(description = "Rol del usuario", example = "Cajero, Administrador, Contador")

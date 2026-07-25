@@ -1,6 +1,7 @@
 package com.acoasmi.roble.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "DTO que envia la información de los movimientos realizados por un asociado")
 public class AsociadoMovimientosResponseDTO {
 
@@ -66,10 +68,10 @@ public class AsociadoMovimientosResponseDTO {
     )
     private BigDecimal saldoResultante;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Schema(
             description = "Fecha y hora exacta de cuándo se consolidó el movimiento en el servidor.",
-            example = "20/07/2026 14:30:00"
+            example = "20-07-2026 14:30:00"
     )
     private LocalDateTime fechaMovimiento;
 
@@ -79,6 +81,7 @@ public class AsociadoMovimientosResponseDTO {
     )
     private String descripcionMovimiento;
 
+    @Schema(description = "Registra el cambio de tasa realizado a un asociado dentro de una cuenta")
     private BigDecimal cambioTasa;
 
 }

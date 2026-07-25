@@ -49,10 +49,10 @@ public class FacturacionResponseDTO {
     @Schema(description = "Monto total final de la factura", example = "113.00")
     private BigDecimal montoTotal;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Schema(
             description = "Fecha y hora exacta de cuándo se consolidó la factura en el servidor.",
-            example = "20/07/2026 14:30:00"
+            example = "20-07-2026 14:30:00"
     )
     private LocalDateTime fechaEmision;
 }

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true, exclude = {"cuentas", "beneficiarios"}) // Evita bucles infinitos en el hashcode de Lombok
+@EqualsAndHashCode(callSuper = true, exclude = {"cuentas", "beneficiarios"})
 @Entity
 @Data
 @NoArgsConstructor

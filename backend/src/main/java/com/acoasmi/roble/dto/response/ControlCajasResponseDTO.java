@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 @Schema(description = "DTO que representa el estado financiero consolidado de una sesión de caja")
 public class ControlCajasResponseDTO {
 
@@ -35,12 +36,12 @@ public class ControlCajasResponseDTO {
     @Schema(description = "Diferencia calculada (Monto Real menos Monto Teórico). Positivo es Sobrante, Negativo es Faltante.", example = "0.50")
     private BigDecimal diferencia;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Fecha y hora exacta de la apertura con zona horaria", example = "15/07/2026 08:00")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Fecha y hora exacta de la apertura", example = "15-07-2026 08:00")
     private ZonedDateTime fechaApertura;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    @Schema(description = "Fecha y hora exacta del cierre de caja. Si es null, la caja sigue abierta.", example = "15/07/2026 08:00")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Schema(description = "Fecha y hora exacta del cierre de caja. Si es null, la caja sigue abierta.", example = "15-07-2026 08:00")
     private ZonedDateTime fechaCierre;
 
     @Schema(description = "Indica el estado operativo actual de la sesión", example = "ABIERTA")

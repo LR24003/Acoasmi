@@ -36,7 +36,7 @@ public class AsociadosBeneficiariosResponseDTO {
     @Schema(description = "Número de documento de identidad", example = "01234567-8")
     private String numeroDocumento;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Schema(description = "Fecha de nacimiento del beneficiario", example = "23-08-2006")
     private LocalDate fechaNacimiento;
 }

@@ -54,7 +54,8 @@ public class SecurityConfig {
                                 "/api/control-cajas/**",
                                 "/api/beneficiarios/**",
                                 "/api/asociado-cuentas/**",
-                                "/api/asociado-movimientos/**"
+                                "/api/asociado-movimientos/**",
+                                "/api/solicitudes-credito/**"
 
                         ).permitAll()
 
