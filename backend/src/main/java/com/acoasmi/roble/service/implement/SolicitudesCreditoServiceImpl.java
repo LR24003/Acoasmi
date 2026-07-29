@@ -23,17 +23,17 @@ public class SolicitudesCreditoServiceImpl
 
     private final SolicitudesCreditoRepository solicitudesCreditoRepository;
     private final UsuariosRepository usuariosRepository;
-    private final TasasPrestamosRepository tasasPrestamosRepository;
+    private final TasaCreditosRepository tasaCreditosRepository;
     private final AsociadosRepository asociadosRepository;
 
     public SolicitudesCreditoServiceImpl(SolicitudesCreditoRepository solicitudesCreditoRepository,
                                          UsuariosRepository usuariosRepository,
                                          AsociadosRepository asociadosRepository,
-                                         TasasPrestamosRepository tasasPrestamosRepository) {
+                                         TasaCreditosRepository tasaCreditosRepository) {
         super(solicitudesCreditoRepository, SolicitudesCredito.class);
         this.solicitudesCreditoRepository = solicitudesCreditoRepository;
         this.usuariosRepository = usuariosRepository;
-        this.tasasPrestamosRepository = tasasPrestamosRepository;
+        this.tasaCreditosRepository = tasaCreditosRepository;
         this.asociadosRepository = asociadosRepository;
     }
 
@@ -48,6 +48,7 @@ public class SolicitudesCreditoServiceImpl
                 .findByNumeroSolicitudWithDetailsAndGarantias(numeroSolicitud)
                 .orElseThrow(() -> new RuntimeException("No se encontró ninguna solicitud con el número: " + numeroSolicitud));
 
+        // Carga en memoria de colecciones referencias y documentos
         solicitudesCreditoRepository.findByNumeroSolicitudWithReferenciasAndDocumentos(numeroSolicitud);
 
         return mapToResponseDTO(solicitud);
@@ -129,11 +130,26 @@ public class SolicitudesCreditoServiceImpl
             solicitud.setUsuarioAsesor(asesor);
         }
 
-        if (request.getTasaReferencia() != null) {
-            TasasPrestamos tasa = tasasPrestamosRepository.findFirstByTasaInteresAnualAndEstadoTrue(request.getTasaReferencia())
+        if (request.getTasaInteresAnual() != null) {
+            TasasCreditos tasa = tasaCreditosRepository.findFirstByTasaInteresAnualAndEstadoTrue(request.getTasaInteresAnual())
                     .orElseThrow(() -> new RuntimeException("La tasa de préstamo especificada no existe."));
+
+            if (request.getFrecuenciaPago() != null && tasa.getFrecuenciasPago() != null) {
+                boolean frecuenciaPermitida = tasa.getFrecuenciasPago().stream()
+                        .anyMatch(f -> f.equalsIgnoreCase(request.getFrecuenciaPago()));
+
+                if (!frecuenciaPermitida) {
+                    throw new IllegalArgumentException("La frecuencia de pago '" + request.getFrecuenciaPago() +
+                            "' no está permitida para la línea de crédito '" + tasa.getNombreProducto() + "'.");
+                }
+            }
+
             solicitud.setTasaReferencia(tasa);
         }
+
+        mapearGarantias(request, solicitud);
+        mapearReferencias(request, solicitud);
+        mapearDocumentos(request, solicitud);
 
         if (request.getAnalisisAsesor() != null) {
             CreditoDetalles detalle = getCreditoDetalles(request, solicitud);
@@ -144,6 +160,72 @@ public class SolicitudesCreditoServiceImpl
             solicitud.setNumeroSolicitud(request.getNumeroSolicitud());
         } else if (solicitud.getNumeroSolicitud() == null || solicitud.getNumeroSolicitud().isBlank()) {
             solicitud.setNumeroSolicitud(generarNumeroSolicitudCorrelativo());
+        }
+    }
+
+    private void mapearGarantias(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
+        if (request.getGarantias() != null) {
+            if (solicitud.getGarantias() == null) {
+                solicitud.setGarantias(new java.util.HashSet<>());
+            } else {
+                solicitud.getGarantias().clear();
+            }
+
+            request.getGarantias().forEach(gDto -> {
+                SolicitudesGarantiaRelacion garantia = new SolicitudesGarantiaRelacion();
+                garantia.setMontoComprometido(gDto.getValorEstimado());
+                garantia.setObservaciones(gDto.getDescripcion());
+                garantia.setSolicitudCredito(solicitud);
+                solicitud.getGarantias().add(garantia);
+            });
+        }
+    }
+
+    private void mapearReferencias(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
+        if (request.getReferencias() != null) {
+            if (solicitud.getReferencias() == null) {
+                solicitud.setReferencias(new java.util.HashSet<>());
+            } else {
+                solicitud.getReferencias().clear();
+            }
+
+            request.getReferencias().forEach(rDto -> {
+                SolicitudesCreditoRelacion relacion = new SolicitudesCreditoRelacion();
+                relacion.setParentescoRelacion(rDto.getParentesco());
+                relacion.setSolicitudCredito(solicitud);
+
+                CreditoReferencias referencia = new CreditoReferencias();
+                referencia.setNombreCompleto(rDto.getNombreCompleto());
+                referencia.setTelefono(rDto.getTelefono());
+                referencia.setDireccion(rDto.getDireccion());
+                referencia.setTipoReferencia(rDto.getTipoReferencia() != null ? rDto.getTipoReferencia() : "PERSONAL");
+
+                relacion.setReferencia(referencia);
+
+                solicitud.getReferencias().add(relacion);
+            });
+        }
+    }
+
+    private void mapearDocumentos(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
+        if (request.getDocumentosAdjuntos() != null) {
+            if (solicitud.getDocumentosAdjuntos() == null) {
+                solicitud.setDocumentosAdjuntos(new java.util.HashSet<>());
+            } else {
+
+                solicitud.getDocumentosAdjuntos().clear();
+            }
+
+            request.getDocumentosAdjuntos().forEach(dDto -> {
+                if (dDto.getTipoDocumento() != null && !dDto.getTipoDocumento().isBlank()) {
+                    CreditoDocumentosAdjuntos doc = new CreditoDocumentosAdjuntos();
+                    doc.setTipoDocumento(dDto.getTipoDocumento().toUpperCase().trim());
+                    doc.setSolicitudCredito(solicitud);
+                    doc.setEstado(true);
+
+                    solicitud.getDocumentosAdjuntos().add(doc);
+                }
+            });
         }
     }
 
@@ -204,24 +286,29 @@ public class SolicitudesCreditoServiceImpl
 
         List<CreditoReferenciasResponseDTO> referenciasDto = solicitud.getReferencias() != null ?
                 solicitud.getReferencias().stream().map(r -> {
-                    var ref = r.getReferencia();
+                    CreditoReferencias ref = r.getReferencia();
                     return CreditoReferenciasResponseDTO.builder()
                             .idReferencia(r.getId())
                             .nombreCompleto(ref != null ? ref.getNombreCompleto() : null)
                             .parentesco(r.getParentescoRelacion())
                             .telefono(ref != null ? ref.getTelefono() : null)
                             .direccion(ref != null ? ref.getDireccion() : null)
+                            .tipoReferencia(ref != null ? ref.getTipoReferencia() : null)
                             .build();
                 }).collect(Collectors.toList()) : Collections.emptyList();
 
         List<CreditoDocumentosAdjuntosResponseDTO> documentosDto = solicitud.getDocumentosAdjuntos() != null ?
-                solicitud.getDocumentosAdjuntos().stream().map(d -> CreditoDocumentosAdjuntosResponseDTO.builder()
-                        .idDocumentoAdjunto(d.getId())
-                        .tipoDocumento(d.getTipoDocumento())
-                        .rutaArchivoStorage(d.getRutaArchivoStorage())
-                        .fechaSubida(d.getFechaSubida())
-                        .build()
-                ).collect(Collectors.toList()) : Collections.emptyList();
+                solicitud.getDocumentosAdjuntos().stream()
+                        .filter(d -> Boolean.TRUE.equals(d.getEstado()))
+                        .map(d -> CreditoDocumentosAdjuntosResponseDTO.builder()
+                                .idDocumentoAdjunto(d.getId())
+                                .numeroSolicitud(solicitud.getNumeroSolicitud())
+                                .tipoDocumento(d.getTipoDocumento())
+                                .rutaArchivoStorage(d.getRutaArchivoStorage())
+                                .fechaSubida(d.getFechaSubida())
+                                .estado(d.getEstado())
+                                .build()
+                        ).collect(Collectors.toList()) : Collections.emptyList();
 
         String nombreAsociado = "Sin Asociado";
         if (solicitud.getAsociado() != null) {
@@ -237,12 +324,15 @@ public class SolicitudesCreditoServiceImpl
                 .usuarioAsesor(solicitud.getUsuarioAsesor() != null ? solicitud.getUsuarioAsesor().getUsuario() : "Sin Asignar")
                 .montoSolicitado(solicitud.getMontoSolicitado())
                 .plazoMeses(solicitud.getPlazoMeses())
+                .frecuenciaPago(solicitud.getTasaReferencia() != null && solicitud.getTasaReferencia().getFrecuenciasPago() != null
+                        ? String.join(", ", solicitud.getTasaReferencia().getFrecuenciasPago())
+                        : null)
                 .tasaReferencia(solicitud.getTasaReferencia() != null ? solicitud.getTasaReferencia().getTasaInteresAnual() : null)
                 .destinoCredito(solicitud.getDestinoCredito())
                 .estadoPrestamo(solicitud.getEstadoPrestamo())
                 .estado(solicitud.getEstado())
-                .fechaCreacion(solicitud.getFechaSolicitud())
-                .detallesEvaluacion(detallesDto)
+                .fechaSolicitud(solicitud.getFechaSolicitud())
+                .analisisAsesor(detallesDto)
                 .garantias(garantiasDto)
                 .referencias(referenciasDto)
                 .documentosAdjuntos(documentosDto)

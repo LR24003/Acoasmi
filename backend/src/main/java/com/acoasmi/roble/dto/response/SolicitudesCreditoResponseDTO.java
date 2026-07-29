@@ -1,5 +1,6 @@
 package com.acoasmi.roble.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,17 +37,24 @@ public class SolicitudesCreditoResponseDTO {
     @Schema(description = "Tasa de interés anual de referencia según la línea de crédito", example = "18.00")
     private BigDecimal tasaReferencia;
 
+    @Schema(
+            description = "Frecuencia de pago seleccionada para el crédito (debe ser una de las permitidas por la línea de crédito seleccionada)",
+            example = "Trimestral"
+    )
+    private String frecuenciaPago;
+
     @Schema(description = "Destino puntual del crédito", example = "Solicitud para consolidación de deudas comerciales.")
     private String destinoCredito;
 
     @Schema(description = "Estado actual de la solicitud de crédito", example = "PENDIENTE")
     private String estadoPrestamo;
 
-    @Schema(description = "Fecha y hora de creación del registro")
-    private LocalDateTime fechaCreacion;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    @Schema(description = "Fecha y hora de creación de la solicitud de credito")
+    private LocalDateTime fechaSolicitud;
 
     @Schema(description = "Evaluación y detalle analítico del crédito realizado por el asesor")
-    private CreditoDetallesResponseDTO detallesEvaluacion;
+    private CreditoDetallesResponseDTO analisisAsesor;
 
     @Builder.Default
     @Schema(description = "Lista de garantías vinculadas a la solicitud")

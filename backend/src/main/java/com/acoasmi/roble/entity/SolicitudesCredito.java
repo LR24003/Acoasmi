@@ -9,19 +9,22 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "solicitudes_credito_linea")
 @AttributeOverride(name = "id", column = @Column(name = "id_solicitud_linea"))
 public class SolicitudesCredito extends AcoasmiEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_asociado", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Asociados asociado;
 
     @Column(name = "numero_solicitud", unique = true, length = 30)
@@ -35,7 +38,9 @@ public class SolicitudesCredito extends AcoasmiEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tasa_referencia")
-    private TasasPrestamos tasaReferencia;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TasasCreditos tasaReferencia;
 
     @Column(name = "estado_solicitud", nullable = false, length = 30)
     @Builder.Default
@@ -52,18 +57,27 @@ public class SolicitudesCredito extends AcoasmiEntity {
     @Column(name = "fecha_ultima_actualizacion")
     private LocalDateTime fechaUltimaActualizacion;
 
-    @OneToOne(mappedBy = "solicitudCredito", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "solicitudCredito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private CreditoDetalles creditoDetalle;
 
     @Builder.Default
     @OneToMany(mappedBy = "solicitudCredito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<SolicitudesGarantiaRelacion> garantias = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "solicitudCredito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<SolicitudesCreditoRelacion> referencias = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "solicitudCredito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<CreditoDocumentosAdjuntos> documentosAdjuntos = new HashSet<>();
 
     @Column(name = "estado_prestamo", nullable = false, length = 50)
@@ -71,6 +85,7 @@ public class SolicitudesCredito extends AcoasmiEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Usuarios usuarioAsesor;
-
 }

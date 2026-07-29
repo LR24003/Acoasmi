@@ -28,6 +28,6 @@ public class CreditoReferenciasResponseDTO {
     @Schema(description = "Dirección de residencia o trabajo", example = "Col. Flor Blanca, Calle El Progreso #45")
     private String direccion;
 
-    @Schema(description = "Lugar de trabajo de la referencia", example = "Industrias Roble S.A.")
-    private String lugarTrabajo;
+    @Schema(description = "Tipo de referencia que asigna el asociado en la solicitud", example = "Personal")
+    private String tipoReferencia;
 }

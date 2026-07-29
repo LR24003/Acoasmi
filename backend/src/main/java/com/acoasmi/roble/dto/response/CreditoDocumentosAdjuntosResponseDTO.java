@@ -19,6 +19,9 @@ public class CreditoDocumentosAdjuntosResponseDTO {
     @Schema(description = "ID único del documento adjunto", example = "50")
     private Long idDocumentoAdjunto;
 
+    @Schema(description = "Numero de la solicitud de credito", example = "SOLI-01-0001")
+    private String numeroSolicitud;
+
     @Schema(description = "Tipo de documento cargado", example = "DUI")
     private String tipoDocumento;
 
@@ -28,4 +31,7 @@ public class CreditoDocumentosAdjuntosResponseDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Schema(description = "Fecha y hora en que se subió el archivo", example = "12-08-2026 09:34:12")
     private LocalDateTime fechaSubida;
+
+    @Schema(description = "Estado actual del documento adjunto en la base de datos", example = "true = activo")
+    private Boolean estado;
 }

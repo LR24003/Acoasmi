@@ -41,7 +41,15 @@ public class SolicitudesCreditoRequestDTO {
 
     @NotNull(message = "La tasa de interés es obligatoria")
     @Schema(description = "Tasa de interés anual de referencia según la línea de crédito", example = "18.00")
-    private BigDecimal tasaReferencia;
+    private BigDecimal tasaInteresAnual;
+
+    @NotBlank(message = "La frecuencia de pago es obligatoria")
+    @Size(max = 20, message = "La frecuencia de pago no debe exceder los 20 caracteres")
+    @Schema(
+            description = "Frecuencia de pago seleccionada para el crédito (debe ser una de las permitidas por la línea de crédito seleccionada)",
+            example = "Trimestral"
+    )
+    private String frecuenciaPago;
 
     @Size(max = 50, message = "El destino del crédito no puede sobrepasar los 50 caracteres")
     @Schema(description = "Destino puntual del crédito", example = "Solicitud para consolidación de deudas comerciales.")

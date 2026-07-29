@@ -32,4 +32,9 @@ public interface SolicitudesCreditoRepository extends AcoasmiRepository<Solicitu
     Optional<SolicitudesCredito> findByNumeroSolicitudWithReferenciasAndDocumentos(@Param("numeroSolicitud") String numeroSolicitud);
 
     Optional<SolicitudesCredito> findTopByNumeroSolicitudStartingWithOrderByNumeroSolicitudDesc(String prefijo);
+
+    @Query("SELECT DISTINCT s FROM SolicitudesCredito s " +
+            "LEFT JOIN FETCH s.documentosAdjuntos " +
+            "WHERE s.id = :idSolicitud")
+    Optional<SolicitudesCredito> findByIdWithDocumentos(@Param("idSolicitud") Long idSolicitud);
 }

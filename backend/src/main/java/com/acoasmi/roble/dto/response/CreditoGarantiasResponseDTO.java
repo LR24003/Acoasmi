@@ -41,4 +41,8 @@ public class CreditoGarantiasResponseDTO {
 
     @Schema(description = "Ingresos mensuales comprobados del fiador", example = "1500.00")
     private BigDecimal ingresosFiador;
+
+    @Schema(description = "Estado actual de la garantia en la base de datos", example = "true = activo")
+    private Boolean estado;
+
 }
