@@ -2,6 +2,8 @@ package com.acoasmi.roble.controller;
 
 import com.acoasmi.roble.entity.AcoasmiEntity;
 import com.acoasmi.roble.service.AcoasmiService;
+import com.acoasmi.roble.validations.OnCreate;
+import com.acoasmi.roble.validations.OnUpdate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -50,7 +53,7 @@ public abstract class AcoasmiController<E extends AcoasmiEntity, REQ, RES, ID> {
             @ApiResponse(responseCode = "400", description = "Datos provistos inválidos")
     })
     @PostMapping
-    public ResponseEntity<RES> create(@Valid @RequestBody REQ requestDto) {
+    public ResponseEntity<RES> create(@Validated(OnCreate.class) @RequestBody REQ requestDto) {
         return new ResponseEntity<>(service.create(requestDto), HttpStatus.CREATED);
     }
 
@@ -62,8 +65,8 @@ public abstract class AcoasmiController<E extends AcoasmiEntity, REQ, RES, ID> {
     })
     @PutMapping("/{id}")
     public ResponseEntity<RES> update(
-            @Parameter(description = "ID del registro a actualizar", required = true) @PathVariable ID id,
-            @Valid @RequestBody REQ requestDto) {
+            @Parameter(description = "ID del registro a actualizar", required = true) @PathVariable ID id, @Validated(OnUpdate.class)
+            @RequestBody REQ requestDto) {
         return ResponseEntity.ok(service.update(id, requestDto));
     }
 

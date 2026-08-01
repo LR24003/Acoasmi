@@ -1,6 +1,7 @@
 package com.acoasmi.roble.repository;
 
 import com.acoasmi.roble.entity.SolicitudesCredito;
+import com.acoasmi.roble.enums.EstadoSolicitudCredito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface SolicitudesCreditoRepository extends AcoasmiRepository<SolicitudesCredito, Long> {
 
-    Page<SolicitudesCredito> findByEstadoPrestamo(String estadoPrestamo, Pageable pageable);
+    Page<SolicitudesCredito> findByEstadoActual(EstadoSolicitudCredito estadoActual, Pageable pageable);
 
     List<SolicitudesCredito> findByUsuarioAsesor_Usuario(String usuarioAsesor);
 
@@ -37,4 +38,6 @@ public interface SolicitudesCreditoRepository extends AcoasmiRepository<Solicitu
             "LEFT JOIN FETCH s.documentosAdjuntos " +
             "WHERE s.id = :idSolicitud")
     Optional<SolicitudesCredito> findByIdWithDocumentos(@Param("idSolicitud") Long idSolicitud);
+
+    Optional<SolicitudesCredito> findByNumeroSolicitud(String numeroSolicitud);
 }

@@ -1,5 +1,6 @@
 package com.acoasmi.roble.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
@@ -26,7 +27,8 @@ public class SolicitudGarantiaRelacionRequestDTO {
     @Schema(description = "Observaciones o condiciones específicas del respaldo ofrecido en esta solicitud", example = "Garantía compartida en primer grado con el crédito previo PR-2025-012.")
     private String observaciones;
 
-    @Valid
+    @Valid 
+    @JsonProperty("garantia")
     @Schema(description = "Datos completos de la garantía (Obligatorio solo si es una garantía NUEVA)")
-    private CreditoGarantiasRequestDTO datosGarantia;
+    private CreditoGarantiasRequestDTO garantia;
 }

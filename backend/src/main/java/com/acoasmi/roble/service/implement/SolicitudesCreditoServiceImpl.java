@@ -1,9 +1,11 @@
 package com.acoasmi.roble.service.implement;
 
 import com.acoasmi.roble.dto.request.CreditoDetallesRequestDTO;
+import com.acoasmi.roble.dto.request.CreditoGarantiasRequestDTO;
 import com.acoasmi.roble.dto.request.SolicitudesCreditoRequestDTO;
 import com.acoasmi.roble.dto.response.*;
 import com.acoasmi.roble.entity.*;
+import com.acoasmi.roble.enums.EstadoSolicitudCredito;
 import com.acoasmi.roble.repository.*;
 import com.acoasmi.roble.service.SolicitudesCreditoService;
 import org.jspecify.annotations.NonNull;
@@ -25,16 +27,19 @@ public class SolicitudesCreditoServiceImpl
     private final UsuariosRepository usuariosRepository;
     private final TasaCreditosRepository tasaCreditosRepository;
     private final AsociadosRepository asociadosRepository;
+    private final CreditoGarantiasRepository creditoGarantiasRepository;
 
     public SolicitudesCreditoServiceImpl(SolicitudesCreditoRepository solicitudesCreditoRepository,
                                          UsuariosRepository usuariosRepository,
                                          AsociadosRepository asociadosRepository,
-                                         TasaCreditosRepository tasaCreditosRepository) {
+                                         TasaCreditosRepository tasaCreditosRepository,
+                                         CreditoGarantiasRepository creditoGarantiasRepository) {
         super(solicitudesCreditoRepository, SolicitudesCredito.class);
         this.solicitudesCreditoRepository = solicitudesCreditoRepository;
         this.usuariosRepository = usuariosRepository;
         this.tasaCreditosRepository = tasaCreditosRepository;
         this.asociadosRepository = asociadosRepository;
+        this.creditoGarantiasRepository = creditoGarantiasRepository;
     }
 
     @Override
@@ -48,7 +53,6 @@ public class SolicitudesCreditoServiceImpl
                 .findByNumeroSolicitudWithDetailsAndGarantias(numeroSolicitud)
                 .orElseThrow(() -> new RuntimeException("No se encontró ninguna solicitud con el número: " + numeroSolicitud));
 
-        // Carga en memoria de colecciones referencias y documentos
         solicitudesCreditoRepository.findByNumeroSolicitudWithReferenciasAndDocumentos(numeroSolicitud);
 
         return mapToResponseDTO(solicitud);
@@ -56,8 +60,8 @@ public class SolicitudesCreditoServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public Page<SolicitudesCreditoResponseDTO> listarPorEstadoPrestamo(String estadoPrestamo, Pageable pageable) {
-        return solicitudesCreditoRepository.findByEstadoPrestamo(estadoPrestamo, pageable)
+    public Page<SolicitudesCreditoResponseDTO> listarPorEstadoActualSolicitud(EstadoSolicitudCredito estadoActual, Pageable pageable) {
+        return solicitudesCreditoRepository.findByEstadoActual(estadoActual, pageable)
                 .map(this::mapToResponseDTO);
     }
 
@@ -81,11 +85,8 @@ public class SolicitudesCreditoServiceImpl
         SolicitudesCredito solicitud = new SolicitudesCredito();
         mapearDtoAEntidad(requestDto, solicitud);
 
-        if (solicitud.getEstadoSolicitud() == null) {
-            solicitud.setEstadoSolicitud("RECIBIDA");
-        }
-        if (solicitud.getEstadoPrestamo() == null) {
-            solicitud.setEstadoPrestamo("PENDIENTE");
+        if (solicitud.getEstadoActual() == null) {
+            solicitud.setEstadoActual(EstadoSolicitudCredito.EN_ANALISIS_ASESOR);
         }
 
         SolicitudesCredito solicitudGuardada = solicitudesCreditoRepository.save(solicitud);
@@ -112,16 +113,17 @@ public class SolicitudesCreditoServiceImpl
             Asociados asociado = asociadosRepository
                     .findFirstByNombreCompletoAsociadoContainingIgnoreCase(request.getNombreCompletoAsociado().trim())
                     .orElseThrow(() -> new RuntimeException("No se encontró ningún asociado registrado con el nombre: " + request.getNombreCompletoAsociado()));
-
             solicitud.setAsociado(asociado);
         }
 
-        solicitud.setMontoSolicitado(request.getMontoSolicitado());
-        solicitud.setPlazoMeses(request.getPlazoMeses());
-        solicitud.setDestinoCredito(request.getDestinoCredito());
-
-        if (request.getEstadoPrestamo() != null && !request.getEstadoPrestamo().isBlank()) {
-            solicitud.setEstadoPrestamo(request.getEstadoPrestamo());
+        if (request.getMontoSolicitado() != null) {
+            solicitud.setMontoSolicitado(request.getMontoSolicitado());
+        }
+        if (request.getPlazoMeses() != null) {
+            solicitud.setPlazoMeses(request.getPlazoMeses());
+        }
+        if (request.getDestinoCredito() != null) {
+            solicitud.setDestinoCredito(request.getDestinoCredito());
         }
 
         if (request.getUsuarioAsesor() != null && !request.getUsuarioAsesor().isBlank()) {
@@ -130,26 +132,47 @@ public class SolicitudesCreditoServiceImpl
             solicitud.setUsuarioAsesor(asesor);
         }
 
-        if (request.getTasaInteresAnual() != null) {
-            TasasCreditos tasa = tasaCreditosRepository.findFirstByTasaInteresAnualAndEstadoTrue(request.getTasaInteresAnual())
-                    .orElseThrow(() -> new RuntimeException("La tasa de préstamo especificada no existe."));
+        if (request.getNombreProducto() != null || request.getTasaInteresAnual() != null) {
+            TasasCreditos tasa = null;
 
-            if (request.getFrecuenciaPago() != null && tasa.getFrecuenciasPago() != null) {
-                boolean frecuenciaPermitida = tasa.getFrecuenciasPago().stream()
-                        .anyMatch(f -> f.equalsIgnoreCase(request.getFrecuenciaPago()));
-
-                if (!frecuenciaPermitida) {
-                    throw new IllegalArgumentException("La frecuencia de pago '" + request.getFrecuenciaPago() +
-                            "' no está permitida para la línea de crédito '" + tasa.getNombreProducto() + "'.");
+            if (request.getNombreProducto() != null && !request.getNombreProducto().isBlank()) {
+                if (request.getTasaInteresAnual() != null) {
+                    tasa = tasaCreditosRepository.findFirstByNombreProductoIgnoreCaseAndTasaInteresAnualAndEstadoTrue(
+                                    request.getNombreProducto().trim(), request.getTasaInteresAnual())
+                            .orElseThrow(() -> new RuntimeException("No se encontró la línea de crédito '" + request.getNombreProducto() +
+                                    "' con la tasa de interés del " + request.getTasaInteresAnual() + "%."));
+                } else {
+                    tasa = tasaCreditosRepository.findFirstByNombreProductoIgnoreCaseAndEstadoTrue(request.getNombreProducto().trim())
+                            .orElseThrow(() -> new RuntimeException("La línea de crédito '" + request.getNombreProducto() + "' especificada no existe o no está activa."));
                 }
+            } else if (request.getTasaInteresAnual() != null) {
+                tasa = tasaCreditosRepository.findFirstByTasaInteresAnualAndEstadoTrue(request.getTasaInteresAnual())
+                        .orElseThrow(() -> new RuntimeException("La tasa de préstamo especificada no existe."));
             }
 
-            solicitud.setTasaReferencia(tasa);
+            if (tasa != null) {
+                if (request.getFrecuenciaPago() != null && tasa.getFrecuenciasPago() != null) {
+                    boolean frecuenciaPermitida = tasa.getFrecuenciasPago().stream()
+                            .anyMatch(f -> f.equalsIgnoreCase(request.getFrecuenciaPago()));
+
+                    if (!frecuenciaPermitida) {
+                        throw new IllegalArgumentException("La frecuencia de pago '" + request.getFrecuenciaPago() +
+                                "' no está permitida para la línea de crédito '" + tasa.getNombreProducto() + "'.");
+                    }
+                }
+                solicitud.setTasaReferencia(tasa);
+            }
         }
 
-        mapearGarantias(request, solicitud);
-        mapearReferencias(request, solicitud);
-        mapearDocumentos(request, solicitud);
+        if (request.getGarantias() != null && !request.getGarantias().isEmpty()) {
+            mapearGarantias(request, solicitud);
+        }
+        if (request.getReferencias() != null && !request.getReferencias().isEmpty()) {
+            mapearReferencias(request, solicitud);
+        }
+        if (request.getDocumentosAdjuntos() != null && !request.getDocumentosAdjuntos().isEmpty()) {
+            mapearDocumentos(request, solicitud);
+        }
 
         if (request.getAnalisisAsesor() != null) {
             CreditoDetalles detalle = getCreditoDetalles(request, solicitud);
@@ -164,22 +187,67 @@ public class SolicitudesCreditoServiceImpl
     }
 
     private void mapearGarantias(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
-        if (request.getGarantias() != null) {
-            if (solicitud.getGarantias() == null) {
-                solicitud.setGarantias(new java.util.HashSet<>());
-            } else {
-                solicitud.getGarantias().clear();
+        if (request.getGarantias() == null) {
+            return;
+        }
+
+        if (solicitud.getGarantias() == null) {
+            solicitud.setGarantias(new java.util.HashSet<>());
+        }
+
+        if (request.getGarantias().isEmpty()) {
+            solicitud.getGarantias().clear();
+            return;
+        }
+
+        for (CreditoGarantiasRequestDTO gDto : request.getGarantias()) {
+
+            if (gDto.getTipoGarantia() == null && gDto.getValorEstimado() == null && gDto.getDescripcion() == null) {
+                continue;
             }
 
-            request.getGarantias().forEach(gDto -> {
-                SolicitudesGarantiaRelacion garantia = new SolicitudesGarantiaRelacion();
-                garantia.setMontoComprometido(gDto.getValorEstimado());
-                garantia.setObservaciones(gDto.getDescripcion());
-                garantia.setSolicitudCredito(solicitud);
-                solicitud.getGarantias().add(garantia);
-            });
+            CreditoGarantias nuevaGarantia = new CreditoGarantias();
+
+            if (gDto.getTipoGarantia() != null) {
+                nuevaGarantia.setTipoGarantia(gDto.getTipoGarantia());
+            }
+            if (gDto.getValorEstimado() != null) {
+                nuevaGarantia.setValorEstimado(gDto.getValorEstimado());
+            }
+            if (gDto.getDireccionGarantia() != null) {
+                nuevaGarantia.setDireccionGarantia(limpiarTexto(gDto.getDireccionGarantia()));
+            }
+            if (gDto.getDescripcion() != null) {
+                nuevaGarantia.setDescripcion(limpiarTexto(gDto.getDescripcion()));
+            }
+
+            nuevaGarantia.setSolicitudCredito(solicitud);
+
+            boolean esFiador = "FIADOR".equalsIgnoreCase(gDto.getTipoGarantia());
+            if (esFiador) {
+                if (gDto.getNombreFiador() != null) nuevaGarantia.setNombreFiador(limpiarTexto(gDto.getNombreFiador()));
+                if (gDto.getIdentificacionFiador() != null) nuevaGarantia.setIdentificacionFiador(limpiarTexto(gDto.getIdentificacionFiador()));
+                if (gDto.getTelefonoFiador() != null) nuevaGarantia.setTelefonoFiador(limpiarTexto(gDto.getTelefonoFiador()));
+                if (gDto.getIngresosFiador() != null) nuevaGarantia.setIngresosFiador(gDto.getIngresosFiador());
+            }
+
+            SolicitudesGarantiaRelacion garantiaRelacion = new SolicitudesGarantiaRelacion();
+            garantiaRelacion.setMontoComprometido(gDto.getValorEstimado());
+            if (gDto.getDescripcion() != null) {
+                garantiaRelacion.setObservaciones(limpiarTexto(gDto.getDescripcion()));
+            }
+
+            garantiaRelacion.setSolicitudCredito(solicitud);
+            garantiaRelacion.setGarantia(nuevaGarantia);
+
+            solicitud.getGarantias().add(garantiaRelacion);
         }
     }
+
+    private String limpiarTexto(String texto) {
+        return (texto != null && !texto.isBlank()) ? texto.trim() : null;
+    }
+
 
     private void mapearReferencias(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
         if (request.getReferencias() != null) {
@@ -190,16 +258,18 @@ public class SolicitudesCreditoServiceImpl
             }
 
             request.getReferencias().forEach(rDto -> {
-                SolicitudesCreditoRelacion relacion = new SolicitudesCreditoRelacion();
-                relacion.setParentescoRelacion(rDto.getParentesco());
-                relacion.setSolicitudCredito(solicitud);
-
                 CreditoReferencias referencia = new CreditoReferencias();
-                referencia.setNombreCompleto(rDto.getNombreCompleto());
-                referencia.setTelefono(rDto.getTelefono());
-                referencia.setDireccion(rDto.getDireccion());
+                referencia.setNombreCompleto(limpiarTexto(rDto.getNombreCompleto()));
+                referencia.setTelefono(limpiarTexto(rDto.getTelefono()));
+                referencia.setDireccion(limpiarTexto(rDto.getDireccion()));
                 referencia.setTipoReferencia(rDto.getTipoReferencia() != null ? rDto.getTipoReferencia() : "PERSONAL");
 
+                referencia.setSolicitudCredito(solicitud);
+
+                SolicitudesCreditoRelacion relacion = new SolicitudesCreditoRelacion();
+                relacion.setParentescoRelacion(rDto.getParentesco());
+
+                relacion.setSolicitudCredito(solicitud);
                 relacion.setReferencia(referencia);
 
                 solicitud.getReferencias().add(relacion);
@@ -268,21 +338,40 @@ public class SolicitudesCreditoServiceImpl
         CreditoDetalles detalle = solicitud.getCreditoDetalle();
 
         CreditoDetallesResponseDTO detallesDto = (detalle != null) ? CreditoDetallesResponseDTO.builder()
+                .idDetalle(detalle.getId())
                 .descripcionCredito(detalle.getDescripcionCredito())
                 .valoracionProyecto(detalle.getValoracionProyecto())
                 .valoracionAsociado(detalle.getValoracionAsociado())
                 .descripcionGarantia(detalle.getDescripcionGarantia())
                 .historialCreditosPrevios(detalle.getHistorialCreditosPrevios())
                 .recomendaciones(detalle.getRecomendaciones())
+                .fechaEvaluacion(detalle.getFechaEvaluacion())
                 .build() : null;
 
         List<SolicitudGarantiaRelacionResponseDTO> garantiasDto = solicitud.getGarantias() != null ?
-                solicitud.getGarantias().stream().map(g -> SolicitudGarantiaRelacionResponseDTO.builder()
-                        .idSolicitudGarantia(g.getId())
-                        .montoComprometido(g.getMontoComprometido())
-                        .observaciones(g.getObservaciones())
-                        .build()
-                ).collect(Collectors.toList()) : Collections.emptyList();
+                solicitud.getGarantias().stream().map(g -> {
+                    CreditoGarantiasResponseDTO garantiaInnerDto = null;
+                    if (g.getGarantia() != null) {
+                        garantiaInnerDto = CreditoGarantiasResponseDTO.builder()
+                                .idGarantia(g.getGarantia().getId())
+                                .tipoGarantia(g.getGarantia().getTipoGarantia())
+                                .valorEstimado(g.getGarantia().getValorEstimado())
+                                .direccionGarantia(g.getGarantia().getDireccionGarantia())
+                                .descripcion(g.getGarantia().getDescripcion())
+                                .nombreFiador(g.getGarantia().getNombreFiador())
+                                .identificacionFiador(g.getGarantia().getIdentificacionFiador())
+                                .telefonoFiador(g.getGarantia().getTelefonoFiador())
+                                .ingresosFiador(g.getGarantia().getIngresosFiador())
+                                .build();
+                    }
+
+                    return SolicitudGarantiaRelacionResponseDTO.builder()
+                            .idSolicitudGarantia(g.getId())
+                            .montoComprometido(g.getMontoComprometido())
+                            .observaciones(g.getObservaciones())
+                            .garantia(garantiaInnerDto)
+                            .build();
+                }).collect(Collectors.toList()) : Collections.emptyList();
 
         List<CreditoReferenciasResponseDTO> referenciasDto = solicitud.getReferencias() != null ?
                 solicitud.getReferencias().stream().map(r -> {
@@ -310,32 +399,54 @@ public class SolicitudesCreditoServiceImpl
                                 .build()
                         ).collect(Collectors.toList()) : Collections.emptyList();
 
-        String nombreAsociado = "Sin Asociado";
+        Integer numeroAsociado = (solicitud.getAsociado() != null)
+                ? solicitud.getAsociado().getNumeroAsociado()
+                : null;
+
+        String nombreAsociado;
         if (solicitud.getAsociado() != null) {
             String nombres = solicitud.getAsociado().getNombres() != null ? solicitud.getAsociado().getNombres() : "";
             String apellidos = solicitud.getAsociado().getApellidos() != null ? solicitud.getAsociado().getApellidos() : "";
             nombreAsociado = (nombres + " " + apellidos).trim();
+        } else {
+            nombreAsociado = "Sin Asociado";
         }
+
+        List<HistorialAprobacionesResponseDTO> historialDto = solicitud.getHistorialAprobaciones() != null ?
+                solicitud.getHistorialAprobaciones().stream().map(h -> HistorialAprobacionesResponseDTO.builder()
+                        .idHistorialAprob(h.getId())
+                        .numeroAsociado(numeroAsociado)
+                        .nombreCompletoAsociado(nombreAsociado)
+                        .numeroSolicitud(solicitud.getNumeroSolicitud())
+                        .estadoAnterior(h.getEstadoAnterior() != null ? h.getEstadoAnterior().name() : null)
+                        .estadoNuevo(h.getEstadoNuevo() != null ? h.getEstadoNuevo().name() : null)
+                        .usuarioResponsable(h.getUsuarioResponsable() != null ? h.getUsuarioResponsable().getUsuario() : "Sin Asignar")
+                        .descripcionSolicitudCredito(h.getDescripcionSolicitudCredito())
+                        .valoracionesNivelAprobacion(h.getValoracionesNivelAprobacion())
+                        .recomendacionesNivelAprobacion(h.getRecomendacionesNivelAprobacion())
+                        .fechaAprobacion(h.getFechaAprobacion())
+                        .build()
+                ).collect(Collectors.toList()) : Collections.emptyList();
 
         return SolicitudesCreditoResponseDTO.builder()
                 .idSolicitudLinea(solicitud.getId())
                 .numeroSolicitud(solicitud.getNumeroSolicitud())
                 .nombreCompletoAsociado(nombreAsociado)
                 .usuarioAsesor(solicitud.getUsuarioAsesor() != null ? solicitud.getUsuarioAsesor().getUsuario() : "Sin Asignar")
+                .nombreProducto(solicitud.getTasaReferencia() != null ? solicitud.getTasaReferencia().getNombreProducto() : null)
                 .montoSolicitado(solicitud.getMontoSolicitado())
                 .plazoMeses(solicitud.getPlazoMeses())
-                .frecuenciaPago(solicitud.getTasaReferencia() != null && solicitud.getTasaReferencia().getFrecuenciasPago() != null
-                        ? String.join(", ", solicitud.getTasaReferencia().getFrecuenciasPago())
-                        : null)
+                .frecuenciaPago(solicitud.getTasaReferencia() != null ? solicitud.getTasaReferencia().getFrecuenciasPago().toString() : null)
                 .tasaReferencia(solicitud.getTasaReferencia() != null ? solicitud.getTasaReferencia().getTasaInteresAnual() : null)
                 .destinoCredito(solicitud.getDestinoCredito())
-                .estadoPrestamo(solicitud.getEstadoPrestamo())
+                .estadoActual(solicitud.getEstadoActual() != null ? solicitud.getEstadoActual().name() : null)
                 .estado(solicitud.getEstado())
                 .fechaSolicitud(solicitud.getFechaSolicitud())
                 .analisisAsesor(detallesDto)
                 .garantias(garantiasDto)
                 .referencias(referenciasDto)
                 .documentosAdjuntos(documentosDto)
+                .historialAprobaciones(historialDto)
                 .build();
     }
 }

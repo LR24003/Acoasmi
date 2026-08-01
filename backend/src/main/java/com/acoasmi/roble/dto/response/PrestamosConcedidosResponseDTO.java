@@ -23,7 +23,7 @@ public class PrestamosConcedidosResponseDTO {
     private Long id;
 
     @Schema(description = "Número único del asociado", example = "1011", accessMode = Schema.AccessMode.READ_ONLY)
-    private String numeroAsociado;
+    private Integer numeroAsociado;
 
     @Schema(description = "Nombre del asociado que solicita el préstamo", example = "José Mendez Perez", requiredMode = Schema.RequiredMode.REQUIRED)
     private String nombreCompletoAsociado;

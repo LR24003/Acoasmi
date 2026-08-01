@@ -3,6 +3,7 @@ package com.acoasmi.roble.controller;
 import com.acoasmi.roble.dto.request.SolicitudesCreditoRequestDTO;
 import com.acoasmi.roble.dto.response.SolicitudesCreditoResponseDTO;
 import com.acoasmi.roble.entity.SolicitudesCredito;
+import com.acoasmi.roble.enums.EstadoSolicitudCredito;
 import com.acoasmi.roble.service.SolicitudesCreditoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -54,9 +55,9 @@ public class SolicitudesCreditoController
     @GetMapping("/estado")
     public ResponseEntity<Page<SolicitudesCreditoResponseDTO>> getByEstado(
             @Parameter(description = "Estado de la solicitud (ej. RECIBIDA, EN_REVISION, APROBADO)", required = true)
-            @RequestParam String estadoPrestamo,
+            @RequestParam EstadoSolicitudCredito estadoActual,
             Pageable pageable) {
-        return ResponseEntity.ok(solicitudesCreditoService.listarPorEstadoPrestamo(estadoPrestamo, pageable));
+        return ResponseEntity.ok(solicitudesCreditoService.listarPorEstadoActualSolicitud(estadoActual, pageable));
     }
 
     @Operation(

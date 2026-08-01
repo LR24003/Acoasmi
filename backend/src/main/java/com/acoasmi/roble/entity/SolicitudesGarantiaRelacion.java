@@ -20,8 +20,8 @@ public class SolicitudesGarantiaRelacion extends AcoasmiEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private SolicitudesCredito solicitudCredito;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_garantia", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

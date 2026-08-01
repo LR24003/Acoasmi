@@ -34,6 +34,9 @@ public class SolicitudesCreditoResponseDTO {
     @Schema(description = "Plazo de financiamiento expresado en meses", example = "24")
     private Integer plazoMeses;
 
+    @Schema(description = "Nombre de la línea del crédito", example = "Agrícola")
+    private String nombreProducto;
+
     @Schema(description = "Tasa de interés anual de referencia según la línea de crédito", example = "18.00")
     private BigDecimal tasaReferencia;
 
@@ -46,8 +49,8 @@ public class SolicitudesCreditoResponseDTO {
     @Schema(description = "Destino puntual del crédito", example = "Solicitud para consolidación de deudas comerciales.")
     private String destinoCredito;
 
-    @Schema(description = "Estado actual de la solicitud de crédito", example = "PENDIENTE")
-    private String estadoPrestamo;
+    @Schema(description = "Estado actual de la solicitud de crédito", example = "EN_REVISION_ASESOR")
+    private String estadoActual;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Schema(description = "Fecha y hora de creación de la solicitud de credito")
@@ -67,6 +70,9 @@ public class SolicitudesCreditoResponseDTO {
     @Builder.Default
     @Schema(description = "Listado de documentos adjuntos al expediente de la solicitud")
     private List<CreditoDocumentosAdjuntosResponseDTO> documentosAdjuntos = new ArrayList<>();
+
+    @Schema(description = "Listado con el historial de decisiones y evaluaciones")
+    private List<HistorialAprobacionesResponseDTO> historialAprobaciones;
 
     @Schema(description = "El estado en el que se encuentra la solicitud de credito en la BD", example = "true")
     private Boolean estado;

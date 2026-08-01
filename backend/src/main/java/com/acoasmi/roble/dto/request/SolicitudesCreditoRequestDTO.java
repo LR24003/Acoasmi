@@ -1,5 +1,6 @@
 package com.acoasmi.roble.dto.request;
 
+import com.acoasmi.roble.validations.OnCreate;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -39,9 +40,14 @@ public class SolicitudesCreditoRequestDTO {
     @Schema(description = "Plazo de financiamiento expresado en meses", example = "24", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer plazoMeses;
 
-    @NotNull(message = "La tasa de interés es obligatoria")
+    @NotNull(groups = OnCreate.class, message = "La tasa de interés es obligatoria")
     @Schema(description = "Tasa de interés anual de referencia según la línea de crédito", example = "18.00")
     private BigDecimal tasaInteresAnual;
+
+    @NotBlank(message = "El nombre del producto es obligatorio")
+    @Size(max = 100, message = "El nombre del producto no debe exceder los 100 caracteres")
+    @Schema(description = "Nombre de la línea del crédito", example = "Agrícola")
+    private String nombreProducto;
 
     @NotBlank(message = "La frecuencia de pago es obligatoria")
     @Size(max = 20, message = "La frecuencia de pago no debe exceder los 20 caracteres")
@@ -74,9 +80,9 @@ public class SolicitudesCreditoRequestDTO {
     @Schema(description = "Lista de documentos adjuntos que respaldan la solicitud")
     private List<CreditoDocumentosAdjuntosRequestDTO> documentosAdjuntos = new ArrayList<>();
 
-    @NotBlank(message = "El estado del proceso del préstamo es obligatorio")
-    @Schema(description = "El estado del proceso en el que se encuentra la solicitud de crédito", example = "PENDIENTE")
-    private String estadoPrestamo;
+    @NotBlank(groups = OnCreate.class, message = "El estado del proceso de la solicitud de crédito es obligatorio")
+    @Schema(description = "El estado del proceso en el que se encuentra la solicitud de crédito", example = "EN_REVISION_ASESOR")
+    private String estadoSolicitud;
 
     @Schema(description = "Nombre del asesor de créditos que gestiona la solicitud", example = "Jose Perez")
     private String usuarioAsesor;

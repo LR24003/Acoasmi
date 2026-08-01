@@ -1,7 +1,9 @@
 package com.acoasmi.roble.service.implement;
 
 import com.acoasmi.roble.dto.request.AsociadoDocumentosRequestDTO;
+import com.acoasmi.roble.dto.request.PrestamosConcedidosRequestDTO;
 import com.acoasmi.roble.dto.response.AsociadoDocumentosResponseDTO;
+import com.acoasmi.roble.dto.response.PrestamosConcedidosResponseDTO;
 import com.acoasmi.roble.entity.AsociadoDocumentos;
 import com.acoasmi.roble.entity.Asociados;
 import com.acoasmi.roble.repository.AsociadoDocumentosRepository;

@@ -25,4 +25,9 @@ public interface TasaCreditosRepository extends AcoasmiRepository<TasasCreditos,
 
 
     Optional<TasasCreditos> findFirstByTasaInteresAnualAndEstadoTrue(BigDecimal tasaReferencia);
+
+    Optional<TasasCreditos> findFirstByNombreProductoIgnoreCaseAndEstadoTrue(String nombreProducto);
+
+    Optional<TasasCreditos> findFirstByNombreProductoIgnoreCaseAndTasaInteresAnualAndEstadoTrue(String nombreProducto, BigDecimal tasaInteresAnual);
+
 }

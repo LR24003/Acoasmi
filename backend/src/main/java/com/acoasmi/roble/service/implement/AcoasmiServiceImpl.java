@@ -1,5 +1,7 @@
 package com.acoasmi.roble.service.implement;
 
+import com.acoasmi.roble.dto.request.PrestamosConcedidosRequestDTO;
+import com.acoasmi.roble.dto.response.PrestamosConcedidosResponseDTO;
 import com.acoasmi.roble.entity.AcoasmiEntity;
 import com.acoasmi.roble.repository.AcoasmiRepository;
 import com.acoasmi.roble.service.AcoasmiService;
@@ -78,4 +80,5 @@ public abstract class AcoasmiServiceImpl<E extends AcoasmiEntity, REQ, RES, ID> 
         entity.setEstado(estado);
         repository.save(entity);
     }
+
 }

@@ -1,12 +1,16 @@
 package com.acoasmi.roble.entity;
 
+import com.acoasmi.roble.enums.EstadoSolicitudCredito;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,9 +46,9 @@ public class SolicitudesCredito extends AcoasmiEntity {
     @EqualsAndHashCode.Exclude
     private TasasCreditos tasaReferencia;
 
-    @Column(name = "estado_solicitud", nullable = false, length = 30)
-    @Builder.Default
-    private String estadoSolicitud = "RECIBIDA";
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_solicitud", nullable = false)
+    private EstadoSolicitudCredito estadoActual;
 
     @Column(name = "destino_credito", columnDefinition = "text")
     private String destinoCredito;
@@ -80,12 +84,16 @@ public class SolicitudesCredito extends AcoasmiEntity {
     @EqualsAndHashCode.Exclude
     private Set<CreditoDocumentosAdjuntos> documentosAdjuntos = new HashSet<>();
 
-    @Column(name = "estado_prestamo", nullable = false, length = 50)
-    private String estadoPrestamo;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Usuarios usuarioAsesor;
+
+    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_solicitud_linea")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<HistorialAprobaciones> historialAprobaciones = new ArrayList<>();
 }

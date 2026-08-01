@@ -58,7 +58,9 @@ public class SecurityConfig {
                                 "/api/solicitudes-credito/**",
                                 "/api/creditos-garantias/**",
                                 "/api/creditos-tasas/**",
-                                "/api/creditos-documentos/**"
+                                "/api/creditos-documentos/**",
+                                "/api/prestamos-concedidos/**",
+                                "/api/resoluciones-credito"
 
                         ).permitAll()
 

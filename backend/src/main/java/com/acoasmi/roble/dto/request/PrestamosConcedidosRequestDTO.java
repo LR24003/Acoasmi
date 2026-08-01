@@ -26,7 +26,7 @@ public class PrestamosConcedidosRequestDTO {
     private String numeroSolicitud;
 
     @NotBlank(message = "El número de préstamo es obligatorio")
-    @Size(max = 50, message = "El número de préstamo no debe exceder 50 caracteres")
+    @Size(max = 20, message = "El número de préstamo no debe exceder 20 caracteres")
     @Schema(description = "Código o número identificador único del préstamo", example = "PREST-2026-0089", requiredMode = Schema.RequiredMode.REQUIRED)
     private String numeroPrestamo;
 

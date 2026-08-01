@@ -26,7 +26,7 @@ public class PrestamosConcedidos extends AcoasmiEntity {
     @JoinColumn(name = "id_solicitud_linea", nullable = false)
     private SolicitudesCredito credito;
 
-    @Column(name = "numero_prestamo", nullable = false, length = 50, unique = true)
+    @Column(name = "numero_prestamo", nullable = false, length = 20, unique = true)
     private String numeroPrestamo;
 
     @Column(name = "monto_concedido", nullable = false, precision = 12, scale = 2)
@@ -84,6 +84,7 @@ public class PrestamosConcedidos extends AcoasmiEntity {
 
     public enum FrecuenciaPago {
         MENSUAL, BIMENSUAL, TRIMESTRAL, CUATRIMESTRAL, SEMESTRAL, ANUAL
+
     }
 
     public enum EstadoPrestamo {

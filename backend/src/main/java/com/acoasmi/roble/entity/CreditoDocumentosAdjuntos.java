@@ -24,7 +24,7 @@ public class CreditoDocumentosAdjuntos extends AcoasmiEntity {
     @Column(name = "tipo_documento", nullable = false, length = 100)
     private String tipoDocumento;
 
-    @Column(name = "ruta_archivo_storage", nullable = false, length = 500)
+    @Column(name = "ruta_archivo_storage", length = 500)
     private String rutaArchivoStorage;
 
     @Column(name = "fecha_subida")
