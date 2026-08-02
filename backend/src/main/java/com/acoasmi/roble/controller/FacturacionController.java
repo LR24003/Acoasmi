@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 
 @RestController
@@ -27,7 +28,6 @@ public class FacturacionController extends AcoasmiController<Facturas,
         super(facturacionService, "Facturacion Electronica");
         this.facturacionService = facturacionService;
     }
-
 
     @GetMapping("/uuid/{uuid}")
     @Operation(
@@ -44,17 +44,32 @@ public class FacturacionController extends AcoasmiController<Facturas,
         return ResponseEntity.ok(facturacionService.obtenerPorUuid(uuid));
     }
 
+    @GetMapping("/{id}/detalles")
+    @Operation(
+            summary = "Obtener factura completa con sus detalles por ID",
+            description = "Recupera los datos completos de una factura junto a la lista detallada de todos sus ítems cobrados."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Factura con detalles encontrada exitosamente"),
+            @ApiResponse(responseCode = "404", description = "No se encontró ninguna factura con el ID especificado")
+    })
+    public ResponseEntity<FacturacionResponseDTO> obtenerPorIdConDetalles(
+            @Parameter(description = "ID único de la factura", required = true)
+            @PathVariable Long id) {
+        return ResponseEntity.ok(facturacionService.obtenerPorIdConDetalles(id));
+    }
+
     @GetMapping("/usuario/{usuario}")
     @Operation(
-            summary = "Listar facturas por usuario cajero",
+            summary = "Listar facturas por usuario emisor / cajero",
             description = "Retorna el historial de facturas emitidas por un usuario específico de manera paginada."
     )
     @ApiResponse(responseCode = "200", description = "Listado paginado obtenido exitosamente")
-    public ResponseEntity<Page<FacturacionResponseDTO>> listarPorCajaUsuario(
-            @Parameter(description = "Nombre de usuario del cajero", required = true)
+    public ResponseEntity<Page<FacturacionResponseDTO>> listarPorUsuarioEmisor(
+            @Parameter(description = "Nombre de usuario del cajero emisor", required = true)
             @PathVariable String usuario,
             Pageable pageable) {
-        return ResponseEntity.ok(facturacionService.getByCajaUsuario(usuario, pageable));
+        return ResponseEntity.ok(facturacionService.getByUsuarioEmisor(usuario, pageable));
     }
 
     @GetMapping("/asociado/{numeroAsociado}")

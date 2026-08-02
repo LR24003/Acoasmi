@@ -1,7 +1,7 @@
 package com.acoasmi.roble.repository;
 
 import com.acoasmi.roble.entity.PrestamosConcedidos;
-import com.acoasmi.roble.entity.PrestamosConcedidos.EstadoPrestamo;
+import com.acoasmi.roble.enums.EstadoPrestamo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

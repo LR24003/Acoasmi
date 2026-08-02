@@ -1,6 +1,6 @@
 package com.acoasmi.roble.dto.request;
 
-import com.acoasmi.roble.entity.PrestamosConcedidos.FrecuenciaPago;
+import com.acoasmi.roble.enums.FrecuenciaPago;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

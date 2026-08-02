@@ -1,5 +1,7 @@
 package com.acoasmi.roble.entity;
 
+import com.acoasmi.roble.enums.EstadoPrestamo;
+import com.acoasmi.roble.enums.FrecuenciaPago;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -81,15 +83,6 @@ public class PrestamosConcedidos extends AcoasmiEntity {
 
     @Column(name = "dias_atraso", nullable = false)
     private Integer diasAtraso;
-
-    public enum FrecuenciaPago {
-        MENSUAL, BIMENSUAL, TRIMESTRAL, CUATRIMESTRAL, SEMESTRAL, ANUAL
-
-    }
-
-    public enum EstadoPrestamo {
-        AL_DIA, EN_MORA, CANCELADO, SANEADO
-    }
 
     @PrePersist
     protected void onCreate() {

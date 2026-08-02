@@ -1,5 +1,6 @@
 package com.acoasmi.roble.entity;
 
+import com.acoasmi.roble.enums.EstadoCuota;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -61,11 +62,4 @@ public class PlanPagos extends AcoasmiEntity {
     @Column(name = "saldo_cuota_pendiente", nullable = false, precision = 12, scale = 2)
     private BigDecimal saldoCuotaPendiente;
 
-    public enum EstadoCuota {
-        PENDIENTE,
-        PAGADO,
-        PARCIAL,
-        CANCELADO,
-        VENCIDO
-    }
 }

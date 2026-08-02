@@ -5,12 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec30ac4-1388-4b0d-a597-b986b4c0af50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/GenerarPlanPagosRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/SimularPlanPagosRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/PlanPagosResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PlanPagosRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PrestamosConcedidosRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/DesembolsoCreditoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/DesembolsoDeduccionesRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/FacturaDetallesRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DesembolsoCreditoResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/DesembolsoDeduccionesResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/FacturaDetallesResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/ConfiguracionEmpresa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/FacturaDetalles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/PartidasContables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/PeriodosContables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/DesembolsoCreditoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/DesembolsoCreditoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DesembolsoCreditoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed3df421-ba82-45e5-969d-195913ad7a78.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/FacturacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/FacturacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/FacturacionRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/FacturacionRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/PrestamosConcedidosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/PrestamosConcedidosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/SimularPlanPagosRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/request/SimularPlanPagosRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/FacturacionResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/FacturacionResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/PrestamosConcedidosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/PrestamosConcedidosResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Facturas.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/Facturas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/PlanPagos.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/PlanPagos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/PrestamosConcedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/entity/PrestamosConcedidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/FacturacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/FacturacionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PlanPagosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PlanPagosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PrestamosConcedidosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/repository/PrestamosConcedidosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/FacturacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/FacturacionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/FacturacionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/FacturacionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/PrestamoConcedidoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/PrestamoConcedidoServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,13 +43,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="203" />
+    <option name="cachedIndexableFilesCount" value="229" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
+        <option value="Enum" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -36,6 +62,7 @@
     <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadoCuentasController.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/AsociadoMovimientosController.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/ControlCajasController.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/DesembolsoCreditoServiceImpl.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/LoginServiceImpl.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/RolesServiceImpl.java" root0="SKIP_INSPECTION" />
   </component>
@@ -56,61 +83,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="4.616191957146976E-102" />
-      <entry key="MS500" value="6.060243307311106E-21" />
-      <entry key="S2" value="1.3632766081891568E-5" />
-      <entry key="S5" value="0.017172933745812437" />
-      <entry key="S10" value="0.2011725998423254" />
-      <entry key="S30" value="1.3120825287666646" />
-      <entry key="S60" value="2.368496619791451" />
-      <entry key="M2" value="3.5964241921506437" />
-      <entry key="M5" value="5.144873481458039" />
-      <entry key="M10" value="5.955196623155528" />
-      <entry key="M15" value="6.28771458789189" />
-      <entry key="M30" value="7.243820557692235" />
-      <entry key="H1" value="13.225491153690859" />
-      <entry key="H2" value="38.9876367737286" />
-      <entry key="H4" value="108.59935557929026" />
-      <entry key="D1" value="755.0359870066205" />
-      <entry key="W1" value="1719.1143399994598" />
+      <entry key="MS100" value="1.0000000781055334" />
+      <entry key="MS500" value="1.0379130582066949" />
+      <entry key="S2" value="1.509710539605324" />
+      <entry key="S5" value="2.0630854490373602" />
+      <entry key="S10" value="2.4340339348683373" />
+      <entry key="S30" value="2.783260441619808" />
+      <entry key="S60" value="2.891395066176887" />
+      <entry key="M2" value="3.0637626839544034" />
+      <entry key="M5" value="4.366599556287503" />
+      <entry key="M10" value="7.670346774017013" />
+      <entry key="M15" value="12.137065358775338" />
+      <entry key="M30" value="27.175964172585005" />
+      <entry key="H1" value="52.532449206958475" />
+      <entry key="H2" value="86.12911959608113" />
+      <entry key="H4" value="136.59851998915425" />
+      <entry key="D1" value="734.0700150458802" />
+      <entry key="W1" value="1816.8774713870544" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000165453675" />
-      <entry key="S5" value="1.0009700099917969" />
-      <entry key="S10" value="1.0424092356423522" />
-      <entry key="S30" value="1.61664568436311" />
-      <entry key="S60" value="2.337342172034412" />
-      <entry key="M2" value="3.198788628084189" />
-      <entry key="M5" value="4.37849275041917" />
-      <entry key="M10" value="5.057995138585841" />
-      <entry key="M15" value="5.340042351687726" />
-      <entry key="M30" value="5.895227607469046" />
-      <entry key="H1" value="9.202966107973916" />
-      <entry key="H2" value="24.4516371552289" />
-      <entry key="H4" value="69.18837809529026" />
-      <entry key="D1" value="501.5789497656507" />
-      <entry key="W1" value="1099.5180307976113" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="2.6937272516043605E-82" />
+      <entry key="S5" value="2.3558164389199743E-33" />
+      <entry key="S10" value="4.853678204381256E-17" />
+      <entry key="S30" value="3.687111854792863E-6" />
+      <entry key="S60" value="0.0022540836490762364" />
+      <entry key="M2" value="0.08317773444962223" />
+      <entry key="M5" value="1.0946878070610333" />
+      <entry key="M10" value="3.4322648630546695" />
+      <entry key="M15" value="6.009732356021404" />
+      <entry key="M30" value="13.949306277221975" />
+      <entry key="H1" value="27.829170438336927" />
+      <entry key="H2" value="47.029379137113004" />
+      <entry key="H4" value="77.44331318608312" />
+      <entry key="D1" value="471.8218020713139" />
+      <entry key="W1" value="1149.5135014161222" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="7.277771038821021E-7" />
-      <entry key="MS500" value="0.059210629412454224" />
-      <entry key="S2" value="0.4932972131155188" />
-      <entry key="S5" value="0.7692261465456383" />
-      <entry key="S10" value="1.084864133953537" />
-      <entry key="S30" value="2.7810478559407232" />
-      <entry key="S60" value="4.576947704413878" />
-      <entry key="M2" value="6.6962280451090725" />
-      <entry key="M5" value="9.46470042136497" />
-      <entry key="M10" value="10.978512417591613" />
-      <entry key="M15" value="11.603151166662165" />
-      <entry key="M30" value="13.124653702969287" />
-      <entry key="H1" value="22.41512265294152" />
-      <entry key="H2" value="63.422385041572504" />
-      <entry key="H4" value="177.76745093348825" />
-      <entry key="D1" value="1256.5938227429897" />
-      <entry key="W1" value="2818.6258127034434" />
+      <entry key="MS100" value="4.632161527277638E-6" />
+      <entry key="MS500" value="0.09876353356742208" />
+      <entry key="S2" value="0.8921849836578337" />
+      <entry key="S5" value="1.6072447760907556" />
+      <entry key="S10" value="2.1102429223160777" />
+      <entry key="S30" value="2.639538485011795" />
+      <entry key="S60" value="2.8157279019616404" />
+      <entry key="M2" value="3.103044526900044" />
+      <entry key="M5" value="5.429948270160813" />
+      <entry key="M10" value="11.073087955030978" />
+      <entry key="M15" value="18.11740119492401" />
+      <entry key="M30" value="41.09580209861449" />
+      <entry key="H1" value="80.33330006848655" />
+      <entry key="H2" value="133.13428561923445" />
+      <entry key="H4" value="214.021414657994" />
+      <entry key="D1" value="1205.8718802767467" />
+      <entry key="W1" value="2966.3841004600254" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -287,7 +314,9 @@
       <workItem from="1785275967714" duration="7378000" />
       <workItem from="1785365386140" duration="2579000" />
       <workItem from="1785525778317" duration="10329000" />
-      <workItem from="1785589018934" duration="28610000" />
+      <workItem from="1785589018934" duration="33054000" />
+      <workItem from="1785675262395" duration="9956000" />
+      <workItem from="1785688435605" duration="8266000" />
     </task>
     <servers />
   </component>

@@ -10,6 +10,9 @@ import com.acoasmi.roble.entity.Asociados;
 import com.acoasmi.roble.entity.PlanPagos;
 import com.acoasmi.roble.entity.PrestamosConcedidos;
 import com.acoasmi.roble.entity.SolicitudesCredito;
+import com.acoasmi.roble.enums.EstadoCuota;
+import com.acoasmi.roble.enums.EstadoPrestamo;
+import com.acoasmi.roble.enums.FrecuenciaPago;
 import com.acoasmi.roble.repository.AsociadosRepository;
 import com.acoasmi.roble.repository.PlanPagosRepository;
 import com.acoasmi.roble.repository.PrestamosConcedidosRepository;
@@ -103,7 +106,7 @@ public class PrestamoConcedidoServiceImpl
         prestamo.setFrecuenciaPago(request.getFrecuenciaPago());
 
         if (prestamo.getEstadoPrestamo() == null) {
-            prestamo.setEstadoPrestamo(PrestamosConcedidos.EstadoPrestamo.AL_DIA);
+            prestamo.setEstadoPrestamo(EstadoPrestamo.AL_DIA);
         }
 
         if (prestamo.getFechaDesembolso() == null) {
@@ -198,7 +201,6 @@ public class PrestamoConcedidoServiceImpl
         return construirPlanPagosResponseDTO(prestamo, cuotas);
     }
 
-
     private List<PlanPagos> calcularEntidadesPlanPagos(PrestamosConcedidos prestamo, LocalDate fechaBase) {
         List<PlanPagos> cuotas = new ArrayList<>();
         int pagosPorAno = obtenerPagosPorAno(prestamo.getFrecuenciaPago());
@@ -246,7 +248,7 @@ public class PrestamoConcedidoServiceImpl
             BigDecimal ahorroTotal = montoPrestamo.multiply(new BigDecimal("0.03"));
             ahorro = ahorroTotal.divide(numCuotasBD, 2, RoundingMode.HALF_UP);
         }
-        
+
         BigDecimal gestion = prestamo.getMontoCuotaGestion() != null ? prestamo.getMontoCuotaGestion() : BigDecimal.ZERO;
 
         for (int i = 1; i <= totalCuotas; i++) {
@@ -281,7 +283,7 @@ public class PrestamoConcedidoServiceImpl
             p.setCuotaGestionProgramada(gestion);
             p.setTotalCuota(totalCuota);
             p.setSaldoCuotaPendiente(totalCuota);
-            p.setEstadoCuota(PlanPagos.EstadoCuota.PENDIENTE);
+            p.setEstadoCuota(EstadoCuota.PENDIENTE);
 
             cuotas.add(p);
         }
@@ -289,7 +291,7 @@ public class PrestamoConcedidoServiceImpl
         return cuotas;
     }
 
-    private int obtenerMesesPorPeriodo(PrestamosConcedidos.FrecuenciaPago frecuencia) {
+    private int obtenerMesesPorPeriodo(FrecuenciaPago frecuencia) {
         if (frecuencia == null) return 1;
 
         return switch (frecuencia) {
@@ -302,7 +304,7 @@ public class PrestamoConcedidoServiceImpl
         };
     }
 
-    private int obtenerPagosPorAno(PrestamosConcedidos.FrecuenciaPago frecuencia) {
+    private int obtenerPagosPorAno(FrecuenciaPago frecuencia) {
         if (frecuencia == null) return 12;
 
         return switch (frecuencia) {
@@ -315,7 +317,7 @@ public class PrestamoConcedidoServiceImpl
         };
     }
 
-    private int calcularTotalCuotas(Integer plazoMeses, PrestamosConcedidos.FrecuenciaPago frecuencia) {
+    private int calcularTotalCuotas(Integer plazoMeses, FrecuenciaPago frecuencia) {
         if (plazoMeses == null || plazoMeses <= 0) return 0;
         if (frecuencia == null) return plazoMeses;
 
@@ -329,7 +331,7 @@ public class PrestamoConcedidoServiceImpl
         };
     }
 
-    private LocalDate calcularFechaPrimerPago(LocalDate fechaActual, PrestamosConcedidos.FrecuenciaPago frecuencia) {
+    private LocalDate calcularFechaPrimerPago(LocalDate fechaActual, FrecuenciaPago frecuencia) {
         if (frecuencia == null) return fechaActual.plusMonths(1);
 
         return switch (frecuencia) {

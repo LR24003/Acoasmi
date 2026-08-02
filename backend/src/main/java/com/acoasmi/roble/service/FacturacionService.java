@@ -11,11 +11,12 @@ import java.util.UUID;
 public interface FacturacionService extends AcoasmiService<Facturas,
         FacturacionRequestDTO, FacturacionResponseDTO, Long> {
 
-    FacturacionResponseDTO crearFactura(FacturacionRequestDTO request);
 
     FacturacionResponseDTO obtenerPorUuid(UUID uuid);
 
-    Page<FacturacionResponseDTO> getByCajaUsuario(String usuario, Pageable pageable);
+    FacturacionResponseDTO obtenerPorIdConDetalles(Long id);
+
+    Page<FacturacionResponseDTO> getByUsuarioEmisor(String usuario, Pageable pageable);
 
     Page<FacturacionResponseDTO> getByAsociadoNumeroAsociado(Integer numeroAsociado, Pageable pageable);
 }

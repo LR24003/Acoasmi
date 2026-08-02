@@ -60,7 +60,8 @@ public class SecurityConfig {
                                 "/api/creditos-tasas/**",
                                 "/api/creditos-documentos/**",
                                 "/api/prestamos-concedidos/**",
-                                "/api/resoluciones-credito"
+                                "/api/resoluciones-credito",
+                                "/api/desembolsos-credito"
 
                         ).permitAll()
 

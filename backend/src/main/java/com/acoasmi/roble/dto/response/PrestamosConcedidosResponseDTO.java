@@ -1,6 +1,7 @@
 package com.acoasmi.roble.dto.response;
 
 import com.acoasmi.roble.entity.PrestamosConcedidos;
+import com.acoasmi.roble.enums.EstadoPrestamo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -54,7 +55,7 @@ public class PrestamosConcedidosResponseDTO {
     private String frecuenciaPago;
 
     @Schema(description = "Estado actual del préstamo", example = "AL_DIA", requiredMode = Schema.RequiredMode.REQUIRED)
-    private PrestamosConcedidos.EstadoPrestamo estadoPrestamo;
+    private EstadoPrestamo estadoPrestamo;
 
     @Schema(description = "Porcentaje de tasa de mora anual aplicable en caso de retraso", example = "3.00", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal tasaMoraAnual;

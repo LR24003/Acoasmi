@@ -1,7 +1,7 @@
 package com.acoasmi.roble.repository;
 
 import com.acoasmi.roble.entity.PlanPagos;
-import com.acoasmi.roble.entity.PlanPagos.EstadoCuota;
+import com.acoasmi.roble.enums.EstadoCuota;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
