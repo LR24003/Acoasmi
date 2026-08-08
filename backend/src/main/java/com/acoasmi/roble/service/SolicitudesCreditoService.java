@@ -6,6 +6,7 @@ import com.acoasmi.roble.entity.SolicitudesCredito;
 import com.acoasmi.roble.enums.EstadoSolicitudCredito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface SolicitudesCreditoService extends AcoasmiService<SolicitudesCre
     Page<SolicitudesCreditoResponseDTO> listarPorEstadoActualSolicitud(EstadoSolicitudCredito estadoActual, Pageable pageable);
 
     List<SolicitudesCreditoResponseDTO> listarPorAsesor(String usuarioAsesor);
-    
+
+    SolicitudesCreditoResponseDTO avanzarEstadoAprobacion(Long idSolicitud, String usuarioResponsable, String observaciones);
+
+    SolicitudesCreditoResponseDTO denegarSolicitud(Long idSolicitud, String usuarioResponsable, String observaciones);
 }

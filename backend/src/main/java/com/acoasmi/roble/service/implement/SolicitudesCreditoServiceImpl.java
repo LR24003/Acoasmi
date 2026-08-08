@@ -8,12 +8,15 @@ import com.acoasmi.roble.entity.*;
 import com.acoasmi.roble.enums.EstadoSolicitudCredito;
 import com.acoasmi.roble.repository.*;
 import com.acoasmi.roble.service.SolicitudesCreditoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,19 +30,16 @@ public class SolicitudesCreditoServiceImpl
     private final UsuariosRepository usuariosRepository;
     private final TasaCreditosRepository tasaCreditosRepository;
     private final AsociadosRepository asociadosRepository;
-    private final CreditoGarantiasRepository creditoGarantiasRepository;
 
     public SolicitudesCreditoServiceImpl(SolicitudesCreditoRepository solicitudesCreditoRepository,
                                          UsuariosRepository usuariosRepository,
                                          AsociadosRepository asociadosRepository,
-                                         TasaCreditosRepository tasaCreditosRepository,
-                                         CreditoGarantiasRepository creditoGarantiasRepository) {
+                                         TasaCreditosRepository tasaCreditosRepository) {
         super(solicitudesCreditoRepository, SolicitudesCredito.class);
         this.solicitudesCreditoRepository = solicitudesCreditoRepository;
         this.usuariosRepository = usuariosRepository;
         this.tasaCreditosRepository = tasaCreditosRepository;
         this.asociadosRepository = asociadosRepository;
-        this.creditoGarantiasRepository = creditoGarantiasRepository;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SolicitudesCreditoServiceImpl
 
         SolicitudesCredito solicitud = solicitudesCreditoRepository
                 .findByNumeroSolicitudWithDetailsAndGarantias(numeroSolicitud)
-                .orElseThrow(() -> new RuntimeException("No se encontró ninguna solicitud con el número: " + numeroSolicitud));
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró ninguna solicitud con el número: " + numeroSolicitud));
 
         solicitudesCreditoRepository.findByNumeroSolicitudWithReferenciasAndDocumentos(numeroSolicitud);
 
@@ -79,15 +79,13 @@ public class SolicitudesCreditoServiceImpl
     public SolicitudesCreditoResponseDTO create(SolicitudesCreditoRequestDTO requestDto) {
         if (requestDto.getNumeroSolicitud() != null && !requestDto.getNumeroSolicitud().isBlank() &&
                 solicitudesCreditoRepository.findByNumeroSolicitudWithDetailsAndGarantias(requestDto.getNumeroSolicitud()).isPresent()) {
-            throw new RuntimeException("La solicitud con el número '" + requestDto.getNumeroSolicitud() + "' ya existe.");
+            throw new IllegalArgumentException("La solicitud con el número '" + requestDto.getNumeroSolicitud() + "' ya existe.");
         }
 
         SolicitudesCredito solicitud = new SolicitudesCredito();
         mapearDtoAEntidad(requestDto, solicitud);
 
-        if (solicitud.getEstadoActual() == null) {
-            solicitud.setEstadoActual(EstadoSolicitudCredito.EN_ANALISIS_ASESOR);
-        }
+        solicitud.setEstadoActual(EstadoSolicitudCredito.EN_ANALISIS_ASESOR);
 
         SolicitudesCredito solicitudGuardada = solicitudesCreditoRepository.save(solicitud);
         solicitudesCreditoRepository.flush();
@@ -95,16 +93,88 @@ public class SolicitudesCreditoServiceImpl
         return mapToResponseDTO(solicitudGuardada);
     }
 
-    @Override
     @Transactional
-    public SolicitudesCreditoResponseDTO update(Long id, SolicitudesCreditoRequestDTO requestDto) {
-        SolicitudesCredito solicitud = solicitudesCreditoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Solicitud de crédito no encontrada con el ID: " + id));
+    @Override
+    public SolicitudesCreditoResponseDTO avanzarEstadoAprobacion(Long idSolicitud, String usernameResponsable, String observaciones) {
+        SolicitudesCredito solicitud = solicitudesCreditoRepository.findById(idSolicitud)
+                .orElseThrow(() -> new EntityNotFoundException("Solicitud de crédito no encontrada con ID: " + idSolicitud));
 
-        mapearDtoAEntidad(requestDto, solicitud);
+        EstadoSolicitudCredito estadoActual = getEstadoSolicitudCredito(solicitud);
+
+        EstadoSolicitudCredito siguienteEstado = EvaluadorFlujoCredito.determinarSiguienteEstadoAprobacion(
+                estadoActual,
+                solicitud.getMontoSolicitado()
+        );
+
+        Usuarios usuarioResponsable = usuariosRepository.findByUsuarioIgnoreCaseAndEstadoTrue(usernameResponsable)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario responsable no encontrado o inactivo: " + usernameResponsable));
+
+        registrarHistorialAprobacion(solicitud, estadoActual, siguienteEstado, usuarioResponsable, observaciones);
+
+        solicitud.setEstadoActual(siguienteEstado);
 
         return mapToResponseDTO(solicitudesCreditoRepository.save(solicitud));
     }
+
+    private static EstadoSolicitudCredito getEstadoSolicitudCredito(SolicitudesCredito solicitud) {
+        EstadoSolicitudCredito estadoActual = solicitud.getEstadoActual();
+
+        if (estadoActual == EstadoSolicitudCredito.APROBADA ||
+                estadoActual == EstadoSolicitudCredito.DENEGADA ||
+                estadoActual == EstadoSolicitudCredito.DESEMBOLSADA ||
+                estadoActual == EstadoSolicitudCredito.EN_APELACION ||
+                estadoActual == EstadoSolicitudCredito.OBSERVADA) {
+            throw new IllegalStateException("La solicitud en estado " + estadoActual + " no puede continuar el flujo de aprobación.");
+        }
+        return estadoActual;
+    }
+
+    @Transactional
+    @Override
+    public SolicitudesCreditoResponseDTO denegarSolicitud(Long idSolicitud, String usernameResponsable, String motivoRechazo) {
+        SolicitudesCredito solicitud = solicitudesCreditoRepository.findById(idSolicitud)
+                .orElseThrow(() -> new EntityNotFoundException("Solicitud de crédito no encontrada con ID: " + idSolicitud));
+
+        EstadoSolicitudCredito estadoAnterior = solicitud.getEstadoActual();
+
+        if (estadoAnterior == EstadoSolicitudCredito.DENEGADA || estadoAnterior == EstadoSolicitudCredito.DESEMBOLSADA) {
+            throw new IllegalStateException("No se puede rechazar una solicitud que ya está en estado " + estadoAnterior);
+        }
+
+        Usuarios usuarioResponsable = usuariosRepository.findByUsuarioIgnoreCaseAndEstadoTrue(usernameResponsable)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario responsable no encontrado o inactivo: " + usernameResponsable));
+
+        registrarHistorialAprobacion(solicitud, estadoAnterior, EstadoSolicitudCredito.DENEGADA, usuarioResponsable, motivoRechazo);
+
+        solicitud.setEstadoActual(EstadoSolicitudCredito.DENEGADA);
+
+        return mapToResponseDTO(solicitudesCreditoRepository.save(solicitud));
+    }
+
+    private void registrarHistorialAprobacion(SolicitudesCredito solicitud,
+                                              EstadoSolicitudCredito estadoAnterior,
+                                              EstadoSolicitudCredito estadoNuevo,
+                                              Usuarios usuarioResponsable,
+                                              String observaciones) {
+        if (solicitud.getHistorialAprobaciones() == null) {
+            solicitud.setHistorialAprobaciones(new ArrayList<>());
+        }
+
+        HistorialAprobaciones historial = new HistorialAprobaciones();
+        historial.setSolicitudCredito(solicitud);
+        historial.setEstadoAnterior(estadoAnterior);
+        historial.setEstadoNuevo(estadoNuevo);
+        historial.setUsuarioResponsable(usuarioResponsable);
+        historial.setRecomendacionesNivelAprobacion(observaciones);
+        historial.setFechaAprobacion(LocalDateTime.now());
+        historial.setDescripcionSolicitudCredito(
+                String.format("Transición de %s a %s para la solicitud %s por un monto de $%s",
+                        estadoAnterior, estadoNuevo, solicitud.getNumeroSolicitud(), solicitud.getMontoSolicitado())
+        );
+
+        solicitud.getHistorialAprobaciones().add(historial);
+    }
+
 
     @Override
     protected void mapearDtoAEntidad(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
@@ -112,7 +182,7 @@ public class SolicitudesCreditoServiceImpl
         if (request.getNombreCompletoAsociado() != null && !request.getNombreCompletoAsociado().isBlank()) {
             Asociados asociado = asociadosRepository
                     .findFirstByNombreCompletoAsociadoContainingIgnoreCase(request.getNombreCompletoAsociado().trim())
-                    .orElseThrow(() -> new RuntimeException("No se encontró ningún asociado registrado con el nombre: " + request.getNombreCompletoAsociado()));
+                    .orElseThrow(() -> new EntityNotFoundException("No se encontró ningún asociado registrado con el nombre: " + request.getNombreCompletoAsociado()));
             solicitud.setAsociado(asociado);
         }
 
@@ -128,7 +198,7 @@ public class SolicitudesCreditoServiceImpl
 
         if (request.getUsuarioAsesor() != null && !request.getUsuarioAsesor().isBlank()) {
             Usuarios asesor = usuariosRepository.findByUsuarioIgnoreCaseAndEstadoTrue(request.getUsuarioAsesor())
-                    .orElseThrow(() -> new RuntimeException("El usuario asesor '" + request.getUsuarioAsesor() + "' no fue encontrado."));
+                    .orElseThrow(() -> new EntityNotFoundException("El usuario asesor '" + request.getUsuarioAsesor() + "' no fue encontrado."));
             solicitud.setUsuarioAsesor(asesor);
         }
 
@@ -139,15 +209,15 @@ public class SolicitudesCreditoServiceImpl
                 if (request.getTasaInteresAnual() != null) {
                     tasa = tasaCreditosRepository.findFirstByNombreProductoIgnoreCaseAndTasaInteresAnualAndEstadoTrue(
                                     request.getNombreProducto().trim(), request.getTasaInteresAnual())
-                            .orElseThrow(() -> new RuntimeException("No se encontró la línea de crédito '" + request.getNombreProducto() +
+                            .orElseThrow(() -> new EntityNotFoundException("No se encontró la línea de crédito '" + request.getNombreProducto() +
                                     "' con la tasa de interés del " + request.getTasaInteresAnual() + "%."));
                 } else {
                     tasa = tasaCreditosRepository.findFirstByNombreProductoIgnoreCaseAndEstadoTrue(request.getNombreProducto().trim())
-                            .orElseThrow(() -> new RuntimeException("La línea de crédito '" + request.getNombreProducto() + "' especificada no existe o no está activa."));
+                            .orElseThrow(() -> new EntityNotFoundException("La línea de crédito '" + request.getNombreProducto() + "' especificada no existe o no está activa."));
                 }
             } else if (request.getTasaInteresAnual() != null) {
                 tasa = tasaCreditosRepository.findFirstByTasaInteresAnualAndEstadoTrue(request.getTasaInteresAnual())
-                        .orElseThrow(() -> new RuntimeException("La tasa de préstamo especificada no existe."));
+                        .orElseThrow(() -> new EntityNotFoundException("La tasa de préstamo especificada no existe."));
             }
 
             if (tasa != null) {
@@ -187,9 +257,7 @@ public class SolicitudesCreditoServiceImpl
     }
 
     private void mapearGarantias(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
-        if (request.getGarantias() == null) {
-            return;
-        }
+        if (request.getGarantias() == null) return;
 
         if (solicitud.getGarantias() == null) {
             solicitud.setGarantias(new java.util.HashSet<>());
@@ -201,25 +269,16 @@ public class SolicitudesCreditoServiceImpl
         }
 
         for (CreditoGarantiasRequestDTO gDto : request.getGarantias()) {
-
             if (gDto.getTipoGarantia() == null && gDto.getValorEstimado() == null && gDto.getDescripcion() == null) {
                 continue;
             }
 
             CreditoGarantias nuevaGarantia = new CreditoGarantias();
 
-            if (gDto.getTipoGarantia() != null) {
-                nuevaGarantia.setTipoGarantia(gDto.getTipoGarantia());
-            }
-            if (gDto.getValorEstimado() != null) {
-                nuevaGarantia.setValorEstimado(gDto.getValorEstimado());
-            }
-            if (gDto.getDireccionGarantia() != null) {
-                nuevaGarantia.setDireccionGarantia(limpiarTexto(gDto.getDireccionGarantia()));
-            }
-            if (gDto.getDescripcion() != null) {
-                nuevaGarantia.setDescripcion(limpiarTexto(gDto.getDescripcion()));
-            }
+            if (gDto.getTipoGarantia() != null) nuevaGarantia.setTipoGarantia(gDto.getTipoGarantia());
+            if (gDto.getValorEstimado() != null) nuevaGarantia.setValorEstimado(gDto.getValorEstimado());
+            if (gDto.getDireccionGarantia() != null) nuevaGarantia.setDireccionGarantia(limpiarTexto(gDto.getDireccionGarantia()));
+            if (gDto.getDescripcion() != null) nuevaGarantia.setDescripcion(limpiarTexto(gDto.getDescripcion()));
 
             nuevaGarantia.setSolicitudCredito(solicitud);
 
@@ -247,7 +306,6 @@ public class SolicitudesCreditoServiceImpl
     private String limpiarTexto(String texto) {
         return (texto != null && !texto.isBlank()) ? texto.trim() : null;
     }
-
 
     private void mapearReferencias(SolicitudesCreditoRequestDTO request, SolicitudesCredito solicitud) {
         if (request.getReferencias() != null) {
@@ -282,7 +340,6 @@ public class SolicitudesCreditoServiceImpl
             if (solicitud.getDocumentosAdjuntos() == null) {
                 solicitud.setDocumentosAdjuntos(new java.util.HashSet<>());
             } else {
-
                 solicitud.getDocumentosAdjuntos().clear();
             }
 
@@ -331,6 +388,7 @@ public class SolicitudesCreditoServiceImpl
                 })
                 .orElse(prefijoBase + "0001");
     }
+
 
     @Override
     protected SolicitudesCreditoResponseDTO mapToResponseDTO(SolicitudesCredito solicitud) {

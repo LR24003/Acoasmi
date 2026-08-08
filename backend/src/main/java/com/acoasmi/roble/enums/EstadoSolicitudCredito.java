@@ -1,13 +1,13 @@
 package com.acoasmi.roble.enums;
 
 public enum EstadoSolicitudCredito {
-    BORRADOR,
     EN_ANALISIS_ASESOR,
     EN_REVISION_GERENCIA,
     EN_REVISION_COMITE_CREDITOS,
     EN_REVISION_CONSEJO_ADMINISTRACION,
     APROBADA,
-    RECHAZADA,
+    DENEGADA,
+    OBSERVADA,
     EN_APELACION,
     DESEMBOLSADA,
     ARCHIVADA
