@@ -1,60 +1,63 @@
+import React, { Component, ReactNode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider, useAuth } from '@/features/auth/context/auth-context';
-import { LoginForm } from '@/features/auth/components/login-form';
-import { DashboardView } from '@/features/dashboard/components/dashboard-view';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { AuthProvider } from '@/features/auth/context/auth-context';
+import { AppRouter } from '@/routes/AppRouter';
 import { Toaster } from '@/components/ui/sonner';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            retry: 1,
+        },
+    },
+});
 
-function MainContent() {
-    const { isAuthenticated, user, logout } = useAuth();
-
-    if (!isAuthenticated) {
-        return (
-            <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
-                <LoginForm />
-            </div>
-        );
+// Capturador de errores fatal de React
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: any }> {
+    constructor(props: any) {
+        super(props);
+        this.state = { hasError: false, error: null };
     }
 
-    return (
-        <div className="min-h-screen bg-slate-50 p-6 space-y-6">
-            {/* Header Global */}
-            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div>
-                    <h1 className="text-xl font-bold text-slate-800">El Roble de R.L</h1>
-                    <p className="text-sm text-slate-500">
-                        Usuario: <span className="font-semibold text-slate-700">{user?.nombres} {user?.apellidos}</span>
-                    </p>
-                </div>
-                <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="bg-slate-100 uppercase text-xs font-semibold">
-                        {user?.nombreRol || 'Usuario'}
-                    </Badge>
-                    <Button variant="destructive" size="sm" onClick={logout} className="cursor-pointer">
-                        Cerrar Sesión
-                    </Button>
-                </div>
-            </header>
+    static getDerivedStateFromError(error: any) {
+        return { hasError: true, error };
+    }
 
-            {/* Dashboard Principal de Pruebas */}
-            <main>
-                <DashboardView />
-            </main>
-        </div>
-    );
+    componentDidCatch(error: any, errorInfo: any) {
+        console.error("Error crítico capturado:", error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div style={{ padding: '20px', backgroundColor: '#fee2e2', color: '#991b1b', fontFamily: 'monospace', height: '100vh', boxSizing: 'border-box' }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: 'bold' }}>⚠️ Ocurrió un error fatal al renderizar la pantalla:</h2>
+                    <pre style={{ marginTop: '10px', backgroundColor: '#ffffff', padding: '15px', borderRadius: '8px', overflowX: 'auto', border: '1px solid #fca5a5' }}>
+                        {this.state.error?.toString()}
+                        {'\n\n'}
+                        {this.state.error?.stack}
+                    </pre>
+                </div>
+            );
+        }
+        return this.props.children;
+    }
 }
 
 export function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-                <MainContent />
-                <Toaster position="top-right" richColors />
-            </AuthProvider>
-        </QueryClientProvider>
+        <ErrorBoundary>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <AuthProvider>
+                        <AppRouter />
+                        <Toaster position="top-right" richColors />
+                    </AuthProvider>
+                </BrowserRouter>
+            </QueryClientProvider>
+        </ErrorBoundary>
     );
 }
 

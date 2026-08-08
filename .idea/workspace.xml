@@ -5,26 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec30ac4-1388-4b0d-a597-b986b4c0af50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/openapi-ts.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/api/setup-api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/assets/Roble-RL.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/components/ui/form.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/components/login-form.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/components/loginStyle.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/context/auth-context.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/hooks/use-login.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/schemas/login.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/types/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/dashboard/components/dashboard-view.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/lib/auth-tokens.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/components/layout/DashboardLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/config/navigation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/admin/components/userModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/admin/hooks/useUsers.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/admin/pages/usersPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/admin/schemas/userSchema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/admin/services/userService.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/admin/types/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/dashboard/pages/DashboardOverview.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/lib/axios.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/routes/AppRouter.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/acoasmi/src/routes/ProtectedRoute.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/SolicitudesCreditoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/controller/SolicitudesCreditoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/UsuariosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/dto/response/UsuariosResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/enums/EstadoSolicitudCredito.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/enums/EstadoSolicitudCredito.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/SolicitudesCreditoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/SolicitudesCreditoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/SolicitudesCreditoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/acoasmi/roble/service/implement/SolicitudesCreditoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/components/login-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/components/login-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/components/loginStyle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/components/loginStyle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/context/auth-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/context/auth-context.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/hooks/use-login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/features/auth/hooks/use-login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/features/dashboard/components/dashboard-view.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/acoasmi/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/acoasmi/src/main.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +35,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="235" />
+    <option name="cachedIndexableFilesCount" value="238" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -77,58 +80,58 @@
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
       <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000001026728704" />
-      <entry key="S10" value="1.0004504537563645" />
-      <entry key="S30" value="1.121521789240481" />
-      <entry key="S60" value="1.4929622915858771" />
-      <entry key="M2" value="2.010095202012012" />
-      <entry key="M5" value="3.2473496155799353" />
-      <entry key="M10" value="5.9925444319315675" />
-      <entry key="M15" value="8.65730319702189" />
-      <entry key="M30" value="15.384986458853897" />
-      <entry key="H1" value="31.157732171666204" />
-      <entry key="H2" value="69.88534096522389" />
-      <entry key="H4" value="137.60642624407754" />
-      <entry key="D1" value="751.9905829917379" />
-      <entry key="W1" value="1889.3184768924873" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000000000012033" />
+      <entry key="S60" value="1.0000010969531439" />
+      <entry key="M2" value="1.0010473553547645" />
+      <entry key="M5" value="1.0644960827638457" />
+      <entry key="M10" value="1.2934400503999832" />
+      <entry key="M15" value="1.6514577238484902" />
+      <entry key="M30" value="4.141087199663918" />
+      <entry key="H1" value="15.352946652329589" />
+      <entry key="H2" value="48.577096686743474" />
+      <entry key="H4" value="117.91498150683182" />
+      <entry key="D1" value="741.8614317951627" />
+      <entry key="W1" value="1925.390118177089" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="1.6201630295790578E-158" />
-      <entry key="S5" value="7.652855041743341E-64" />
-      <entry key="S10" value="2.7663794103020907E-32" />
-      <entry key="S30" value="3.024386200742344E-11" />
-      <entry key="S60" value="5.499453597479244E-6" />
-      <entry key="M2" value="0.0023504938208011306" />
-      <entry key="M5" value="0.10689583608944289" />
-      <entry key="M10" value="0.5983130793740077" />
-      <entry key="M15" value="1.2661426610108937" />
-      <entry key="M30" value="3.5058579225164146" />
-      <entry key="H1" value="9.361953954627497" />
-      <entry key="H2" value="25.24127403758477" />
-      <entry key="H4" value="57.68751716475541" />
-      <entry key="D1" value="446.73996431506225" />
-      <entry key="W1" value="1157.2418562921293" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="2.2653354274376326E-218" />
+      <entry key="S30" value="2.82995773802252E-73" />
+      <entry key="S60" value="5.423117828113501E-37" />
+      <entry key="M2" value="9.184861242815561E-19" />
+      <entry key="M5" value="1.465217785700012E-7" />
+      <entry key="M10" value="0.0011339181843983493" />
+      <entry key="M15" value="0.024799509654200094" />
+      <entry key="M30" value="0.6289418223392782" />
+      <entry key="H1" value="4.04984884301696" />
+      <entry key="H2" value="15.314632356975377" />
+      <entry key="H4" value="43.78790946398163" />
+      <entry key="D1" value="422.37567777942456" />
+      <entry key="W1" value="1158.592944888199" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.629172103890137E-5" />
-      <entry key="MS500" value="0.12940811548017214" />
-      <entry key="S2" value="0.5997777880204509" />
-      <entry key="S5" value="0.815072416631225" />
-      <entry key="S10" value="0.903222262512648" />
-      <entry key="S30" value="1.0841849590237873" />
-      <entry key="S60" value="1.46826351718872" />
-      <entry key="M2" value="1.996018591291602" />
-      <entry key="M5" value="3.344796472325852" />
-      <entry key="M10" value="6.583310399174103" />
-      <entry key="M15" value="9.916271530075589" />
-      <entry key="M30" value="18.88319664067206" />
-      <entry key="H1" value="40.509665696224964" />
-      <entry key="H2" value="95.11309604072258" />
-      <entry key="H4" value="195.2784149467928" />
-      <entry key="D1" value="1198.7115467537956" />
-      <entry key="W1" value="3046.553394258097" />
+      <entry key="MS100" value="8.211879055212052E-4" />
+      <entry key="MS500" value="0.2414840822312114" />
+      <entry key="S2" value="0.7010066328306926" />
+      <entry key="S5" value="0.8675386871520679" />
+      <entry key="S10" value="0.9314175686297033" />
+      <entry key="S30" value="0.9765957016868398" />
+      <entry key="S60" value="0.9882296512966103" />
+      <entry key="M2" value="0.995137900604876" />
+      <entry key="M5" value="1.061974073346084" />
+      <entry key="M10" value="1.2929617060149483" />
+      <entry key="M15" value="1.674654982443295" />
+      <entry key="M30" value="4.767312520551081" />
+      <entry key="H1" value="19.397490629010708" />
+      <entry key="H2" value="63.882819524377865" />
+      <entry key="H4" value="161.69062193866714" />
+      <entry key="D1" value="1164.218991503737" />
+      <entry key="W1" value="3083.976091144031" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -143,45 +146,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.roble [clean,install,--non-recursive].executor": "Run",
-    "Maven.roble [compile].executor": "Run",
-    "Maven.roble [install].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.RobleApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Jose Alfredo/Acoasmi",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.roble [clean,install,--non-recursive].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.roble [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.roble [install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RobleApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jose Alfredo/Acoasmi&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jose Alfredo\Acoasmi\frontend\acoasmi\src\assets" />
@@ -318,6 +321,7 @@
       <workItem from="1785688435605" duration="8266000" />
       <workItem from="1785885446976" duration="2444000" />
       <workItem from="1785974152051" duration="13840000" />
+      <workItem from="1786201347057" duration="14000000" />
     </task>
     <servers />
   </component>

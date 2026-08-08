@@ -1,13 +1,25 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginFormValues } from '../schemas/login';
 import { useLogin } from '../hooks/use-login';
+import { useAuth } from '../context/auth-context';
 import { styles } from './loginStyle';
 
 import logoAcoasmi from '@/assets/Roble-RL.jpg';
 
 export function LoginForm() {
-    const { mutate: executeLogin, isPending } = useLogin();
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
+    const { mutateAsync: executeLogin, isPending } = useLogin();
+
+    // Redirección si la sesión ya se encuentra activa
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('dashboard', { replace: true });
+        }
+    }, [isAuthenticated, navigate]);
 
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
@@ -17,11 +29,17 @@ export function LoginForm() {
         },
     });
 
-    const onSubmit = (values: LoginFormValues) => {
-        executeLogin({
-            usuario: values.usuario,
-            password: values.password,
-        });
+    const onSubmit = async (values: LoginFormValues) => {
+        try {
+            await executeLogin({
+                usuario: values.usuario,
+                password: values.password,
+            });
+            // Redirección inmediata al dashboard tras procesar las credenciales
+            navigate('/dashboard', { replace: true });
+        } catch (error) {
+            console.error('Error durante el inicio de sesión:', error);
+        }
     };
 
     return (
@@ -63,6 +81,7 @@ export function LoginForm() {
                             <input
                                 {...form.register('usuario')}
                                 placeholder="Ej. usuario01"
+                                autoComplete="username"
                                 style={styles.input}
                             />
                             {form.formState.errors.usuario && (
@@ -79,6 +98,7 @@ export function LoginForm() {
                                 type="password"
                                 {...form.register('password')}
                                 placeholder="••••••••"
+                                autoComplete="current-password"
                                 style={styles.input}
                             />
                             {form.formState.errors.password && (
@@ -98,7 +118,15 @@ export function LoginForm() {
                         </div>
 
                         {/* Botón Acción */}
-                        <button type="submit" disabled={isPending} style={styles.submitButton}>
+                        <button
+                            type="submit"
+                            disabled={isPending}
+                            style={{
+                                ...styles.submitButton,
+                                opacity: isPending ? 0.7 : 1,
+                                cursor: isPending ? 'not-allowed' : 'pointer'
+                            }}
+                        >
                             {isPending ? 'CARGANDO...' : 'Ingresar'}
                         </button>
                     </form>

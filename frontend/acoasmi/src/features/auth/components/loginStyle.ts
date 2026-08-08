@@ -32,14 +32,15 @@ export const styles: Record<string, React.CSSProperties> = {
         overflow: 'hidden',
         maxHeight: isMobile ? '95vh' : '90vh',
         overflowY: isMobile ? 'auto' : 'hidden',
-        border: '1px solid #E2E8F0'
+        border: '1px solid #E2E8F0',
+        boxSizing: 'border-box'
     },
     leftPanel: {
         flex: isMobile ? 'none' : '1 1 380px',
         width: isMobile ? '100%' : 'auto',
         background: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%)',
         padding: isMobile ? '24px 20px' : '36px',
-        color: '#000000',
+        color: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -61,8 +62,8 @@ export const styles: Record<string, React.CSSProperties> = {
     },
     brandHeader: {
         display: 'flex',
-        flexDirection: 'column', // Apila la imagen y el texto verticalmente
-        alignItems: 'center',    // Centra el logo y el texto
+        flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
         gap: '12px',
         zIndex: 1,
@@ -70,13 +71,14 @@ export const styles: Record<string, React.CSSProperties> = {
         textAlign: 'center'
     },
     logo: {
-        width: isMobile ? '70px' : '90px',   // Logo más grande
-        height: isMobile ? '70px' : '90px',  // Logo más grande
+        width: isMobile ? '70px' : '90px',
+        height: isMobile ? '70px' : '90px',
         borderRadius: '50%',
         objectFit: 'contain',
         backgroundColor: '#ffffff',
         padding: '6px',
-        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)'
+        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+        boxSizing: 'border-box'
     },
     brandTitle: {
         fontSize: isMobile ? '18px' : '20px',
@@ -87,25 +89,28 @@ export const styles: Record<string, React.CSSProperties> = {
     welcomeSection: {
         zIndex: 1,
         margin: isMobile ? '12px 0' : '20px 0',
-        textAlign: 'center' // Centra los textos de bienvenida
+        textAlign: 'center'
     },
     welcomeTitle: {
         fontSize: isMobile ? '24px' : '32px',
         fontWeight: '800',
         margin: '0 0 8px 0',
-        lineHeight: 1.1
+        lineHeight: 1.1,
+        color: '#ffffff'
     },
     welcomeDescription: {
         fontSize: isMobile ? '13px' : '14px',
         lineHeight: 1.4,
         opacity: 0.9,
-        margin: 0
+        margin: 0,
+        color: '#ffffff'
     },
     leftFooter: {
         fontSize: '11px',
         opacity: 0.8,
         zIndex: 1,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: '#ffffff'
     },
     rightPanel: {
         flex: isMobile ? 'none' : '1 1 420px',
@@ -152,7 +157,8 @@ export const styles: Record<string, React.CSSProperties> = {
         outline: 'none',
         color: '#1E293B',
         width: '100%',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        backgroundColor: '#ffffff'
     },
     errorMessage: {
         fontSize: '11px',
@@ -195,7 +201,8 @@ export const styles: Record<string, React.CSSProperties> = {
         letterSpacing: '0.5px',
         marginTop: '6px',
         boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
-        width: '100%'
+        width: '100%',
+        boxSizing: 'border-box'
     },
     signupFooter: {
         marginTop: '16px',
